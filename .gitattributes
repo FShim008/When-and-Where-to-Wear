@@ -1,0 +1,54 @@
+# Normalize line endings on commit; Git auto-detects text vs binary by default.
+* text=auto
+
+# --- Source / text ---
+*.cs         text diff=csharp
+*.shader     text
+*.cginc      text
+*.hlsl       text
+*.compute    text
+*.uss        text
+*.uxml       text
+*.json       text
+*.md         text
+*.txt        text
+*.xml        text
+*.yml        text
+*.r          text
+*.R          text
+*.ps1        text
+*.py         text
+
+# --- Unity YAML assets (text; keep diffable, never CRLF-mangle) ---
+*.meta       text
+*.unity      text
+*.asset      text
+*.prefab     text
+*.mat        text
+*.anim       text
+*.controller text
+*.asmdef     text
+*.inputactions text
+*.guiskin    text
+
+# --- Binary (never touch line endings) ---
+*.dll  binary
+*.so   binary
+*.dylib binary
+*.aar  binary
+*.a    binary
+*.bytes binary
+*.onnx binary
+*.ttf  binary
+*.otf  binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.psd  binary
+*.tga  binary
+*.wav  binary
+*.mp3  binary
+*.ogg  binary
+*.fbx  binary
+*.unitypackage binary
