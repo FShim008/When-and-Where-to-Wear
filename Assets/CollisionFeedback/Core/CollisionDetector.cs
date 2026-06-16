@@ -33,6 +33,15 @@ namespace CollisionFeedback.Core
         public float ContactDistance = 0.03f;    // <= this counts as a COLLISION (limb essentially touching the foam)
         public float NearMissDistance = 0.12f;    // entering this band without contact = a NEAR-MISS
         public float ExitMargin = 0.05f;          // must clear NearMiss + this for an engagement to end (hysteresis)
+
+        // Plan Task 7.3: per-limb effective contact radius (m) subtracted from the raw keypoint→obstacle
+        // distance, to model the segment between the tracked joint and the real contact surface
+        // (wrist→hand, ankle→foot). DEFAULT: null ⇒ 0 for every limb ⇒ behavior unchanged. When enabled
+        // (Plan decision D6), mirror the same reach in the oracle so cues and outcomes stay consistent.
+        public Dictionary<Joint, float> LimbContactRadius;
+
+        public float RadiusFor(Joint limb) =>
+            (LimbContactRadius != null && LimbContactRadius.TryGetValue(limb, out float r)) ? r : 0f;
     }
 
     /// <summary>
@@ -96,6 +105,8 @@ namespace CollisionFeedback.Core
                         nearestId = _obstacles[o].Id;
                     }
                 }
+                float reach = _p.RadiusFor(limb);
+                if (reach > 0f) dist = Mathf.Max(0f, dist - reach); // Task 7.3: effective limb reach (default 0 ⇒ no-op)
                 _currentDistance[limb] = dist;
 
                 Engagement e = _eng[limb];

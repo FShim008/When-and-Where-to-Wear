@@ -99,6 +99,11 @@ These are DONE and validated this cycle — recorded so the plan is a complete r
 - ☑ **Raw keypoint logging** (Task 5.6) — `KeypointLogWriter` (Runtime, AutoFlush) wired into **both** `SessionRunner` (per block) and `LiveSessionController`; persists the VR-frame `PoseFrame`s via `KeypointLogFormatter`.
 - ☑ **Input-backend audit** (Task 1.4, code part) — confirmed **zero** legacy `UnityEngine.Input` usage in the study code. *Build-Settings scene list still needs the Editor.*
 
+**Completed 2026-06-16 (autonomous groundwork; the full tasks still need a decision/UI/measurement):**
+- ◐ **Hand=wrist / foot=ankle collision offset — mechanism built, default-OFF** (Task 7.3): `DetectorParams.LimbContactRadius` (per-limb effective reach, m) is subtracted from the keypoint→obstacle distance in `CollisionDetector`; **null/0 by default ⇒ behavior unchanged**. Unit-tested (`CollisionDetectorRadiusTests`). To enable, set per-limb radii once decision **D6** is made (and mirror the reach in the oracle for cue/outcome consistency).
+- ◐ **Questionnaire pipeline — data model + writer + analysis schema** (Task 5.5 groundwork): `QuestionnaireFormatter` (Core, long/tidy CSV, unit-tested) + `QuestionnaireLogWriter` (Runtime) + `SessionRunner.RecordQuestionnaire(...)` writing `questionnaire.csv` per participant; `analysis.R` now reads it (instrument ∈ {IPQ, NASA_TLX, SSQ}; measures `presence`/`overall`/`total`) and fits presence/TLX/SSQ models, skipping gracefully until data exists. **Remaining:** the in-VR/desktop administration UI + IPQ/NASA-TLX/SSQ item wording & scoring (study-design decision).
+- ☑ **Git sync established** — study project committed to a **private** GitHub repo (`FShim008/…`), branch `main`, `Library/Temp/Logs` excluded. Dev → commit → push; Study PC → `git pull`. *(See the sync caveat above.)*
+
 ---
 
 ## Phase 0 — Authority, ethics & statistics (BLOCKING)

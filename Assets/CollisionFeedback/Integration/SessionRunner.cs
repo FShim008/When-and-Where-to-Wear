@@ -65,6 +65,7 @@ namespace CollisionFeedback.Integration
         private List<Obstacle> _obstacles;
         private List<BlockAssignment> _plan;
         private string _sessionDir;
+        private QuestionnaireLogWriter _questionnaire; // Plan Task 5.5 — writer ready; the administration UI is not built yet
 
         // Operator-gate + HUD state
         private bool _proceed;        // set by the on-screen button at each gate
@@ -109,6 +110,7 @@ namespace CollisionFeedback.Integration
                 return;
             }
             Directory.CreateDirectory(_sessionDir);
+            _questionnaire = new QuestionnaireLogWriter(Path.Combine(_sessionDir, "questionnaire.csv"));
 
             var pool = (layoutIds != null && layoutIds.Length > 0) ? new List<string>(layoutIds) : new List<string> { "L1" };
             _plan = SessionPlan.For(participantId, pool);
@@ -267,6 +269,17 @@ namespace CollisionFeedback.Integration
         private void FlushSource()
         {
             while (_source != null && _source.TryGetFrame(out _)) { /* discard stale queue */ }
+        }
+
+        /// <summary>
+        /// Record one scored questionnaire into the per-participant <c>questionnaire.csv</c>
+        /// (instrument = "IPQ" / "NASA_TLX" / "SSQ"; block = -1 for session-level e.g. SSQ pre/post).
+        /// Call this from the questionnaire UI once items are scored. [Plan Task 5.5 — UI not built yet.]
+        /// </summary>
+        public void RecordQuestionnaire(int block, Condition condition, string instrument,
+                                        IReadOnlyDictionary<string, float> measures)
+        {
+            _questionnaire?.Append(participantId, block, condition.ToString(), instrument, measures);
         }
 
         // IMGUI operator console (no input-backend dependency); shows on the desktop mirror.

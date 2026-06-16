@@ -89,12 +89,45 @@ if (requireNamespace("ggplot2", quietly = TRUE)) {
   cat("\nwrote interaction_plot.png\n")
 }
 
-# ---- SECONDARY measures: templates (fill in once presence/SSQ are merged) -----
-# Presence (IPQ) / breaks-in-presence / NASA-TLX live in the questionnaire export, joined by
-# participant+block. Once merged, e.g.:
-#   library(lme4)
-#   m_pres <- lmer(presence ~ Timing * Localization + (1|participant) + (1|layout), data = cells_q)
-# SSQ with block-order covariate:
-#   m_ssq  <- lmer(ssq_total ~ condition + block + (1|participant), data = d_q)
+# ---- SECONDARY measures: presence (IPQ), workload (NASA-TLX), sickness (SSQ) --
+# Reads the long-format questionnaire export written by Unity's QuestionnaireLogWriter / SessionRunner
+#   columns: participant, block, condition, instrument, measure, value
+# Canonical schema: instrument in {IPQ, NASA_TLX, SSQ}; measures IPQ "presence", NASA_TLX "overall",
+# SSQ "total" (block = -1 for session-level SSQ pre/post). Default path: questionnaire.csv beside the
+# summary; override with a 2nd arg. Skips gracefully until the data + lme4 are present.
+qcsv <- if (length(args) >= 2) args[[2]] else file.path(dirname(csv), "questionnaire.csv")
+if (file.exists(qcsv) && requireNamespace("lme4", quietly = TRUE)) {
+  suppressMessages(library(lme4))
+  q <- read.csv(qcsv, stringsAsFactors = FALSE)
+  q$participant <- factor(q$participant)
+
+  pick <- function(inst, meas) {
+    s <- subset(q, instrument == inst & measure == meas, select = c(participant, block, value))
+    if (nrow(s) == 0) return(NULL)
+    names(s)[names(s) == "value"] <- meas
+    s
+  }
+  fit <- function(df, formula, title) {
+    if (is.null(df) || nrow(df) == 0) { cat("\n[", title, "] no rows merged — skipping.\n"); return(invisible()) }
+    cat("\n=====", title, "=====\n"); print(summary(lmer(formula, data = df)))
+  }
+
+  # Presence (IPQ overall) and workload (NASA-TLX overall) on the 2x2 cells.
+  pres <- pick("IPQ", "presence")
+  if (!is.null(pres)) fit(merge(cells, pres, by = c("participant","block")),
+                          presence ~ Timing * Localization + (1|participant) + (1|layout),
+                          "PRESENCE (IPQ): Timing x Localization")
+  tlx <- pick("NASA_TLX", "overall")
+  if (!is.null(tlx)) fit(merge(cells, tlx, by = c("participant","block")),
+                         overall ~ Timing * Localization + (1|participant) + (1|layout),
+                         "NASA-TLX overall: Timing x Localization")
+  # SSQ total across all conditions, with block-order covariate.
+  ssq <- pick("SSQ", "total")
+  if (!is.null(ssq)) fit(merge(d, ssq, by = c("participant","block")),
+                         total ~ condition + block + (1|participant),
+                         "SSQ total: condition + block order")
+} else {
+  cat("\n[questionnaires] no", qcsv, "or lme4 not installed — skipping presence/SSQ/TLX.\n")
+}
 
 cat("\nDone.\n")
