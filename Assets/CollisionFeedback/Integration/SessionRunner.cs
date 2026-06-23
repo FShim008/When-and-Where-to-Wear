@@ -62,6 +62,7 @@ namespace CollisionFeedback.Integration
         [SerializeField] private OpportunitySpawner spawner;
         [SerializeField] private VisualObstacleAlert visualAlert;
         [SerializeField] private QuestionnairePanel questionnairePanel;
+        [SerializeField] private OperatorEStop estop; // Plan Task 4.5 / D5 — emergency stop
 
         // The 5 cue-able joints the oracle/conditions/detector track (Head excluded — no head tactor).
         private static readonly List<Joint> Limbs = new()
@@ -73,11 +74,12 @@ namespace CollisionFeedback.Integration
         private List<Obstacle> _obstacles;
         private List<BlockAssignment> _plan;
         private string _sessionDir;
-        private QuestionnaireLogWriter _questionnaire; // Plan Task 5.5 — writer ready; the administration UI is not built yet
+        private QuestionnaireLogWriter _questionnaire; // Plan Task 5.5 / F1 — administered via QuestionnairePanel
 
         // Operator-gate + HUD state
         private bool _proceed;        // set by the on-screen button at each gate
-        private bool _abort;          // set by the "Stop block" button
+        private bool _abort;          // set by the "Stop block" button / e-stop
+        private bool _estop;          // latched emergency stop — halts the whole session [D5]
         private bool _live;           // a block is currently running
         private string _phase = "Init";
         private string _status = "Starting…";
@@ -93,6 +95,8 @@ namespace CollisionFeedback.Integration
             if (visualAlert == null) visualAlert = FindFirstObjectByType<VisualObstacleAlert>();
             if (questionnairePanel == null) questionnairePanel = FindFirstObjectByType<QuestionnairePanel>();
             if (trackerRig == null) trackerRig = FindFirstObjectByType<BodyTrackerRig>();
+            if (estop == null) estop = FindFirstObjectByType<OperatorEStop>();
+            if (estop != null) { estop.SetContextProvider(EStopContext); estop.OnStop += OnEmergencyStop; }
 
             _obstacles = sceneObstacles != null ? sceneObstacles.Collect() : new List<Obstacle>();
             if (_obstacles.Count == 0)
@@ -134,6 +138,7 @@ namespace CollisionFeedback.Integration
         private void OnDisable()
         {
             StopAllCoroutines();
+            if (estop != null) estop.OnStop -= OnEmergencyStop;
             (_source as System.IDisposable)?.Dispose();
             _source = null;
         }
@@ -144,14 +149,24 @@ namespace CollisionFeedback.Integration
             if (surveySsq) yield return AdministerOne(Questionnaire.Ssq(), -1, practiceCondition);
 
             // Practice (excluded from analysis).
-            yield return RunBlock(new BlockAssignment(-1, practiceCondition, FirstLayout()), isPractice: true);
+            if (!_estop) yield return RunBlock(new BlockAssignment(-1, practiceCondition, FirstLayout()), isPractice: true);
 
             // The 6 counterbalanced condition blocks: break → block → post-block questionnaires.
             foreach (BlockAssignment a in _plan)
             {
                 yield return Break();
+                if (_estop) break;
                 yield return RunBlock(a, isPractice: false);
+                if (_estop) break;
                 yield return AdministerQuestionnaires(a.BlockIndex, a.Condition);
+            }
+
+            if (_estop)
+            {
+                _phase = "STOPPED";
+                _status = $"EMERGENCY STOP — session halted. Partial data in {_sessionDir}";
+                Debug.LogWarning($"[SessionRunner] {_status}");
+                yield break;
             }
 
             _phase = "DONE";
@@ -164,7 +179,7 @@ namespace CollisionFeedback.Integration
             _phase = "BREAK";
             _proceed = false;
             float t = 0f;
-            while (t < minBreakSeconds || !_proceed)
+            while ((t < minBreakSeconds || !_proceed) && !_estop)
             {
                 t += Time.unscaledDeltaTime;
                 _status = t < minBreakSeconds
@@ -196,10 +211,22 @@ namespace CollisionFeedback.Integration
             bool done = false;
             IReadOnlyDictionary<string, float> measures = null;
             questionnairePanel.Administer(q, m => { measures = m; done = true; });
-            yield return new WaitUntil(() => done);
+            yield return new WaitUntil(() => done || _estop);
+            if (_estop) yield break;
             RecordQuestionnaire(block, cond, q.Instrument, measures);
             Debug.Log($"[SessionRunner] recorded {q.Instrument} (block {block}, {cond}).");
         }
+
+        // Emergency stop [Plan Task 4.5 / D5]: abort the running block now, silence haptics, latch session halt.
+        private void OnEmergencyStop(string reason)
+        {
+            _estop = true;
+            _abort = true;
+            HapticDeviceBinding.StopAll();
+        }
+
+        private string EStopContext() =>
+            $"P{participantId} | {_phase} | {_curCondition} | t={_hudBlockTime:F1}s | frames={_hudFrames}";
 
         private IEnumerator RunBlock(BlockAssignment a, bool isPractice)
         {

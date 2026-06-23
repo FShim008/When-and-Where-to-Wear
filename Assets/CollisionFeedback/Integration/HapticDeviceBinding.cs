@@ -77,6 +77,16 @@ namespace CollisionFeedback.Integration
             }
         }
 
+        /// <summary>
+        /// Immediately silence every bHaptics motor — call on emergency stop / block end [Plan Task 4.5 / D5].
+        /// Safe to call when the SDK isn't initialized (nothing is playing).
+        /// </summary>
+        public static void StopAll()
+        {
+            try { BhapticsLibrary.StopAll(); }
+            catch (System.Exception e) { Debug.LogWarning($"[HapticDeviceBinding] StopAll failed: {e.Message}"); }
+        }
+
         private static PositionType PositionFor(BHapticsDevice d) => d switch
         {
             BHapticsDevice.VestFront    => PositionType.Vest,
