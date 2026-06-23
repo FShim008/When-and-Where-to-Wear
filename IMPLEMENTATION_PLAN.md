@@ -258,7 +258,7 @@ Publication-ready when: **(1)** every Showstopper and Validity item is closed an
 | Exit margin (hysteresis) | 0.05 m | DetectorParams |
 | Per-limb contact radius | none (0 = off) | DetectorParams.LimbContactRadius (Task 7.3) |
 | Haptic pulse | 3 × 100 ms, 60 ms gap (~480 ms) | `Integration/HapticDeviceBinding.cs` |
-| Cue intensity | flat 1.0 (→ Phase 3) | HapticDeviceBinding |
+| Cue intensity | per-site gains (E1: `CueIntensityTable`/`CueIntensityFile`); flat 1.0 if uncalibrated | HapticDeviceBinding, BHapticsSink |
 | Block length | 180 s (set per scene) | `LiveSessionController` / `SessionRunner` |
 | Opportunities/block | 12 @ 8,22,…,152 s; window 6 s | `Core/OpportunityScheduler.cs` |
 | Conditions | None, RG, RB, PG, PB, Visual | `Core/Enums.cs`, ConditionManager |

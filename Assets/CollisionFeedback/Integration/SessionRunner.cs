@@ -35,6 +35,7 @@ namespace CollisionFeedback.Integration
         [SerializeField] private bool allowOverwrite = false;
 
         [Header("Timing (seconds)")]
+        [Tooltip("L1 protocol block length [Appendix A]: keep ≥ last opportunity close (152 + 6 s window = 158 s).")]
         [SerializeField] private float blockSeconds = 180f;
         [SerializeField] private float practiceSeconds = 90f;
         [SerializeField] private float minBreakSeconds = 30f;
@@ -132,6 +133,7 @@ namespace CollisionFeedback.Integration
                       string.Join(" ", _plan.ConvertAll(b => b.Condition.ToString())) +
                       $". VIVE trackers; CSVs → {_sessionDir}");
 
+            ValidateProtocol();
             StartCoroutine(RunSession());
         }
 
@@ -311,6 +313,22 @@ namespace CollisionFeedback.Integration
                 Debug.LogWarning($"[SessionRunner] Layout '{layoutId}' has no authored schedule yet — using Layout-1 " +
                                  "geometry. Author its storyboard schedule before relying on layout counterbalancing.");
             return OpportunitySchedules.Layout1();
+        }
+
+        // Protocol-param sanity check + provenance log [Plan Task 4.4 / D4]. Catches a blockSeconds set too
+        // short to capture the last scripted opportunity (which would silently truncate the DV denominator),
+        // and prints the reconciled timing for the operator. Values track Appendix A; reconcile vs the docs (A1).
+        private void ValidateProtocol()
+        {
+            List<Opportunity> sched = ScheduleFor(FirstLayout());
+            double end = 0;
+            foreach (Opportunity op in sched) if (op.CloseTime > end) end = op.CloseTime;
+            if (blockSeconds < end)
+                Debug.LogWarning($"[SessionRunner] blockSeconds={blockSeconds:F0}s < last opportunity close " +
+                                 $"({end:F0}s) — the final opportunities would be truncated. Set blockSeconds ≥ {end:F0}s.");
+            Debug.Log($"[SessionRunner] Protocol: block {blockSeconds:F0}s · practice {practiceSeconds:F0}s · " +
+                      $"break ≥{minBreakSeconds:F0}s · {sched.Count} opportunities (last closes {end:F0}s) · " +
+                      $"latency comp {pipelineLatencySeconds * 1000f:F0} ms. [reconcile vs Appendix A / docs]");
         }
 
         private string FirstLayout() => (layoutIds != null && layoutIds.Length > 0) ? layoutIds[0] : "L1";
