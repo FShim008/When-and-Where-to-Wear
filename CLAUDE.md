@@ -9,7 +9,7 @@ A within-subjects **2x2 (Timing x Localization)** + a **no-feedback floor** + a 
 isolating whether **predictive** (fire on forecast time-to-collision) and **body-localized** (cue the
 specific at-risk limb) vibrotactile feedback cut real-obstacle collisions while preserving presence.
 6 conditions: **None, RG, RB, PG, PB, Visual** (PB = full technique). The predictive signal comes from
-an idealized multi-camera tracking **oracle** that computes per-limb TTC.
+an idealized 6-DoF tracking **oracle** (VIVE Ultimate Trackers, one per limb) that computes per-limb TTC.
 
 Design/protocol authority lives in the docs folder (read these before changing behavior):
 `C:\Users\faisa\OneDrive\Desktop\IEEEVR Project Ideas\IEEEVR2027_StudyDesign.md` (and `_StudyProtocol`,
@@ -17,7 +17,7 @@ Design/protocol authority lives in the docs folder (read these before changing b
 
 ## The architecture rule (do not break this)
 The science is decoupled from the hardware by **interfaces**, so the brain runs and is unit-tested with
-NO cameras, NO headset, NO bHaptics device.
+NO trackers, NO headset, NO bHaptics device.
 
 ```
 Assets/CollisionFeedback/
@@ -27,7 +27,7 @@ Assets/CollisionFeedback/
 ```
 
 The three seams (in `Core/Contracts.cs`):
-- `IKeypointSource` — tracking in. Real = UDP/LSL (Runtime); dev/test = `MockKeypointSource` (Core).
+- `IKeypointSource` — tracking in. Real = VIVE Ultimate Trackers via SteamVR (`TrackerKeypointSource` reading a `BodyTrackerRig`, Runtime); dev/test = `MockKeypointSource` (Core).
 - `IFeedbackSink`  — feedback out. Real = bHaptics / in-HMD visual (Runtime); test = `RecordingSink` (Tests).
 - `IClock`         — wall-clock seam for the Runtime logger (Core logic uses `PoseFrame.Timestamp`, never wall time).
 
@@ -55,9 +55,9 @@ hardware. To see the brain run live: drop `ExperimentRunner` (Runtime) on an emp
 Condition in the Inspector, press Play, read the Console for `[FEEDBACK]` lines.
 
 ## Build order (who does what)
-1. **Brain + mock + tests** — DONE (all hardware-free logic complete & tested): oracle (+latency-compensation), 6 conditions, routing, edge-trigger, collision/near-miss detector (+Flush, +CurrentDistances), opportunity scheduler, `BlockRunner` (collisions→opportunities + avoidance latency → `BlockResult`), `SessionPlan`/`WilliamsSquare` (counterbalancing), `AvoidanceLatencyDetector`, `TactorArbiter`, `RigidTransformSolver` (camera↔VR calibration), `KeypointDeserializer`+`UdpKeypointSource`, `EventLogFormatter`/`KeypointLogFormatter`+writers, `BHapticsTactorMap`+`BHapticsSink`+`HapticDeviceBinding` (live bHaptics, hardware-validated), `SyntheticBlock`+rewired `ExperimentRunner` (end-to-end CSV demo), `Analysis/*.R`. Extend here. *(Claude)*
+1. **Brain + mock + tests** — DONE (all hardware-free logic complete & tested): oracle (+latency-compensation), 6 conditions, routing, edge-trigger, collision/near-miss detector (+Flush, +CurrentDistances), opportunity scheduler, `BlockRunner` (collisions→opportunities + avoidance latency → `BlockResult`), `SessionPlan`/`WilliamsSquare` (counterbalancing), `AvoidanceLatencyDetector`, `TactorArbiter`, `TrackerKeypointSource`+`BodyTrackerRig` (VIVE Ultimate Tracker source), `KeypointDeserializer` (CSV replay), `EventLogFormatter`/`KeypointLogFormatter`+writers, `BHapticsTactorMap`+`BHapticsSink`+`HapticDeviceBinding` (live bHaptics, hardware-validated), `SyntheticBlock`+rewired `ExperimentRunner` (end-to-end CSV demo), `Analysis/*.R`. Extend here. *(Claude)*
 2. **Scene** — arena, XR Rig, foam-obstacle GameObjects at surveyed Layout-L1 coords, the orbs/dodge task. *(human, in Editor)*
-3. **Wire real devices** — swap `MockKeypointSource`→UDP/LSL source, `UnityLogSink`→bHaptics sink; camera↔VR calibration solver. *(human + Claude)*
+3. **Wire real devices** — tracking DONE: `TrackerKeypointSource` reads the `BodyTrackerRig` (VIVE Ultimate Trackers; already in the VR frame, **no camera↔VR calibration**). Remaining: the bHaptics sink + the scene tracker rig. *(human + Claude)*
 4. **Logging, opportunity scheduler (12 events/block), latency, pilot.** *(Claude logic, human runs it)*
 
 ## Conventions
@@ -67,4 +67,4 @@ Condition in the Inspector, press Play, read the Console for `[FEEDBACK]` lines.
   `using Joint = CollisionFeedback.Core.Joint;` or `Joint` is ambiguous (CS0104). Core files are fine
   (same-namespace type wins over a using-imported one).
 - Don't add packages or touch `ProjectSettings`/scenes from code without saying so — that's Editor work.
-- Distances in meters, time in seconds, world frame = OpenXR (post-calibration).
+- Distances in meters, time in seconds, world frame = OpenXR / SteamVR (the VIVE trackers + HMD share it natively — one PC, one tracking space).

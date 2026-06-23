@@ -7,7 +7,7 @@ namespace CollisionFeedback.Core
     /// <summary>
     /// Wire format for body-tracking frames: one CSV line per frame,
     /// <c>timestamp, x0,y0,z0, x1,y1,z1, ... x5,y5,z5</c> (joint order = <see cref="Joint"/>),
-    /// invariant-culture decimals. Pure + testable; the Runtime UdpKeypointSource does the socket I/O.
+    /// invariant-culture decimals. Pure + testable; kept for offline CSV replay / logging round-trips.
     /// </summary>
     public static class KeypointDeserializer
     {

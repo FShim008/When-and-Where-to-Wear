@@ -8,9 +8,9 @@ using Joint = CollisionFeedback.Core.Joint; // disambiguate from UnityEngine.Joi
 namespace CollisionFeedback.Runtime
 {
     /// <summary>
-    /// M4 bench check (Pilot_Design Stage 0 / Risk R1): "does the camera fusion still track every limb with
-    /// the HMD + bHaptics suit on, under fast motion?" Drop this on ONE empty GameObject in a bare scene,
-    /// start the co-PI's tracker streaming keypoints over UDP, press Play, and:
+    /// M4 bench check (Pilot_Design Stage 0 / Risk R1): "do the VIVE Ultimate Trackers still track every limb
+    /// with the HMD + bHaptics suit on, under fast motion?" Drop this on ONE GameObject in a scene with a
+    /// BodyTrackerRig, press Play, and:
     ///   - SEE the 6 tracked joints render as spheres that should follow your body 1:1 (green = healthy,
     ///     orange = FROZEN/occluded, red = NaN/invalid, grey = stream stalled). Do fast dodges/reaches and
     ///     go to the corners / crouch (the occlusion-prone cases) and watch for joints freezing or jumping.
@@ -19,13 +19,13 @@ namespace CollisionFeedback.Runtime
     ///   - Hold a still T-pose, click "Reset window", then read each limb's JITTER (the noise floor) —
     ///     jitter is only meaningful while you hold still.
     ///   - Click "Log CSV" (or Stop) to write a summary to persistentDataPath for the record.
-    /// Hardware-free to compile / enter Play; it simply shows 0 Hz until the tracker streams.
+    /// Hardware-free to compile / enter Play; it simply shows 0 Hz until the trackers report.
     /// The metrics themselves live in <see cref="TrackingQualityMonitor"/> (Core, unit-tested); this is glue.
     /// </summary>
     public sealed class TrackingBench : MonoBehaviour
     {
-        [Header("Source")]
-        [SerializeField] private int udpPort = 9000;
+        [Header("Source (VIVE Ultimate Trackers — auto-found if empty)")]
+        [SerializeField] private BodyTrackerRig trackerRig;
 
         [Header("Pass/fail thresholds (the M4 bar)")]
         [SerializeField] private float minDeliveryRateHz = 30f;
@@ -50,7 +50,7 @@ namespace CollisionFeedback.Runtime
         };
         private static readonly Color Orange = new Color(1f, 0.5f, 0f);
 
-        private UdpKeypointSource _source;
+        private IKeypointSource _source;
         private TrackingQualityMonitor _monitor;
         private readonly Dictionary<Joint, Renderer> _spheres = new();
         private readonly List<LineRenderer> _bones = new();
@@ -75,11 +75,12 @@ namespace CollisionFeedback.Runtime
             });
             _monitor.Reset(Now);
 
-            try { _source = new UdpKeypointSource(udpPort); }
-            catch (System.Exception e) { Debug.LogError($"[TrackingBench] Could not open UDP {udpPort}: {e.Message}"); }
+            if (trackerRig == null) trackerRig = FindFirstObjectByType<BodyTrackerRig>();
+            if (trackerRig != null && trackerRig.IsComplete) _source = trackerRig.CreateSource();
+            else Debug.LogError("[TrackingBench] No complete BodyTrackerRig — assign the HMD + 5 Ultimate Tracker Transforms.");
 
             BuildVisuals();
-            Debug.Log($"[TrackingBench] Listening on UDP {udpPort}. Move around and read the HUD on the desktop mirror.");
+            Debug.Log("[TrackingBench] Reading VIVE Ultimate Trackers. Move around and read the HUD on the desktop mirror.");
         }
 
         private void Update()
@@ -190,8 +191,8 @@ namespace CollisionFeedback.Runtime
             var sb = new StringBuilder();
             if (_report.Joints == null || _report.Frames == 0)
             {
-                sb.Append($"<b>M4 Tracking Bench</b>  —  waiting for UDP {udpPort}…  (0 frames). " +
-                          "Start the tracker stream.");
+                sb.Append("<b>M4 Tracking Bench</b>  —  waiting for tracker frames…  (0 frames). " +
+                          "Is the BodyTrackerRig assigned and SteamVR tracking?");
                 _hud = sb.ToString();
                 return;
             }
@@ -249,7 +250,7 @@ namespace CollisionFeedback.Runtime
         private void OnDisable()
         {
             if (_monitor != null) WriteSummary();
-            _source?.Dispose();
+            (_source as System.IDisposable)?.Dispose();
             _source = null;
         }
     }

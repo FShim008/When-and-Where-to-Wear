@@ -12,7 +12,7 @@ namespace CollisionFeedback.Integration
     /// obstacle; routes the study's fixed 3-pulse cue to the real devices via
     /// <see cref="HapticDeviceBinding.CreateThreePulseSink"/>; and writes the summary + per-event CSVs.
     ///
-    /// The real study swaps <see cref="SyntheticBlock"/> for a UdpKeypointSource (drain TryGetFrame each
+    /// The real study swaps <see cref="SyntheticBlock"/> for a TrackerKeypointSource (drain TryGetFrame each
     /// frame instead of timestamp-pacing) — the BlockRunner / condition / cue logic is unchanged.
     ///
     /// Requires the <c>[bHaptics]</c> prefab in the scene and the bHaptics Player running.

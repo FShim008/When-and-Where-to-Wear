@@ -10,16 +10,16 @@ namespace CollisionFeedback.Integration
 {
     /// <summary>
     /// FULL-SESSION driver [Plan Tasks 5.1–5.4 + 5.6]. Sequences one participant's entire session from the
-    /// live camera stream: an excluded practice block → the 6 condition blocks in the participant's
+    /// VIVE Ultimate Tracker stream: an excluded practice block → the 6 condition blocks in the participant's
     /// <see cref="SessionPlan"/> (Williams-square) order, with enforced inter-block breaks. Owns a single
-    /// <see cref="UdpKeypointSource"/> for the whole session, applies the camera→VR calibration, drives the
-    /// oracle/conditions/detector/spawner per block, logs raw keypoints, and writes per-block CSVs into a
-    /// per-participant folder with overwrite protection.
+    /// <see cref="TrackerKeypointSource"/> for the whole session (trackers are already in the VR world frame —
+    /// no camera→VR calibration), drives the oracle/conditions/detector/spawner per block, logs raw keypoints,
+    /// and writes per-block CSVs into a per-participant folder with overwrite protection.
     ///
     /// This is the PRODUCTION driver; <see cref="LiveSessionController"/> remains the single-block debug tool.
-    /// Run only ONE of them in a scene (both bind UDP 9000). Needs the same scene as LiveSessionController:
-    /// SceneObstacles, the XR rig, the [bHaptics] prefab + Player (for live cues), OpportunitySpawner, and a
-    /// VisualObstacleAlert. Operator advances each gate with the on-screen buttons (desktop mirror).
+    /// Run only ONE of them in a scene. Needs the same scene as LiveSessionController: a BodyTrackerRig (HMD +
+    /// 5 tracker Transforms), SceneObstacles, the XR rig, the [bHaptics] prefab + Player, OpportunitySpawner,
+    /// and a VisualObstacleAlert. Operator advances each gate with the on-screen buttons (desktop mirror).
     ///
     /// NOTE: only the Layout-L1 schedule is authored; until other layouts' storyboards exist, all blocks use
     /// L1 geometry (logged as a warning). Per-site cue-intensity equalization (Plan Task 3.1) and the e-stop
@@ -39,8 +39,8 @@ namespace CollisionFeedback.Integration
         [SerializeField] private float practiceSeconds = 90f;
         [SerializeField] private float minBreakSeconds = 30f;
 
-        [Header("Tracking (UDP)")]
-        [SerializeField] private int udpPort = 9000;
+        [Header("Tracking (VIVE Ultimate Trackers — auto-found if empty)")]
+        [SerializeField] private BodyTrackerRig trackerRig;
 
         [Header("Feedback")]
         [SerializeField] private bool useLiveHaptics = true;
@@ -60,8 +60,7 @@ namespace CollisionFeedback.Integration
             Joint.Chest, Joint.LeftHand, Joint.RightHand, Joint.LeftFoot, Joint.RightFoot,
         };
 
-        private UdpKeypointSource _source;
-        private RigidTransform _camToVr = RigidTransform.Identity;
+        private IKeypointSource _source;
         private List<Obstacle> _obstacles;
         private List<BlockAssignment> _plan;
         private string _sessionDir;
@@ -83,22 +82,12 @@ namespace CollisionFeedback.Integration
             if (sceneObstacles == null) sceneObstacles = FindFirstObjectByType<SceneObstacles>();
             if (spawner == null) spawner = FindFirstObjectByType<OpportunitySpawner>();
             if (visualAlert == null) visualAlert = FindFirstObjectByType<VisualObstacleAlert>();
+            if (trackerRig == null) trackerRig = FindFirstObjectByType<BodyTrackerRig>();
 
             _obstacles = sceneObstacles != null ? sceneObstacles.Collect() : new List<Obstacle>();
             if (_obstacles.Count == 0)
                 Debug.LogWarning("[SessionRunner] No scene obstacles found — collisions can't be detected. " +
                                  "Add a SceneObstacles component over the O1/O2/O3 BoxColliders.");
-
-            if (CameraVrCalibrationFile.TryLoad(out RigidTransform t))
-            {
-                _camToVr = t;
-                Debug.Log($"[SessionRunner] Loaded camera→VR calibration from {CameraVrCalibrationFile.DefaultPath}.");
-            }
-            else
-            {
-                Debug.LogWarning($"[SessionRunner] No camera→VR calibration at {CameraVrCalibrationFile.DefaultPath} — " +
-                                 "keypoints used AS-IS (Identity), so collisions will be wrong. Run CameraVrCalibration first.");
-            }
 
             // Per-participant output folder with overwrite protection.
             _sessionDir = Path.Combine(Application.persistentDataPath, "sessions", $"P{participantId:D3}");
@@ -115,12 +104,19 @@ namespace CollisionFeedback.Integration
             var pool = (layoutIds != null && layoutIds.Length > 0) ? new List<string>(layoutIds) : new List<string> { "L1" };
             _plan = SessionPlan.For(participantId, pool);
 
-            try { _source = new UdpKeypointSource(udpPort); }
-            catch (System.Exception e) { Debug.LogError($"[SessionRunner] UDP {udpPort} failed: {e.Message}"); enabled = false; return; }
+            if (trackerRig != null && trackerRig.IsComplete)
+            {
+                _source = trackerRig.CreateSource();
+            }
+            else
+            {
+                Debug.LogError("[SessionRunner] No complete BodyTrackerRig — assign the HMD + 5 Ultimate Tracker " +
+                               "Transforms. ABORTING."); enabled = false; return;
+            }
 
             Debug.Log($"[SessionRunner] P{participantId}: practice + {_plan.Count} blocks, order = " +
                       string.Join(" ", _plan.ConvertAll(b => b.Condition.ToString())) +
-                      $". Listening UDP {udpPort}; CSVs → {_sessionDir}");
+                      $". VIVE trackers; CSVs → {_sessionDir}");
 
             StartCoroutine(RunSession());
         }
@@ -128,7 +124,7 @@ namespace CollisionFeedback.Integration
         private void OnDisable()
         {
             StopAllCoroutines();
-            _source?.Dispose();
+            (_source as System.IDisposable)?.Dispose();
             _source = null;
         }
 
@@ -206,10 +202,7 @@ namespace CollisionFeedback.Integration
                     if (!started) { t0 = f.Timestamp; started = true; firstWall = Time.unscaledTime; }
 
                     PoseFrame rebased = f;
-                    rebased.Timestamp = f.Timestamp - t0;                    // block-relative
-                    for (int j = 0; j < rebased.Joints.Length; j++)
-                        rebased.Joints[j] = _camToVr.Apply(rebased.Joints[j]); // Camera-1 → VR world frame
-
+                    rebased.Timestamp = f.Timestamp - t0;                    // block-relative (trackers already in VR frame)
                     blockTime = rebased.Timestamp;
                     latest = rebased;
                     block.Tick(rebased);

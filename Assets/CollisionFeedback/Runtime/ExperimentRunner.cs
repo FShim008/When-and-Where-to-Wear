@@ -9,7 +9,7 @@ namespace CollisionFeedback.Runtime
     /// through the full <see cref="BlockRunner"/> pipeline in the chosen condition, then writes a real
     /// summary CSV + per-event CSV to <c>Application.persistentDataPath</c> and logs the block result.
     /// Drop it on an empty GameObject, pick a Condition, press Play, read the Console + open the CSVs.
-    /// To go live later: swap MockKeypointSource -> UdpKeypointSource and add a bHaptics sink.
+    /// To go live later: swap MockKeypointSource -> TrackerKeypointSource and add a bHaptics sink.
     /// </summary>
     public sealed class ExperimentRunner : MonoBehaviour
     {

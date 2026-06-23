@@ -8,20 +8,19 @@ using Joint = CollisionFeedback.Core.Joint; // disambiguate from UnityEngine.Joi
 namespace CollisionFeedback.Integration
 {
     /// <summary>
-    /// LIVE session driver: runs one real experimental block end-to-end from the camera-tracking stream.
-    /// Reads obstacles from the SCENE (<see cref="SceneObstacles"/>), pulls calibrated keypoint frames from a
-    /// <see cref="UdpKeypointSource"/>, runs the Layout-L1 12-event schedule through <see cref="BlockRunner"/>
-    /// with a live 3-pulse bHaptics cue, drives the <see cref="OpportunitySpawner"/> on the same block clock,
-    /// and writes the summary + per-event CSVs. (The hardware-free synthetic-demo path stays in
-    /// <see cref="SessionController"/>.)
+    /// LIVE single-block driver: runs one real experimental block end-to-end from the VIVE Ultimate Tracker
+    /// stream. Reads obstacles from the SCENE (<see cref="SceneObstacles"/>), pulls keypoint frames from a
+    /// <see cref="TrackerKeypointSource"/> (already in the VR world frame — the trackers share the headset's
+    /// SteamVR space, so NO camera→VR calibration is needed), runs the Layout-L1 12-event schedule through
+    /// <see cref="BlockRunner"/> with a live 3-pulse bHaptics cue, drives the <see cref="OpportunitySpawner"/>
+    /// on the same block clock, and writes the summary + per-event CSVs. (The hardware-free synthetic demo is
+    /// <see cref="SessionController"/>; the full counterbalanced session is <see cref="SessionRunner"/>.)
     ///
-    /// Assumes the incoming stream is ALREADY in the VR / study world frame (camera->VR calibration applied
-    /// upstream; see <c>RigidTransformSolver</c>). Block-relative time is derived by rebasing the first frame's
-    /// timestamp to ~0, so the scheduler, oracle, and spawner all share one clock. The Visual condition emits
-    /// Visual-modality alerts that the bHaptics sink ignores by design (the step-7 renderer will play those).
+    /// Block-relative time is rebased to the first frame's timestamp so the scheduler, oracle, and spawner
+    /// share one clock. The Visual condition emits Visual-modality alerts the bHaptics sink ignores by design.
     ///
-    /// Lives in Integration (Assembly-CSharp) so it can see the bHaptics SDK + the Core/Runtime assemblies.
-    /// Needs the <c>[bHaptics]</c> prefab + the bHaptics Player running for live cues.
+    /// Lives in Integration (Assembly-CSharp) so it can see the bHaptics SDK + Core/Runtime. Needs a
+    /// <see cref="BodyTrackerRig"/> in the scene (HMD + 5 tracker Transforms) and the [bHaptics] prefab + Player.
     /// </summary>
     public sealed class LiveSessionController : MonoBehaviour
     {
@@ -32,13 +31,13 @@ namespace CollisionFeedback.Integration
         [SerializeField] private string layoutId = "L1";
         [SerializeField] private float blockSeconds = 180f;
 
-        [Header("Tracking (UDP)")]
-        [SerializeField] private int udpPort = 9000;
+        [Header("Tracking (VIVE Ultimate Trackers — auto-found if empty)")]
+        [SerializeField] private BodyTrackerRig trackerRig;
 
         [Header("Feedback")]
         [SerializeField] private bool useLiveHaptics = true;
         [SerializeField] private float hapticIntensity = 1f;
-        [SerializeField] private float pipelineLatencySeconds = 0f; // set from the M3 latency measurement
+        [SerializeField] private float pipelineLatencySeconds = 0f; // tracker→cue latency (tiny on one PC; measure once)
 
         [Header("Scene wiring (auto-found if left empty)")]
         [SerializeField] private SceneObstacles sceneObstacles;     // reads the foam-obstacle BoxColliders
@@ -52,7 +51,7 @@ namespace CollisionFeedback.Integration
             Joint.Chest, Joint.LeftHand, Joint.RightHand, Joint.LeftFoot, Joint.RightFoot,
         };
 
-        private UdpKeypointSource _source;
+        private IKeypointSource _source;
         private BlockRunner _block;
         private BlockContext _ctx;
         private bool _started;
@@ -61,7 +60,6 @@ namespace CollisionFeedback.Integration
         private double _blockTime;
         private float _firstFrameWall;
         private PoseFrame _latest;
-        private RigidTransform _camToVr = RigidTransform.Identity; // camera-rig -> VR world frame; loaded from the calibration file on Start
         private KeypointLogWriter _kp; // raw per-frame VR-frame keypoint log (Plan Task 5.6)
 
         private void Start()
@@ -69,6 +67,7 @@ namespace CollisionFeedback.Integration
             if (sceneObstacles == null) sceneObstacles = FindFirstObjectByType<SceneObstacles>();
             if (spawner == null) spawner = FindFirstObjectByType<OpportunitySpawner>();
             if (visualAlert == null) visualAlert = FindFirstObjectByType<VisualObstacleAlert>();
+            if (trackerRig == null) trackerRig = FindFirstObjectByType<BodyTrackerRig>();
 
             List<Obstacle> obstacles = sceneObstacles != null ? sceneObstacles.Collect() : new List<Obstacle>();
             if (obstacles.Count == 0)
@@ -80,8 +79,6 @@ namespace CollisionFeedback.Integration
                 ParticipantId = participantId, BlockIndex = blockIndex, Condition = condition, LayoutId = layoutId,
             };
 
-            // Same 3-pulse sink for every condition: it self-ignores Visual-modality commands, so the Visual
-            // condition logs alerts (for the renderer) without buzzing the device. None simply never fires.
             IFeedbackSink deviceSink = useLiveHaptics
                 ? HapticDeviceBinding.CreateThreePulseSink(this, hapticIntensity)
                 : null;
@@ -90,30 +87,21 @@ namespace CollisionFeedback.Integration
             _block = new BlockRunner(_ctx, obstacles, Limbs, OpportunitySchedules.Layout1(),
                                      oracleParams, new DetectorParams(), deviceSink);
 
-            try { _source = new UdpKeypointSource(udpPort); }
-            catch (System.Exception e) { Debug.LogError($"[LiveSessionController] UDP {udpPort} failed: {e.Message}"); }
+            if (trackerRig != null && trackerRig.IsComplete)
+                _source = trackerRig.CreateSource();
+            else
+                Debug.LogError("[LiveSessionController] No complete BodyTrackerRig — assign the HMD + 5 Ultimate " +
+                               "Tracker Transforms (chest, both wrists, both ankles). No tracking until then.");
 
             if (spawner != null) spawner.DriveExternally();
             if (visualAlert != null) visualAlert.Configure(obstacles, Limbs, oracleParams.ReactiveDistance);
-
-            if (CameraVrCalibrationFile.TryLoad(out RigidTransform camToVr))
-            {
-                _camToVr = camToVr;
-                Debug.Log($"[LiveSessionController] Loaded camera->VR calibration from {CameraVrCalibrationFile.DefaultPath}.");
-            }
-            else
-            {
-                Debug.LogWarning($"[LiveSessionController] No camera->VR calibration at {CameraVrCalibrationFile.DefaultPath} — " +
-                                 "keypoints used AS-IS (Identity), so collisions vs scene obstacles will be wrong. " +
-                                 "Run the CameraVrCalibration scene first.");
-            }
 
             _kp = new KeypointLogWriter(
                 Path.Combine(Application.persistentDataPath, $"keypoints_P{participantId}_B{blockIndex}_{condition}.csv"),
                 participantId, blockIndex);
 
             Debug.Log($"[LiveSessionController] P{participantId} block {blockIndex} [{condition}] layout {layoutId}. " +
-                      $"Listening UDP {udpPort}; liveHaptics={useLiveHaptics}, latency={pipelineLatencySeconds * 1000f:F0} ms. " +
+                      $"VIVE trackers; liveHaptics={useLiveHaptics}, latency={pipelineLatencySeconds * 1000f:F0} ms. " +
                       $"CSVs -> {Application.persistentDataPath}");
         }
 
@@ -127,9 +115,7 @@ namespace CollisionFeedback.Integration
                 if (!_started) { _t0 = f.Timestamp; _started = true; _firstFrameWall = Time.unscaledTime; }
 
                 PoseFrame rebased = f;
-                rebased.Timestamp = f.Timestamp - _t0;   // block-relative (a constant shift -> velocities unchanged)
-                for (int j = 0; j < rebased.Joints.Length; j++)
-                    rebased.Joints[j] = _camToVr.Apply(rebased.Joints[j]); // Camera-1 frame -> VR world frame (rigid: velocities/TTC preserved)
+                rebased.Timestamp = f.Timestamp - _t0;   // block-relative (trackers already in VR frame; a constant shift)
                 _blockTime = rebased.Timestamp;
                 _latest = rebased;
                 _block.Tick(rebased);
@@ -169,7 +155,7 @@ namespace CollisionFeedback.Integration
 
         private void OnDisable()
         {
-            _source?.Dispose();
+            (_source as System.IDisposable)?.Dispose();
             _source = null;
             _kp?.Dispose();
             _kp = null;
