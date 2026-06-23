@@ -49,6 +49,18 @@ namespace CollisionFeedback.Integration
                 t => host.StartCoroutine(ThreePulseRoutine(t, pulseMillis, gapMillis, pulses)), intensity);
         }
 
+        /// <summary>
+        /// As <see cref="CreateThreePulseSink(MonoBehaviour,float,int,int,int)"/> but with PER-SITE calibrated
+        /// gains [Plan Task 3.1 / E1] — chest / hands / feet each drive at their own intensity so perceived
+        /// salience is matched (load the table via Runtime <c>CueIntensityFile</c>). Waveform/timing identical.
+        /// </summary>
+        public static BHapticsSink CreateThreePulseSink(MonoBehaviour host, CueIntensityTable intensity,
+                                                        int pulseMillis = 100, int gapMillis = 60, int pulses = 3)
+        {
+            return new BHapticsSink(
+                t => host.StartCoroutine(ThreePulseRoutine(t, pulseMillis, gapMillis, pulses)), intensity);
+        }
+
         private static IEnumerator ThreePulseRoutine(TactorTarget t, int pulseMillis, int gapMillis, int pulses)
         {
             int count = MotorCountFor(t.Device);

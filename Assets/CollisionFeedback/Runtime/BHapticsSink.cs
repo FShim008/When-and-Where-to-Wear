@@ -17,19 +17,28 @@ namespace CollisionFeedback.Runtime
     public sealed class BHapticsSink : IFeedbackSink
     {
         private readonly Action<TactorTarget> _play;
-        private readonly float _intensity;
+        private readonly CueIntensityTable _intensity; // per-site gains; uniform 1.0 unless calibrated [E1]
 
+        /// <summary>Uniform-gain sink — back-compat with the old single-float intensity.</summary>
         public BHapticsSink(Action<TactorTarget> play = null, float intensity = 1f)
+            : this(play, CueIntensityTable.Uniform(intensity)) { }
+
+        /// <summary>
+        /// Per-site-gain sink [Plan Task 3.1 / E1]: each <see cref="HapticSite"/> drives at its own calibrated
+        /// intensity so PERCEIVED salience can be matched across the X40 chest (40 motors) and the 3-motor
+        /// Tactosys. The waveform/timing is unchanged — only the per-site drive level differs.
+        /// </summary>
+        public BHapticsSink(Action<TactorTarget> play, CueIntensityTable intensity)
         {
             _play = play ?? (t =>
                 Debug.Log($"[bHaptics STUB] {t.Device} motors=[{string.Join(",", t.Motors)}] @ {t.Intensity:F2}"));
-            _intensity = intensity;
+            _intensity = intensity ?? CueIntensityTable.Uniform(1f);
         }
 
         public void Fire(in FeedbackCommand command)
         {
             if (command.Modality != Modality.Haptic) return; // visual handled elsewhere
-            _play(BHapticsTactorMap.For(command.Site, _intensity));
+            _play(BHapticsTactorMap.For(command.Site, _intensity.For(command.Site)));
         }
     }
 }

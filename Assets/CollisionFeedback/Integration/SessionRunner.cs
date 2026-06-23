@@ -22,8 +22,8 @@ namespace CollisionFeedback.Integration
     /// and a VisualObstacleAlert. Operator advances each gate with the on-screen buttons (desktop mirror).
     ///
     /// NOTE: only the Layout-L1 schedule is authored; until other layouts' storyboards exist, all blocks use
-    /// L1 geometry (logged as a warning). Per-site cue-intensity equalization (Plan Task 3.1) and the e-stop
-    /// protocol (Plan Task 4.5) are separate and not implemented here.
+    /// L1 geometry (logged as a warning). Per-site cue-intensity equalization (Plan Task 3.1) is supported via
+    /// the optional <c>cueIntensityFile</c>; the e-stop protocol (Plan Task 4.5) is separate and not built here.
     /// </summary>
     public sealed class SessionRunner : MonoBehaviour
     {
@@ -45,6 +45,9 @@ namespace CollisionFeedback.Integration
         [Header("Feedback")]
         [SerializeField] private bool useLiveHaptics = true;
         [SerializeField] private float hapticIntensity = 1f;
+        [Tooltip("Optional per-site cue-gain CSV from the E2 perceptual-matching pass (Plan Task 3.1). Relative " +
+                 "names resolve under persistentDataPath. Empty = uniform hapticIntensity (no equalization).")]
+        [SerializeField] private string cueIntensityFile = "";
         [SerializeField] private float pipelineLatencySeconds = 0f; // set from the M3 latency measurement
         [Tooltip("Condition used for the (excluded) practice block.")]
         [SerializeField] private Condition practiceCondition = Condition.PB;
@@ -178,7 +181,7 @@ namespace CollisionFeedback.Integration
             {
                 ParticipantId = participantId, BlockIndex = blockIndex, Condition = a.Condition, LayoutId = a.LayoutId,
             };
-            IFeedbackSink sink = useLiveHaptics ? HapticDeviceBinding.CreateThreePulseSink(this, hapticIntensity) : null;
+            IFeedbackSink sink = useLiveHaptics ? CreateHapticSink() : null;
             var oracleParams = new OracleParams { PipelineLatencySeconds = pipelineLatencySeconds };
             List<Opportunity> schedule = ScheduleFor(a.LayoutId);
             var block = new BlockRunner(ctx, _obstacles, Limbs, schedule, oracleParams, new DetectorParams(), sink);
@@ -262,6 +265,15 @@ namespace CollisionFeedback.Integration
         private void FlushSource()
         {
             while (_source != null && _source.TryGetFrame(out _)) { /* discard stale queue */ }
+        }
+
+        // The live cue sink: per-site calibrated gains if a cueIntensityFile is set [Plan Task 3.1 / E1],
+        // otherwise a uniform hapticIntensity (identical to the pre-E1 behavior).
+        private BHapticsSink CreateHapticSink()
+        {
+            return string.IsNullOrWhiteSpace(cueIntensityFile)
+                ? HapticDeviceBinding.CreateThreePulseSink(this, hapticIntensity)
+                : HapticDeviceBinding.CreateThreePulseSink(this, CueIntensityFile.Load(cueIntensityFile));
         }
 
         /// <summary>

@@ -37,6 +37,9 @@ namespace CollisionFeedback.Integration
         [Header("Feedback")]
         [SerializeField] private bool useLiveHaptics = true;
         [SerializeField] private float hapticIntensity = 1f;
+        [Tooltip("Optional per-site cue-gain CSV from the E2 perceptual-matching pass (Plan Task 3.1). Relative " +
+                 "names resolve under persistentDataPath. Empty = uniform hapticIntensity (no equalization).")]
+        [SerializeField] private string cueIntensityFile = "";
         [SerializeField] private float pipelineLatencySeconds = 0f; // tracker→cue latency (tiny on one PC; measure once)
 
         [Header("Scene wiring (auto-found if left empty)")]
@@ -79,9 +82,7 @@ namespace CollisionFeedback.Integration
                 ParticipantId = participantId, BlockIndex = blockIndex, Condition = condition, LayoutId = layoutId,
             };
 
-            IFeedbackSink deviceSink = useLiveHaptics
-                ? HapticDeviceBinding.CreateThreePulseSink(this, hapticIntensity)
-                : null;
+            IFeedbackSink deviceSink = useLiveHaptics ? CreateHapticSink() : null;
 
             var oracleParams = new OracleParams { PipelineLatencySeconds = pipelineLatencySeconds };
             _block = new BlockRunner(_ctx, obstacles, Limbs, OpportunitySchedules.Layout1(),
@@ -151,6 +152,15 @@ namespace CollisionFeedback.Integration
                       $"(CPO={r.CollisionsPerOpportunity:F3}), nearMisses={r.NearMisses}, alerts={r.Alerts}, " +
                       $"avoidances={r.AvoidanceCount}, score={score}. Wrote session_summary.csv + session_events.csv " +
                       $"to {Application.persistentDataPath}");
+        }
+
+        // The live cue sink: per-site calibrated gains if a cueIntensityFile is set [Plan Task 3.1 / E1],
+        // otherwise a uniform hapticIntensity (identical to the pre-E1 behavior).
+        private BHapticsSink CreateHapticSink()
+        {
+            return string.IsNullOrWhiteSpace(cueIntensityFile)
+                ? HapticDeviceBinding.CreateThreePulseSink(this, hapticIntensity)
+                : HapticDeviceBinding.CreateThreePulseSink(this, CueIntensityFile.Load(cueIntensityFile));
         }
 
         private void OnDisable()
