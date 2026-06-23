@@ -20,9 +20,13 @@ namespace CollisionFeedback.Runtime
     /// </summary>
     public sealed class OpportunitySpawner : MonoBehaviour
     {
-        [Header("Prefabs (optional — leave empty to just log the timeline)")]
+        [Header("Prefabs (optional — leave empty to spawn primitive placeholders)")]
         [SerializeField] private GameObject orbPrefab;
         [SerializeField] private GameObject projectilePrefab;
+        [Tooltip("If a prefab is null, spawn a primitive sphere so the dodge/orb task is playable WITHOUT authored art (pilot/dev). Turn off to just log the timeline.")]
+        [SerializeField] private bool spawnPrimitivesIfNoPrefab = true;
+        [SerializeField] private float orbSize = 0.12f;        // m diameter of the placeholder orb
+        [SerializeField] private float projectileSize = 0.12f; // m diameter of the placeholder projectile
 
         [Header("Projectiles")]
         [SerializeField] private Transform aimTarget;          // projectiles fly toward this (default: HMD / start pad)
@@ -110,16 +114,22 @@ namespace CollisionFeedback.Runtime
 
         private void SpawnOrb(Layout1Stimulus e)
         {
-            if (orbPrefab == null) return;
-            GameObject orb = Instantiate(orbPrefab, e.OrbPosition, Quaternion.identity, _container);
+            GameObject orb;
+            if (orbPrefab != null) orb = Instantiate(orbPrefab, e.OrbPosition, Quaternion.identity, _container);
+            else if (spawnPrimitivesIfNoPrefab) orb = MakePrimitive(e.OrbPosition, orbSize, new Color(0.2f, 0.9f, 1f), isOrb: true);
+            else return;
+
             orb.AddComponent<SpawnedStimulus>().IsOrb = true;
             if (orbLifetime > 0f) Destroy(orb, orbLifetime);
         }
 
         private void SpawnProjectile(Layout1Stimulus e)
         {
-            if (projectilePrefab == null) return;
-            GameObject proj = Instantiate(projectilePrefab, e.ProjectileOrigin, Quaternion.identity, _container);
+            GameObject proj;
+            if (projectilePrefab != null) proj = Instantiate(projectilePrefab, e.ProjectileOrigin, Quaternion.identity, _container);
+            else if (spawnPrimitivesIfNoPrefab) proj = MakePrimitive(e.ProjectileOrigin, projectileSize, new Color(1f, 0.3f, 0.1f), isOrb: false);
+            else return;
+
             proj.AddComponent<SpawnedStimulus>().IsOrb = false;
 
             Vector3 dir = AimPoint() - e.ProjectileOrigin;
@@ -127,6 +137,41 @@ namespace CollisionFeedback.Runtime
                 rb.linearVelocity = dir.normalized * projectileSpeed;
 
             if (projectileLifetime > 0f) Destroy(proj, projectileLifetime);
+        }
+
+        // Code-only sphere placeholder so the dodge/orb task is playable without authored art (pilot/dev).
+        // Orb = trigger sphere (a reach target); projectile = a no-gravity rigidbody that flies straight.
+        private GameObject MakePrimitive(Vector3 pos, float size, Color color, bool isOrb)
+        {
+            GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            go.name = isOrb ? "OrbPrimitive" : "ProjectilePrimitive";
+            go.transform.SetParent(_container, worldPositionStays: false);
+            go.transform.position = pos;
+            go.transform.localScale = Vector3.one * Mathf.Max(0.02f, size);
+
+            Collider col = go.GetComponent<Collider>();
+            if (isOrb)
+            {
+                if (col != null) col.isTrigger = true; // reach target, not a physics body
+            }
+            else
+            {
+                Rigidbody rb = go.AddComponent<Rigidbody>();
+                rb.useGravity = false;                 // constant-velocity flight toward the aim point
+                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            }
+
+            Renderer rend = go.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                rend.material.color = color; // material instance — fine for a placeholder
+                if (rend.material.HasProperty("_EmissionColor"))
+                {
+                    rend.material.EnableKeyword("_EMISSION");
+                    rend.material.SetColor("_EmissionColor", color * 0.6f);
+                }
+            }
+            return go;
         }
 
         private Vector3 AimPoint()
