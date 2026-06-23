@@ -52,10 +52,16 @@ namespace CollisionFeedback.Integration
         [Tooltip("Condition used for the (excluded) practice block.")]
         [SerializeField] private Condition practiceCondition = Condition.PB;
 
+        [Header("Questionnaires (Plan Task 5.5 / F1) — needs a QuestionnairePanel in the scene")]
+        [Tooltip("IPQ presence after each block.")]      [SerializeField] private bool surveyIpq = true;
+        [Tooltip("NASA-TLX workload after each block.")] [SerializeField] private bool surveyTlx = true;
+        [Tooltip("SSQ sickness baseline (pre) + after each block.")] [SerializeField] private bool surveySsq = true;
+
         [Header("Scene wiring (auto-found if left empty)")]
         [SerializeField] private SceneObstacles sceneObstacles;
         [SerializeField] private OpportunitySpawner spawner;
         [SerializeField] private VisualObstacleAlert visualAlert;
+        [SerializeField] private QuestionnairePanel questionnairePanel;
 
         // The 5 cue-able joints the oracle/conditions/detector track (Head excluded — no head tactor).
         private static readonly List<Joint> Limbs = new()
@@ -85,6 +91,7 @@ namespace CollisionFeedback.Integration
             if (sceneObstacles == null) sceneObstacles = FindFirstObjectByType<SceneObstacles>();
             if (spawner == null) spawner = FindFirstObjectByType<OpportunitySpawner>();
             if (visualAlert == null) visualAlert = FindFirstObjectByType<VisualObstacleAlert>();
+            if (questionnairePanel == null) questionnairePanel = FindFirstObjectByType<QuestionnairePanel>();
             if (trackerRig == null) trackerRig = FindFirstObjectByType<BodyTrackerRig>();
 
             _obstacles = sceneObstacles != null ? sceneObstacles.Collect() : new List<Obstacle>();
@@ -133,14 +140,18 @@ namespace CollisionFeedback.Integration
 
         private IEnumerator RunSession()
         {
+            // Baseline sickness before any VR exposure (session-level, block -1).
+            if (surveySsq) yield return AdministerOne(Questionnaire.Ssq(), -1, practiceCondition);
+
             // Practice (excluded from analysis).
             yield return RunBlock(new BlockAssignment(-1, practiceCondition, FirstLayout()), isPractice: true);
 
-            // The 6 counterbalanced condition blocks, with a break before each.
+            // The 6 counterbalanced condition blocks: break → block → post-block questionnaires.
             foreach (BlockAssignment a in _plan)
             {
                 yield return Break();
                 yield return RunBlock(a, isPractice: false);
+                yield return AdministerQuestionnaires(a.BlockIndex, a.Condition);
             }
 
             _phase = "DONE";
@@ -161,6 +172,33 @@ namespace CollisionFeedback.Integration
                     : "Rest — click \"Next\" when the participant is ready.";
                 yield return null;
             }
+        }
+
+        // Post-block battery (Plan Task 5.5 / F1): presence, workload, sickness as toggled.
+        private IEnumerator AdministerQuestionnaires(int block, Condition cond)
+        {
+            if (surveyIpq) yield return AdministerOne(Questionnaire.Ipq(), block, cond);
+            if (surveyTlx) yield return AdministerOne(Questionnaire.NasaTlx(), block, cond);
+            if (surveySsq) yield return AdministerOne(Questionnaire.Ssq(), block, cond);
+        }
+
+        // Show one instrument on the QuestionnairePanel, wait for submit, record the scored measures.
+        private IEnumerator AdministerOne(Questionnaire q, int block, Condition cond)
+        {
+            if (questionnairePanel == null)
+            {
+                Debug.LogWarning($"[SessionRunner] No QuestionnairePanel in scene — skipping {q.Instrument} " +
+                                 $"(block {block}). Add one to collect presence/workload/sickness.");
+                yield break;
+            }
+            _phase = $"SURVEY {q.Instrument}";
+            _status = $"{q.Instrument}: participant answering on the operator screen…";
+            bool done = false;
+            IReadOnlyDictionary<string, float> measures = null;
+            questionnairePanel.Administer(q, m => { measures = m; done = true; });
+            yield return new WaitUntil(() => done);
+            RecordQuestionnaire(block, cond, q.Instrument, measures);
+            Debug.Log($"[SessionRunner] recorded {q.Instrument} (block {block}, {cond}).");
         }
 
         private IEnumerator RunBlock(BlockAssignment a, bool isPractice)
