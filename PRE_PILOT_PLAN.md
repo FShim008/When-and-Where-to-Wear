@@ -13,6 +13,10 @@
 
 ---
 
+## ✅ Progress (2026-06-22) — the entire 🤖 column is done
+Implemented + committed: **E1** per-site cue intensity (`0de28b3`) · **F1** questionnaire UI (`6f9e4fe`) · **D5** e-stop (`95a7570`) · **D4** protocol guard (`8d2f197`). Verified already-built: **D3** VisualObstacleAlert · **D1** OpportunitySpawner. Drafted: **A2** safety protocol (`316eee8`) · **A3** power script (`394da98`) · **A4** pre-registration (`a7a56ac`). All pushed.
+Remaining = the 🧑 / 🤝 rows only: VR/Editor bring-up (B), live tests (C2/C3), prefab authoring (D1–D3 art), **E2** perceptual matching (suit), **F2** official item wording, lab logistics (G), and submitting IRB/pre-reg. **Next human step:** `git pull` on the VR PC, open Unity (generates `.meta` for the new scripts — commit those), run EditMode tests.
+
 ## The finish line — what the trackers actually gate (small)
 When the 3 trackers + dongle arrive: **(1)** pair in SteamVR/VIVE Hub + assign roles; **(2)** drop the 3 tracker Transforms into the `BodyTrackerRig` chest/L-foot/R-foot slots (head + hands already wired); **(3)** measure tracker→cue latency (6.1) + set `LimbContactRadius` from a touch test (7.3); **(4)** pilot. Everything below gets you to that 1-day finish.
 

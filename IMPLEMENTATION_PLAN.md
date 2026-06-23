@@ -111,9 +111,10 @@ ONE VR PC  (Unity project "When-and-Where-to-Wear" / CollisionFeedback)
 
 ## Phase 3 — Close the cue-salience confound
 
-### Task 3.1 — Equalize perceived cue intensity across body sites `[ENG][PI]` ☐
+### Task 3.1 — Equalize perceived cue intensity across body sites `[ENG][PI]` ◐
 - **Problem.** Generic (chest) cue = **40 X40 motors**; localized (hand/foot) cue = **3 Tactosy motors**, all at flat intensity 1.0. The **Localization factor is confounded with stimulus energy** — a reviewer reads your localization effect as "the chest just buzzes harder."
 - **Solution.** (1) Per-participant **perceptual match** (method-of-adjustment or 2-up/1-down staircase, ~2–3 min) finding, per site, the device intensity yielding **equal perceived magnitude** vs a reference. (2) Store per-site multipliers; apply them via a per-`HapticSite` intensity in `HapticDeviceBinding` (the `Intensity` field exists; replace the flat 1.0). (3) Acknowledge spatial *extent* can't be equated — equate perceived intensity, report extent as inherent.
+- **◐ Mechanism DONE (E1, commit `0de28b3`):** per-`HapticSite` gains via `Core/CueIntensityTable` (+tests) + `Runtime/CueIntensityFile`, applied in `BHapticsSink`/`HapticDeviceBinding`; `SessionRunner`/`LiveSessionController` load an optional `cueIntensityFile` (empty = uniform). **Remaining (E2, needs the suit):** the perceptual-matching pass that writes the file.
 - **Done when.** A `CueIntensityCalibration` step writes per-site intensities; the live cue uses them; a methods paragraph documents it.
 
 ---
@@ -129,11 +130,13 @@ ONE VR PC  (Unity project "When-and-Where-to-Wear" / CollisionFeedback)
 ### Task 4.3 — Visual condition renderer `[ENG]` ☐
 - Add a `VisualObstacleAlert` over the obstacles. **Done when** Visual shows the proximity-graded highlight; haptic conditions don't.
 
-### Task 4.4 — Protocol parameters in scene `[ENG]` ☐
+### Task 4.4 — Protocol parameters in scene `[ENG]` ☑
 - Set `blockSeconds = 180` (or the doc value); feed `condition/layoutId/blockIndex` from `SessionRunner`, not by hand. **Done when** length + IDs come from the plan.
+- **☑ Done (D4, commit `8d2f197`):** `blockSeconds=180` matches Appendix A; `SessionRunner.ValidateProtocol()` warns if it can't capture the last opportunity (158 s) and logs reconciled provenance; IDs come from `SessionPlan`.
 
-### Task 4.5 — Emergency-stop & operator HUD `[ENG][IRB]` ☐
+### Task 4.5 — Emergency-stop & operator HUD `[ENG][IRB]` ☑
 - A controller button + key that immediately ends the block, unblanks, and logs the abort. (`SessionRunner` already has a "Stop block" button + a live HUD — extend to a controller binding and a hard unblank.) **Done when** the e-stop halts a block within one frame and writes an `aborted` marker.
+- **☑ Done (D5, commit `95a7570`):** `Runtime/OperatorEStop` (red button + `Esc` hotkey, latching STOP veil, `estop_log.csv`, `onEmergencyStop` UnityEvent for passthrough/unblank); `SessionRunner` aborts the block, halts the session, and `HapticDeviceBinding.StopAll()` silences tactors. **Remaining (you):** bind to a controller button + wire passthrough; rehearse.
 
 ---
 
@@ -141,9 +144,10 @@ ONE VR PC  (Unity project "When-and-Where-to-Wear" / CollisionFeedback)
 
 - ☑ **Task 5.1 Counterbalancing**, ☑ **5.2 Automated runner**, ☑ **5.3 Practice**, ☑ **5.4 Breaks**, ☑ **5.6 Keypoint logging** — all built in `SessionRunner` (see Phase −1).
 
-### Task 5.5 — Questionnaires (presence is in the title) `[ENG][STAT]` ◐
+### Task 5.5 — Questionnaires (presence is in the title) `[ENG][STAT]` ☑
 - **Problem.** Presence (IPQ), NASA-TLX, SSQ are a stated co-outcome but only the *data pipeline* exists (formatter + writer + `RecordQuestionnaire` + `analysis.R` schema). The **administration UI + items** are not built.
 - **Solution.** Build the in-VR/desktop panels for **IPQ + NASA-TLX after each block** and **SSQ pre/post session**; on submit call `SessionRunner.RecordQuestionnaire(block, condition, "IPQ"/"NASA_TLX"/"SSQ", scores)` (writes `questionnaire.csv`, already consumed by `analysis.R`).
+- **☑ Done (F1, commit `6f9e4fe`):** `Core/Questionnaire` (IPQ/NASA-TLX/SSQ items + tested scoring → exact `analysis.R` measures) + `Runtime/QuestionnairePanel` (IMGUI); `SessionRunner` administers a baseline SSQ then IPQ+TLX+SSQ after each block (toggle per instrument). **Remaining (you, F2):** swap in official item wording/licensing.
 - **Done when.** Presence/workload/sickness are collected every block and flow into the analysis.
 
 ---
