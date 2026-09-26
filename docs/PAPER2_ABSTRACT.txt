@@ -1,0 +1,82 @@
+ABSTRACT — Paper 2 (ISMAR)
+"Stopping a Reach in VR: Measuring the Warning Time Required for
+Vibrotactile Collision Avoidance"
+
+Drafted 2026-09-23. NO DATA EXISTS YET. Every [bracket] is a placeholder that must
+be filled from results. Do not submit with a bracket in it.
+
+
+================================================================================
+ABSTRACT  (188 words)
+================================================================================
+
+Virtual reality systems warn users about obstacles they cannot see, and a large
+body of work has studied what those warnings should be: their modality, pattern,
+placement, and visual form. How early a warning must arrive has not been measured.
+This matters because a warning delivered too late cannot work, however well it is
+designed. We report the first psychometric estimate of that deadline. [N]
+participants performed [X] reaching trials in VR toward targets placed beyond
+invisible hazard volumes. On one quarter of trials a vibrotactile cue on the
+reaching arm instructed them to stop, delivered at one of five lead times spanning
+[60-400] ms before predicted contact. Because delivery is imprecise by
+construction, we fit the response curve against the lead time each trial actually
+achieved rather than the one requested. Participants stopped [X]% of reaches with
+no warning and [X]% with the longest. The fitted curve gives LT80, the warning
+time at which four reaches in five are arrested, of [X] ms (95% CI [a, b]). Faster
+reaches required [X] ms [more/less] warning, and the requirement varied across
+participants by [X] ms. We recommend the interval's upper bound as a design floor.
+
+
+================================================================================
+WHAT FILLS EACH BRACKET
+================================================================================
+
+  [N]                  analysable participants (planned 24-30, frozen after pilot)
+  [X] reaching trials  360 measured, unless the pilot changes the count
+  [60-400] ms          ACHIEVED lead range from the pilot, not the assigned one
+  stopped [X]% no warning   1 - (go-trial crossing rate). Expect it to be LOW -
+                            most unwarned reaches should cross
+  stopped [X]% longest      the curve's upper asymptote
+  LT80 [X] ms (95% CI)      the headline. Report the BOOTSTRAP interval (§10)
+  faster reaches [X] ms     the tempo effect, signed. If the manipulation check
+                            failed, this sentence is cut, not softened
+  varied by [X] ms          between-participant threshold SD (§10). Remember the
+                            fitted value runs ~18% low - partial pooling
+
+
+================================================================================
+NOTES ON THE WRITING
+================================================================================
+
+WHAT IT CLAIMS, AND WHAT IT DOES NOT
+  "the first psychometric estimate of that deadline" is the strongest defensible
+  claim, and it rests on the search record in PAPER2_RELATED_WORK.md Part V.
+  Re-run that search before submission; if something turns up, soften to "a
+  psychometric estimate".
+
+  The abstract does NOT say this is the optimal warning time. It says LT80 and
+  recommends a floor. Keep that distinction - it is the one a reviewer will test.
+
+THE SENTENCE THAT CARRIES THE METHOD
+  "we fit the response curve against the lead time each trial actually achieved
+  rather than the one requested" - this pre-empts the obvious attack (you cannot
+  deliver milliseconds precisely) by showing it was designed around, not missed.
+
+THE ZERO-WARNING NUMBER IS LOAD-BEARING
+  Reporting the no-warning stop rate in the abstract shows the curve has a
+  measured floor. Without it a reader cannot tell whether the task produced
+  genuine near-approaches. If that number comes out HIGH, the geometry failed and
+  the paper needs rewriting, not just a different abstract sentence.
+
+WHAT IS DELIBERATELY ABSENT
+  - No mention of Paper 1. The papers stand alone (§2).
+  - No claim about what users would do unprompted. Participants are instructed to
+    stop, so this is a capacity bound. That belongs in the discussion, not here.
+  - No "we show that more warning helps". True, uninteresting, and not the point.
+
+IF THE INTERVAL COMES OUT TOO WIDE
+  §16.2 allows "too wide to specify an operating point" as an honest result.
+  Then the last two sentences become: "The interval on LT80 spans [a, b] ms, too
+  wide to specify a single operating point. We report the bound and the sources of
+  variance, and argue that warning timing requires per-application calibration."
+  That is publishable. Do not narrow it by extrapolating past the sampled range.

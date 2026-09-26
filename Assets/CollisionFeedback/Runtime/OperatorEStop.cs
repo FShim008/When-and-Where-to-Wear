@@ -14,6 +14,17 @@ namespace CollisionFeedback.Runtime
     /// (wall-clock UTC + reason + context) to <c>estop_log.csv</c>. Latched until <see cref="ResetStop"/>.
     ///
     /// Drop one on a GameObject in the study scene; <c>SessionRunner</c> auto-finds and subscribes to it.
+    ///
+    /// FIXED 2026-09-25 — THE LOG WAS A PARTICIPANT-ROOT APPEND FILE.
+    /// It defaulted to <c>persistentDataPath/estop_log.csv</c>: one file shared by every participant
+    /// who had ever used the machine, appended forever, with no participant column. PAPER1_STUDY_DESIGN
+    /// §12 names "participant-root append files" an explicit RELEASE BLOCKER, and the reason is visible
+    /// here — adverse events from different people interleaved in one file, and a session directory could
+    /// not be archived as self-contained because its safety record lived somewhere else.
+    ///
+    /// The session driver now calls <see cref="SetLogDirectory"/>. If it never does, the file still lands
+    /// in the legacy root location and a warning says so on the first write, because silently dropping
+    /// the record would be far worse than writing it to the wrong place.
     /// </summary>
     public sealed class OperatorEStop : MonoBehaviour
     {
@@ -30,10 +41,21 @@ namespace CollisionFeedback.Runtime
 
         private Func<string> _context = () => "";
         private string _logPath;
+        private bool _warnedAboutRootPath;
         private GUIStyle _banner, _btn;
 
         /// <summary>Supply a provider so the abort log captures block/condition/time at the moment of stop.</summary>
         public void SetContextProvider(Func<string> ctx) => _context = ctx ?? (() => "");
+
+        /// <summary>
+        /// Point the abort log at this session's own directory [§12]. Call before the first block.
+        /// Safe to call after a stop has already been logged — later records simply go to the new path.
+        /// </summary>
+        public void SetLogDirectory(string sessionDir)
+        {
+            if (string.IsNullOrEmpty(sessionDir)) return;
+            _logPath = Path.Combine(sessionDir, "estop_log.csv");
+        }
 
         /// <summary>Trigger the stop programmatically (e.g. from a watchdog). Idempotent while latched.</summary>
         public void Trigger(string reason)
@@ -107,7 +129,22 @@ namespace CollisionFeedback.Runtime
             try
             {
                 if (string.IsNullOrEmpty(_logPath))
+                {
+                    // No session directory was supplied. Still write it — losing a safety record is worse
+                    // than filing it badly — but say so, once, so the misfiling is not silent.
                     _logPath = Path.Combine(Application.persistentDataPath, "estop_log.csv");
+                    if (!_warnedAboutRootPath)
+                    {
+                        _warnedAboutRootPath = true;
+                        Debug.LogWarning(
+                            "[E-STOP] No session directory set, so the abort record is going to the shared " +
+                            $"root file {_logPath}. §12 treats participant-root append files as a release " +
+                            "blocker. Call SetLogDirectory() from the session driver.");
+                    }
+                }
+
+                string dir = Path.GetDirectoryName(_logPath);
+                if (!string.IsNullOrEmpty(dir)) Directory.CreateDirectory(dir);
                 bool header = !File.Exists(_logPath);
                 using var w = new StreamWriter(_logPath, append: true);
                 if (header) w.WriteLine("utc,reason,context");

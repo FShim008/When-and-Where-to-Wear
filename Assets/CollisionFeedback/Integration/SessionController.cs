@@ -10,7 +10,7 @@ namespace CollisionFeedback.Integration
     /// Runs a full block END-TO-END with LIVE bHaptics cues. Plays the synthetic demo block in REAL TIME
     /// (frames paced by their timestamps), so cues fire exactly as the synthetic limb approaches each
     /// obstacle; routes the study's fixed 3-pulse cue to the real devices via
-    /// <see cref="HapticDeviceBinding.CreateThreePulseSink"/>; and writes the summary + per-event CSVs.
+    /// <see cref="HapticDeviceBinding.CreateStudySink"/>; and writes the summary + per-event CSVs.
     ///
     /// The real study swaps <see cref="SyntheticBlock"/> for a TrackerKeypointSource (drain TryGetFrame each
     /// frame instead of timestamp-pacing) — the BlockRunner / condition / cue logic is unchanged.
@@ -41,7 +41,7 @@ namespace CollisionFeedback.Integration
             };
 
             IFeedbackSink deviceSink = useLiveHaptics
-                ? HapticDeviceBinding.CreateThreePulseSink(this, hapticIntensity)
+                ? HapticDeviceBinding.CreateStudySink(this, hapticIntensity)
                 : null;
 
             _block = new BlockRunner(_ctx, demo.Obstacles, demo.Limbs, demo.Schedule,

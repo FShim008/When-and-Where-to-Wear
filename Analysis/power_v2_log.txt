@@ -1,0 +1,67 @@
+Paper 1 power - opportunity-level binomial model. nsim = 120 per cell.
+Assumed: policy -0.70, mapping -0.35, interaction +0.30 (log-odds); participant SD 0.55.
+
+  N=36 opps=12  H1  99%  H2  68%  H3  30%  H4'  79%
+  N=36 opps=16  H1 100%  H2  74%  H3  30%  H4'  88%
+  N=36 opps=18  H1 100%  H2  73%  H3  48%  H4'  95%
+  N=36 opps=20  H1 100%  H2  82%  H3  42%  H4'  93%
+  N=36 opps=24  H1 100%  H2  86%  H3  48%  H4'  99%
+  N=48 opps=12  H1  99%  H2  74%  H3  37%  H4'  88%
+  N=48 opps=16  H1 100%  H2  89%  H3  48%  H4'  96%
+  N=48 opps=18  H1 100%  H2  93%  H3  57%  H4'  96%
+  N=48 opps=20  H1 100%  H2  93%  H3  57%  H4'  97%
+  N=48 opps=24  H1 100%  H2  98%  H3  67%  H4' 100%
+  N=60 opps=12  H1 100%  H2  84%  H3  40%  H4'  94%
+  N=60 opps=16  H1 100%  H2  94%  H3  56%  H4'  98%
+  N=60 opps=18  H1 100%  H2  94%  H3  63%  H4' 100%
+  N=60 opps=20  H1 100%  H2  97%  H3  62%  H4' 100%
+  N=60 opps=24  H1 100%  H2  98%  H3  76%  H4' 100%
+
+  N opportunities power_H1 power_H2 power_H3 power_H4prime converged_pct
+ 36            12    99.17    67.50    30.00         79.17           100
+ 36            16   100.00    74.17    30.00         88.33           100
+ 36            18   100.00    73.33    47.50         95.00           100
+ 36            20   100.00    81.67    42.50         93.33           100
+ 36            24   100.00    85.83    47.50         99.17           100
+ 48            12    99.17    74.17    36.67         87.50           100
+ 48            16   100.00    89.17    48.33         95.83           100
+ 48            18   100.00    93.33    56.67         95.83           100
+ 48            20   100.00    93.33    56.67         96.67           100
+ 48            24   100.00    97.50    66.67        100.00           100
+ 60            12   100.00    84.17    40.00         94.17           100
+ 60            16   100.00    94.17    55.83         98.33           100
+ 60            18   100.00    94.17    63.33        100.00           100
+ 60            20   100.00    96.67    62.50        100.00           100
+ 60            24   100.00    98.33    75.83        100.00           100
+-> H1 reaches 80% at N = 36 with 12 opportunities/block
+-> H2 reaches 80% at N = 36 with 20 opportunities/block
+-> H3 does NOT reach 80% anywhere in the grid
+
+Minimum detectable interaction (nsim = 30 per cell, 24 opportunities/block)
+
+  interaction +0.20 (OR 1.22):  N=36  37%  N=48  13%  N=60  27%  N=80  57%
+  interaction +0.30 (OR 1.35):  N=36  43%  N=48  57%  N=60  83%  N=80  83%
+  interaction +0.45 (OR 1.57):  N=36  93%  N=48  93%  N=60 100%  N=80  97%
+  interaction +0.60 (OR 1.82):  N=36 100%  N=48 100%  N=60 100%  N=80 100%
+  interaction +0.80 (OR 2.23):  N=36 100%  N=48 100%  N=60 100%  N=80 100%
+ interaction_logodds odds_ratio    N36    N48    N60    N80
+                0.20      1.221  36.67  13.33  26.67  56.67
+                0.30      1.350  43.33  56.67  83.33  83.33
+                0.45      1.568  93.33  93.33 100.00  96.67
+                0.60      1.822 100.00 100.00 100.00 100.00
+                0.80      2.226 100.00 100.00 100.00 100.00
+
+-> Read this as: the smallest interaction your chosen N can resolve at 80%.
+   State THAT in the preregistration as what the study can and cannot rule out.
+
+--------------------------------------------------------------------------
+BEFORE USING THESE NUMBERS:
+ 1. Every value in section 1 is a guess. Re-run from pilot estimates.
+ 2. H3 is the binding constraint, not H1. Do not size the study on the main effect.
+ 3. Because §3 gates H1 and H2 on H3, an underpowered interaction weakens ALL THREE
+    hypotheses, not just the third one.
+ 4. If N cannot be raised far enough, preregister H3 as underpowered and exploratory
+    and say so in the paper. That is honest and publishable; discovering it afterwards
+    is neither.
+ 5. Random slopes are simulated. Dropping them would raise every figure here and be wrong.
+--------------------------------------------------------------------------

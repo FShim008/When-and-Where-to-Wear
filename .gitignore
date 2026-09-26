@@ -52,3 +52,10 @@ sysinfo.txt
 # ---- Project-specific artifacts ----
 UpgradeLog.htm
 TestResults*.xml
+
+# ---- Reference PDFs: NEVER commit to a public repo ----
+# Publisher copies (IEEE, Taylor & Francis) may not be redistributed, and this remote is public.
+# Keep them locally; cite by DOI in the docs instead.
+#   Valkov & Linsen 2019   10.1109/vr.2019.8798036
+#   Meng et al. 2014       10.1080/00140139.2014.976278
+*.pdf

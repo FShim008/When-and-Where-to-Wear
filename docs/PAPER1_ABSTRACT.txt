@@ -1,0 +1,117 @@
+ABSTRACT — Paper 1 (ISMAR)
+"What Makes a Collision Warning Work? Separating Trigger Timing, Body Site,
+ and Cue Form in VR"
+
+Drafted 2026-09-25. NO DATA EXISTS YET. Every [bracket] is a placeholder to be
+filled from results. Do not submit with a bracket in it.
+
+
+================================================================================
+ABSTRACT  (197 words)
+================================================================================
+
+Head-mounted displays hide the room, so systems warn users when a tracked body
+part nears a real object. When that warning should fire has one published test,
+and its result is uncomfortable: a cue triggered by forecast time-to-contact
+produced MORE collisions than one triggered at a fixed distance. That study
+varied two things at once. Its warning also grew and faded with the user's
+speed, so slowing down turned the warning down, and participants crept forward
+managing the signal instead of stopping. Trigger and display cannot be told
+apart in that design. We separate them. [N] participants each completed six
+blocks of [18] scripted collision opportunities in room-scale VR, among real
+obstacles rendered invisible. Crossing trigger policy (fires on proximity
+versus on forecast time-to-contact) with cue mapping (the limb at risk versus
+an undifferentiated torso site) isolates timing while the cue itself is held
+identical; a sixth condition holds the forecast trigger and varies only whether
+the cue is a single pulse or a continuously modulated one. Forecast triggering
+[changed] violation odds by [OR, CI]; continuous modulation by [OR, CI];
+limb-localized cueing by [OR, CI]. [Closing sentence — see below.]
+
+
+================================================================================
+WHAT FILLS EACH BRACKET
+================================================================================
+
+  [N]              analysable participants. Planned 48, recruit 54, analyse the
+                   first 48 complete balanced sets (48 divides by 6, the
+                   Williams square width; 54 does not)
+  [18]             opportunities per block — CONFIRM against the final schedule.
+                   12 are authored today; §4 requires 18
+  forecast [OR]    H1. Odds ratio with 95% CI, Holm-corrected p
+  continuous [OR]  H4'. PB vs PBC — the contrast that answers the prior result
+  localized [OR]   H2
+  closing sentence one of the three below, chosen by the H4' result
+
+
+================================================================================
+THE CLOSING SENTENCE — WRITE IT FROM H4', NOT FROM H1
+================================================================================
+
+The paper's contribution is a RESOLUTION, so the last line must say what was
+resolved. Three outcomes, three sentences, all publishable:
+
+  H4' shows continuous modulation is WORSE:
+    "The earlier result is attributable to the display rather than the trigger:
+     a warning the user can turn down by slowing is obeyed less, whenever it
+     fires."
+    -> the strongest outcome. It explains a published null.
+
+  H4' null, H1 shows forecast triggering HELPS:
+    "Forecast triggering helps when the cue cannot be modulated, so the earlier
+     result does not generalise to discrete warnings."
+    -> still resolves the discrepancy, by scope rather than by mechanism.
+
+  H4' null, H1 null:
+    "Neither trigger policy nor cue form accounted for the difference, so the
+     earlier result rests on the task or the effector rather than the warning."
+    -> honest, and narrows the field for whoever looks next.
+
+NEVER write a closing sentence that presumes which of these happened.
+
+
+================================================================================
+NOTES ON THE WRITING
+================================================================================
+
+WHAT IT CLAIMS, AND WHAT IT DOES NOT
+  It does NOT claim to be the first comparison of trigger policies — that claim
+  is false and was caught late (Valkov & Linsen, IEEE VR 2019). It claims to
+  SEPARATE two explanations that prior work confounded. That is a stronger
+  position: both outcomes are informative.
+
+  It does NOT claim an optimal warning time. D = 0.30 m and T = 1.0 s are
+  representative operating points of two policy classes, and the paper says so
+  (docs/PAPER1_PARAMETER_JUSTIFICATION.md §3).
+
+WHY THE PRIOR RESULT LEADS
+  Opening with someone else's inconvenient finding is unusual and it is the
+  right call here. It gives the paper stakes a reviewer can see in two
+  sentences, and it pre-empts the "this was already done" objection by making
+  that work the reason the paper exists.
+
+  Do not name the authors in the abstract — say "one published test". Naming
+  belongs in Related Work, where the treatment can be fair. Also, ISMAR is
+  double-blind and this is not our own prior work, so naming is permitted; the
+  reason to avoid it is rhetorical, not procedural.
+
+THE SENTENCE THAT CARRIES THE METHOD
+  "isolates timing while the cue itself is held identical" — this is the whole
+  contribution in eleven words. If a reader takes one clause away, it should be
+  this one.
+
+WHAT IS DELIBERATELY ABSENT
+  - No mention of Paper 2. The papers stand alone.
+  - No presence/workload/sickness numbers. They are secondary and equivalence-
+    framed; putting them here would imply they were tested for difference.
+  - No H3. It is exploratory at 57% power and does not belong in an abstract.
+  - No alert-burden number, despite it mattering: it is a cost measure without
+    a hypothesis, and the abstract has no room to frame it honestly.
+
+LENGTH
+  197 words. ISMAR abstracts run 150-250. Paper 2's is 188. If it must shrink,
+  cut the second and third sentences of the prior-result setup to one.
+
+BEFORE SUBMISSION
+  - Confirm [18] matches the schedule actually run
+  - Re-check the "one published test" phrasing survives the final novelty sweep
+  - Report the Holm-corrected p-values, not the raw ones

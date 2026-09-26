@@ -1,0 +1,31 @@
+====================================================================================================
+ACM DL / IEEE XPLORE PASS via OpenAlex publisher filter - run 2026-09-14
+====================================================================================================
+  Association for Computing Machinery                  P4310319798   catalogue works = 169245
+  Institute of Electrical and Electronics Engineers    P4310319808   catalogue works = 1507231
+
+query                                                   ACM       IEEE
+----------------------------------------------------------------------------------------------------
+Q3  "time to contact" + warning + hand                    0          0
+Q5  "psychometric function" + warning                     0          0
+Q7  "collision warning" + "reaction time" + arm           0          0
+N1  warning + "lead time" + (collision OR obstacle)          0          3
+N2  haptic/vibrotactile warning + obstacle + timing          0          1
+N3  VR collision warning user study                       0          1
+N4  warning timing threshold avoidance                    0          0
+N5  reach arrest cue threshold                            0          0
+
+====================================================================================================
+HITS SCREENED
+====================================================================================================
+
+### N1  warning + "lead time" + (collision OR obstacle)  [IEEE]  (count 3, showing 3)
+    2022 | A Cognitive Computational Model of Driver Warning Response Performance in Connected Vehi | IEEE Transactions on Intelligent Tra
+    2010 | Crash Probability and Error Rates for Head-On Collisions Based on Stochastic Analyses | IEEE Transactions on Intelligent Tra
+    2019 | The Impact of Cognitive Distraction on Driver Perception Response Time Under Different L | IEEE Access
+
+### N2  haptic/vibrotactile warning + obstacle + timing  [IEEE]  (count 1, showing 1)
+    2009 | To Go or Not to Go: Stimulus-Response Compatibility for Tactile and Auditory Pedestrian  | IEEE Transactions on Haptics
+
+### N3  VR collision warning user study  [IEEE]  (count 1, showing 1)
+    2023 | The Long and Winding Road: 25 Years of the National Advanced Driving Simulator | IEEE Computer Graphics and Applicati

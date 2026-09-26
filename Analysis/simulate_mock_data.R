@@ -8,11 +8,11 @@
 
 set.seed(42)
 N          <- 48
-conditions <- c("None","RG","RB","PG","PB","Visual")
+conditions <- c("None","RG","RB","PG","PB","PBC")   # PBC replaced Visual 2026-09-23
 layouts    <- c("L1","L2","L3","L4","L5","L6")
 
 # illustrative collision-per-opportunity baselines by condition
-base <- c(None = 0.45, RG = 0.30, RB = 0.22, PG = 0.20, PB = 0.12, Visual = 0.18)
+base <- c(None = 0.45, RG = 0.30, RB = 0.22, PG = 0.20, PB = 0.12, PBC = 0.18)
 
 rows <- vector("list", N * length(conditions))
 k <- 1

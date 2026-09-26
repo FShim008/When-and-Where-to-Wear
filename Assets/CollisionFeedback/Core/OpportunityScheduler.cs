@@ -11,10 +11,12 @@ namespace CollisionFeedback.Core
     }
 
     /// <summary>
-    /// A scripted, behavior-INDEPENDENT collision-inducing event. There are a fixed number per block
-    /// (~12), each nudging a specific limb toward a specific obstacle. This is the denominator of the
+    /// A scripted, behavior-INDEPENDENT collision-inducing event. There are a fixed number per block,
+    /// each nudging a specific limb toward a specific obstacle. This is the denominator of the
     /// primary DV (collisions-per-opportunity) and the fix for the opportunity-circularity threat:
     /// opportunities come from the script and the clock, never from the participant's own movements.
+    ///
+    /// The per-block count is <see cref="OpportunitySchedules.TargetOpportunitiesPerBlock"/>.
     /// </summary>
     public readonly struct Opportunity
     {
@@ -119,6 +121,57 @@ namespace CollisionFeedback.Core
     /// (e.g. IEEEVR2027_Layout1_Storyboard.md); this is for the demo and for scheduling tests.</summary>
     public static class OpportunitySchedules
     {
+        /// <summary>
+        /// Opportunities per block the PREREGISTERED DESIGN requires [PAPER1_STUDY_DESIGN §4, set 2026-09-23].
+        ///
+        /// DECIDED 2026-09-25: **N = 36 analysable x 24 opportunities**.
+        ///
+        /// Holm-corrected, nsim = 200: H1 100%, H2 89%, H4' 97%, and all three confirmatory hypotheses
+        /// land together in 88% of studies. Sizing is on H2, the weakest confirmatory test.
+        ///
+        /// 36 rather than any round number because PAPER1_STUDY_DESIGN section 7 requires the COMPLETE
+        /// 6x6 crossing of condition-order row and layout-order row, so a full allocation is a multiple
+        /// of 36. An earlier target of 48 was withdrawn: it divides by 6 (balancing condition order
+        /// alone) but not by 36, leaving 12 of the 36 combinations doubled.
+        ///
+        /// 24 rather than 18 because at a fixed 36 participants, opportunities are the only remaining
+        /// lever, and 18 puts "all three land" at 78% - roughly one study in five coming back with a
+        /// hole in the confirmatory set.
+        ///
+        /// ⚠ THE AUTHORED SCHEDULES DO NOT YET MEET THIS. <see cref="Layout1"/> defines 12 events on a 180 s
+        /// block; TWELVE more must be authored (ONCE — LayoutVariants derives L2-L6 from L1). A candidate
+        /// 24-event schedule passes the geometry audit 24/24 with balance O1x4 O2x8 O3x8 O4x4 and a last
+        /// close at 313 s, so the BLOCK MUST GROW to about 320 s. This is not a constant
+        /// change — see <see cref="AssertMeetsTarget"/> and §4 of the design doc for what it involves
+        /// (block grows to ~240 s, obstacle balance, and a re-run of the geometry audit; O2 was re-sited on
+        /// 2026-09-14 and the current 12 pass 12/12, but O2 remains the tightest hazard).
+        ///
+        /// The mismatch is deliberately LOUD rather than silent: running 12 while the preregistration says
+        /// 18 would put the wrong denominator in the paper and nothing downstream would catch it — the
+        /// analysis counts the rows it is given (CODE_GAP #1), so a short schedule looks like clean data.
+        /// </summary>
+        public const int TargetOpportunitiesPerBlock = 24;
+
+        /// <summary>
+        /// Throws unless <paramref name="schedule"/> supplies <see cref="TargetOpportunitiesPerBlock"/>.
+        /// Call this from session setup before any confirmatory block runs. Pilot and bench tools may skip
+        /// it deliberately — but then they must not write data into the confirmatory dataset.
+        /// </summary>
+        public static void AssertMeetsTarget(IReadOnlyList<Opportunity> schedule, string layoutId)
+        {
+            int n = schedule?.Count ?? 0;
+            if (n == TargetOpportunitiesPerBlock) return;
+            throw new System.InvalidOperationException(
+                $"Layout '{layoutId}' supplies {n} opportunities; the preregistered design requires " +
+                $"{TargetOpportunitiesPerBlock} [PAPER1_STUDY_DESIGN §4]. Authoring the missing events is " +
+                "not a constant change: the block grows from 180 s to about 320 s, obstacle balance must be " +
+                "preserved (O2x8 O3x8 O1x4 O4x4), and every new event needs at least " +
+                "OracleParams.MinApproachDistanceForValidTiming of clear approach. The 2026-09-14 audit " +
+                "passes 12/12 after O2 was re-sited, but O2 is the tightest hazard (0.62 m approach, below " +
+                "the 0.40 m floor at 22% of standing positions), so prefer O3/O1 for added events. Re-run " +
+                "the audit over all 18 before collecting.");
+        }
+
         /// <summary>Evenly spaces <paramref name="count"/> opportunities across a block, round-robining
         /// the supplied (limb, obstacle) targets.</summary>
         public static List<Opportunity> EvenlySpaced(int count, double blockSeconds, double windowSeconds,
@@ -138,7 +191,7 @@ namespace CollisionFeedback.Core
         /// <summary>
         /// The concrete Layout-L1 schedule from IEEEVR2027_Layout1_Storyboard.md: the 12 scripted
         /// collision-opportunity events (E1..E12) on a 180 s block, balanced by obstacle (O2×4 · O3×4 ·
-        /// O1×2 · boundary×2) and by limb/side (R-arm×4, L-arm×4, R-foot, L-foot, chest×2). Each onset is
+        /// O1×2 · wall O4×2) and by limb/side (R-arm×4, L-arm×4, R-foot, L-foot, chest×2). Each onset is
         /// the storyboard time; <paramref name="windowSeconds"/> is how long the opportunity stays open for
         /// outcome attribution (pilot-tunable; default sits well inside the ~13 s inter-event gap). The other
         /// 5 layouts mirror this same 12-event structure with rotated geometry.
@@ -155,13 +208,13 @@ namespace CollisionFeedback.Core
                 ("E2",   22.0, Joint.LeftHand,  "O3"),       // lean/step left, L upper arm toward the panel
                 ("E3",   35.0, Joint.RightFoot, "O1"),       // crouch/reach down, R knee/shin at the low block
                 ("E4",   48.0, Joint.LeftHand,  "O3"),       // reach left around the panel edge
-                ("E5",   61.0, Joint.Chest,     "BOUNDARY"), // step to the front edge (torso / lead hand)
+                ("E5",   61.0, Joint.Chest,     "O4a"),      // step to the front WALL VOLUME (torso / lead hand) [v2: was BOUNDARY — a registered virtual wall replaces the chaperone edge so the system grid never appears]
                 ("E6",   74.0, Joint.RightHand, "O2"),       // duck/step right, R hip/forearm toward the pillar
                 ("E7",   87.0, Joint.RightHand, "O2"),       // wide right-arm sweep, R upper arm
                 ("E8",  100.0, Joint.LeftFoot,  "O1"),       // step laterally clear of the low block (L shin)
                 ("E9",  113.0, Joint.LeftHand,  "O3"),       // reach up-and-over the panel (L upper arm)
                 ("E10", 126.0, Joint.LeftHand,  "O3"),       // big left lunge (L torso/upper arm)
-                ("E11", 139.0, Joint.Chest,     "BOUNDARY"), // backward/diagonal step toward the corner
+                ("E11", 139.0, Joint.Chest,     "O4b"),      // backward/diagonal step toward the LEFT WALL VOLUME [v2: was BOUNDARY]
                 ("E12", 152.0, Joint.RightHand, "O2"),       // compound dodge+reach: cue the lowest-TTC limb (R forearm)
             };
 

@@ -85,7 +85,18 @@ namespace CollisionFeedback.Integration
             IFeedbackSink deviceSink = useLiveHaptics ? CreateHapticSink() : null;
 
             var oracleParams = new OracleParams { PipelineLatencySeconds = pipelineLatencySeconds };
-            _block = new BlockRunner(_ctx, obstacles, Limbs, OpportunitySchedules.Layout1(),
+
+            // This driver runs ONE block for bring-up and pilot work, not a confirmatory session, so the
+            // preregistered opportunity count is a WARNING here rather than a hard gate — the gate lives in
+            // SessionRunner, which is what collects analysable data. Silence would be wrong either way: data
+            // written from a short schedule looks identical to data written from a full one.
+            var schedule = OpportunitySchedules.Layout1();
+            if (schedule.Count != OpportunitySchedules.TargetOpportunitiesPerBlock)
+                Debug.LogWarning($"[LiveSessionController] Schedule supplies {schedule.Count} opportunities; " +
+                    $"the preregistered design requires {OpportunitySchedules.TargetOpportunitiesPerBlock} " +
+                    "[PAPER1_STUDY_DESIGN §4]. Fine for bring-up — NOT analysable as confirmatory data.");
+
+            _block = new BlockRunner(_ctx, obstacles, Limbs, schedule,
                                      oracleParams, new DetectorParams(), deviceSink);
 
             if (trackerRig != null && trackerRig.IsComplete)
@@ -159,8 +170,8 @@ namespace CollisionFeedback.Integration
         private BHapticsSink CreateHapticSink()
         {
             return string.IsNullOrWhiteSpace(cueIntensityFile)
-                ? HapticDeviceBinding.CreateThreePulseSink(this, hapticIntensity)
-                : HapticDeviceBinding.CreateThreePulseSink(this, CueIntensityFile.Load(cueIntensityFile));
+                ? HapticDeviceBinding.CreateStudySink(this, hapticIntensity)
+                : HapticDeviceBinding.CreateStudySink(this, CueIntensityFile.Load(cueIntensityFile));
         }
 
         private void OnDisable()

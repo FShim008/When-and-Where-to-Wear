@@ -1,0 +1,212 @@
+PAPER 2 — WHAT ACTUALLY HAPPENS IN THE STUDY
+A concrete walkthrough. Written 2026-09-21.
+
+
+================================================================================
+PART A — WHAT IS PHYSICALLY IN THE ROOM
+================================================================================
+
+  The real room is EMPTY. Cleared. No furniture, no foam blocks, nothing to
+  hit. About one metre of clear space in front of the participant is enough.
+  This is not room-scale; they do not walk.
+
+  The participant wears:
+      - a VR headset
+      - a vibrating tactor strapped to the right wrist
+      - trackers (or holds a controller — decision still open)
+
+  They stand, or sit. Their right hand rests at a "home" spot in front of
+  their right hip, about waist-to-chest height.
+
+  EVERYTHING ELSE IS VIRTUAL. There is nothing real to collide with.
+
+
+================================================================================
+PART B — THE SESSION, START TO FINISH
+================================================================================
+
+  0:00   Consent, screening, handedness. Safety briefing.
+  0:15   Fit the headset. Place trackers. Strap on the wrist tactor.
+  0:25   CUE CHECK. We buzz the tactor a few times and confirm they can feel
+         it every time. The tactor then stays on for the whole session.
+  0:30   READ THE INSTRUCTION SCRIPT OUT LOUD, word for word.
+  0:35   PRACTICE — 16 trials. Not recorded. They learn the two speeds and
+         the stop response.
+  0:40   MAIN BLOCK — 360 trials. Break every 60 trials.
+  1:35   Questionnaires: comfort, sickness, and "what do you think this
+         study was testing?"
+  1:45   Done.
+
+
+================================================================================
+PART C — WHAT THEY ARE TOLD TO DO
+================================================================================
+
+  The whole instruction is two rules:
+
+      1. A ball appears. Reach out and touch it, at the speed the display
+         asks for. Then come back to the start.
+
+      2. If you feel a buzz on your wrist, STOP and pull your hand straight
+         back. Do not finish the reach.
+
+  That is it. They are NOT told to avoid anything. They are NOT told there
+  are boxes to dodge. We tell them invisible zones exist and that the buzz
+  means they are heading into one — but also that they cannot predict where
+  the zones are and are not expected to.
+
+  The buzz is the only information they ever get.
+
+
+================================================================================
+PART D — ONE ORDINARY TRIAL (3 out of every 4)
+================================================================================
+
+  t = 0.0 s    The word NORMAL appears, large, in front of them.
+               (Or FAST. It tells them which speed to use.)
+
+  t = 0.8 s    The word disappears. A ball appears about 70 cm away,
+               somewhere in front of them — the direction changes every
+               trial, up to 35 degrees left or right, 18 degrees up or down.
+
+  t ~ 0.9 s    They start reaching.
+
+  t ~ 1.4 s    THEIR HAND PASSES THROUGH AN INVISIBLE BOX.
+               Nothing happens. No buzz, no sound, no flash. The box has no
+               physical presence at all — it is a region in software.
+               They do not know it happened. They never find out.
+
+  t ~ 1.9 s    They touch the ball.
+
+  t ~ 2.0 s    A short message: "good pace", or "too slow", or "too fast".
+               This is about their SPEED only. It says nothing about the box.
+
+  t ~ 2.5 s    "return to home". They bring the hand back.
+               Next trial starts when they are back.
+
+  WHAT WE RECORDED: their hand entered the box. That counts as a failure to
+  avoid — with zero warning. This is the bottom of our curve.
+
+
+================================================================================
+PART E — ONE WARNING TRIAL (1 out of every 4)
+================================================================================
+
+  Identical to the above until the reach is underway.
+
+  t = 0.0 s    NORMAL appears.
+  t = 0.8 s    Ball appears.
+  t ~ 0.9 s    They start reaching.
+
+  ~~~~ now the software is watching every frame, 90 times a second ~~~~
+
+               It tracks: how far the hand is from the invisible box, and
+               how fast it is closing. It divides one by the other to get
+               "time until contact".
+
+  t ~ 1.15 s   Time-until-contact drops to the value assigned for this
+               trial. THE CUE FIRES. The wrist buzzes.
+
+  t ~ 1.20 s   They feel it. They stop pushing forward and pull back.
+
+  t ~ 1.4 s    The hand stops — either short of the box (SUCCESS) or
+               inside it (FAILURE).
+
+  t ~ 2.5 s    "return to home". No feedback about whether they succeeded.
+               Deliberately. If we told them, they would start guessing
+               where the boxes are.
+
+  WHAT WE RECORDED: how much warning they actually got, and whether they
+  stopped in time. One dot on the curve.
+
+
+================================================================================
+PART F — THE ONE THING THAT MAKES IT A STUDY
+================================================================================
+
+  The buzz does not always come at the same moment. Each warning trial is
+  assigned one of five timings:
+
+      aimed at:      80    150    250    350    500  ms before contact
+      actually got:  ~60   ~120   ~210   ~280   ~400 ms
+
+  They are mixed randomly. The participant cannot tell which one they are
+  getting until it happens.
+
+  So across 90 warning trials, one person gets about 18 at each timing.
+  Some are easy to stop. Some are impossible. Most are in between.
+
+  THAT SPREAD IS THE EXPERIMENT. Plot "how much warning" against "did they
+  stop", and you get the curve.
+
+
+================================================================================
+PART G — WHY THE TWO ROWS ABOVE ARE DIFFERENT
+================================================================================
+
+  We aim for 250 ms and 210 ms arrives. Three reasons:
+
+      - tracking updates 90 times a second, so timing is chunky
+      - the tactor takes tens of milliseconds to actually start buzzing
+      - we are PREDICTING when contact would happen, and the hand is still
+        speeding up, so the prediction runs slightly short
+
+  We do not fight this. We aim roughly, then measure what actually landed,
+  and plot the curve against the measured value.
+
+  This is the single most important design decision in the paper.
+
+
+================================================================================
+PART H — WHAT THE PARTICIPANT KNOWS vs WHAT THE SOFTWARE KNOWS
+================================================================================
+
+  PARTICIPANT KNOWS                    SOFTWARE KNOWS
+  --------------------------------     --------------------------------------
+  Where the ball is                    Where the ball is
+  Which speed was asked for            Which speed was asked for
+  Whether they felt a buzz             Exactly when the buzz was commanded
+  Whether they hit the ball            Exactly when it physically started
+                                       Hand position, 90 times a second
+  NOT where the boxes are              Where the box is
+  NOT whether they entered one         Whether the hand entered it
+  NOT how early the buzz came          How much warning was really delivered
+  NOT their score                      Everything
+
+
+================================================================================
+PART I — HOW THE TRIALS ARE ARRANGED
+================================================================================
+
+  Trials come in groups of four. Exactly ONE trial in each group of four is
+  a warning trial, in a random position within the group.
+
+  Why: if warnings clustered together, the participant would notice a run and
+  start bracing. One per four, always, means they can never predict it and
+  can never relax.
+
+  Group 1:   go    go    BUZZ  go
+  Group 2:   BUZZ  go    go    go
+  Group 3:   go    go    go    BUZZ
+  ...90 groups, 360 trials.
+
+
+================================================================================
+PART J — WHAT COMES OUT AT THE END
+================================================================================
+
+  One row of data per trial. 360 rows per person. The two columns that matter:
+
+      how much warning was actually delivered  (blank on ordinary trials)
+      did the hand enter the box               (yes / no)
+
+  Stack up 24-30 people and fit a curve:
+
+      x-axis:  warning delivered, 0 to ~450 ms
+      y-axis:  chance of stopping in time
+
+      At 0 ms:     they almost always hit it   <- from the ordinary trials
+      At ~400 ms:  they almost always stop it
+      In between:  the curve rises
+
+  Read off the point where it crosses 80%. That is LT80. That is the paper.

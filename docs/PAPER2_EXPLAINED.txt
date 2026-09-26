@@ -1,0 +1,227 @@
+PAPER 2, EXPLAINED
+"Stopping a Reach in VR: Measuring the Warning Time Required for
+Vibrotactile Collision Avoidance"
+
+For the meeting on 2026-09-21. Written to be read aloud.
+
+
+================================================================================
+1. THE ONE SENTENCE
+================================================================================
+
+We measure how much warning a person needs in order to stop their hand before
+it hits something they cannot see.
+
+
+================================================================================
+2. WHY THIS IS WORTH DOING
+================================================================================
+
+Every VR headset warns you about real obstacles. Guardian, chaperone, and the
+research behind them all ask the same kind of question: what should the warning
+BE? A wall you can see? A sound? A buzz? On the wrist or the chest?
+
+Nobody has asked WHEN it has to arrive.
+
+That gap matters because a perfect warning delivered too late does nothing. If
+your hand is 80 ms from a wall, no cue on earth will stop it. There is a
+deadline, and the field has never measured it.
+
+So the question is simple: what is the deadline?
+
+Right now a designer picking a warning time has nothing to go on. We want to
+hand them a number with an error bar.
+
+
+================================================================================
+3. WHAT ACTUALLY HAPPENS IN THE STUDY
+================================================================================
+
+One person, one visit, about 65 minutes, 360 trials.
+
+They stand with the headset on. Their right hand rests at a marked home
+position. Nothing is in the real room; it is cleared.
+
+--- A single trial ---
+
+  1. The display shows NORMAL or FAST. That tells them how quickly to reach.
+
+  2. A ball appears about 70 cm in front of them.
+
+  3. They reach out and touch it, then return to home.
+
+  4. Somewhere along the path sits an invisible box, about 20 cm across. They
+     cannot see it. They do not know where it is. It moves every trial.
+
+--- Three out of four trials: nothing else happens ---
+
+They reach straight through the invisible box and touch the ball. No buzz, no
+sound, no score. They never learn they went through anything.
+
+--- One out of four trials: their wrist buzzes ---
+
+The rule they were taught is: when you feel the buzz, STOP and pull your hand
+straight back. Do not finish the reach. Do not curve around anything.
+
+The buzz is timed. On some trials it arrives about 400 ms before their hand
+would have reached the box. On others, only about 60 ms before. Five different
+timings, mixed randomly.
+
+We record one thing: did the hand enter the box, or not?
+
+
+================================================================================
+4. THE PART THAT IS EASY TO MISS
+================================================================================
+
+--- We cannot deliver the buzz at an exact time, so we do not try ---
+
+Three things get in the way. The tracking runs at 90 frames a second, so timing
+is chunky. The haptic hardware adds its own delay. And we have to PREDICT when
+the hand would have reached the box, which is never perfect.
+
+So instead of aiming precisely, we aim roughly and then MEASURE what actually
+got delivered. The x-axis of our result is what really happened on that trial,
+not what we asked for.
+
+That turns our biggest weakness into a non-issue. Scatter in the delivered
+timing is fine. It actually fills in the curve more evenly than five exact
+values would.
+
+--- The no-warning trials are not filler ---
+
+Those three-in-four trials with no buzz still have a hazard on the path. People
+reach right through. That rate is the bottom of our curve: what happens with
+ZERO warning.
+
+Without it we would have no floor, and the curve would float.
+
+--- Why only one in four gets a warning ---
+
+If warnings were common, people would start slowing down and hovering, waiting
+for one. Then every measurement would be of a cautious reach, not a normal one.
+Twenty-five percent keeps them reaching naturally.
+
+
+================================================================================
+5. WHAT WE GET OUT
+================================================================================
+
+--- The main result: one curve ---
+
+  Horizontal axis: how much warning the person actually received
+  Vertical axis:   the chance they stopped in time
+
+It is an S-shape. Near zero warning, almost nobody stops. With enough warning,
+almost everybody does. Somewhere in between it rises.
+
+From that curve we read off two numbers:
+
+  LT50  the warning time where half of reaches get stopped
+  LT80  the warning time where 80% get stopped   <-- this is the deliverable
+
+We report LT80 with a confidence interval, and we recommend the UPPER end of
+that interval, not the middle. If we are not sure, a safety system should get
+the benefit of the doubt.
+
+--- Second result: does speed change the answer? ---
+
+That is what NORMAL and FAST are for. We expect a fast reach needs more warning,
+because there is more momentum to kill. If so, a good system should warn earlier
+when it sees you moving quickly.
+
+--- Third result: do people differ? ---
+
+We report how much the required warning time varies from person to person.
+
+  If people differ a lot, one fixed setting cannot serve everyone, and
+  personalised timing is worth researching.
+
+  If they barely differ, one setting works for all, and nobody needs to build
+  personalisation.
+
+Either answer is useful. That is why it is worth reporting.
+
+--- We also check our own assumption ---
+
+We claim to know when the hand "would have" hit the box. On trials where the
+person failed to stop, we know when they ACTUALLY hit it. So we compare our
+prediction against the truth and report the error. That turns our largest
+assumption into a measured number.
+
+
+================================================================================
+6. WHAT WE CAN AND CANNOT CLAIM
+================================================================================
+
+WE CAN SAY:
+  "A VR safety system that warns later than X ms before contact will fail for
+  most users, no matter how good the cue is."
+
+  That is a floor. Floors are useful precisely because they do not depend on
+  what the user is trying to do.
+
+WE CANNOT SAY:
+  "X is the best warning time." Earlier might be better, or might just be
+  annoying. We do not measure annoyance.
+
+  "This is what users will do in the real world." We TELL people to stop. A
+  real user also has to notice the buzz, work out what it means, and decide to
+  act. So our number is a LOWER BOUND on what a real system needs.
+
+  Anything about trust or false alarms. Our warnings are always correct. You
+  need an unreliable system to study trust, and that is a separate study.
+
+
+================================================================================
+7. QUESTIONS HE IS LIKELY TO ASK
+================================================================================
+
+Q: Why virtual obstacles instead of real ones?
+   Three reasons. Safety: we need people to nearly hit things at speed.
+   Control: the hazard has to move every trial so it cannot be memorised.
+   And the thing we measure is a limit of the motor system, which does not
+   care whether the obstacle is real.
+
+Q: Why not just look up reaction time in the literature?
+   Reaction time is how fast you can start something. This is how fast you can
+   STOP something already moving, while still wanting to reach the target.
+   Different problem, and nobody has measured it for a limb.
+
+Q: How do you know when they would have hit it?
+   We freeze the hand's speed and direction at the moment the buzz starts, and
+   project forward. We never update it with what they did afterwards, because
+   someone who successfully stops would otherwise look like they were warned
+   infinitely early. And we check the prediction against real hits (section 5).
+
+Q: Isn't the answer obvious? More warning is better.
+   The direction is obvious. The number is not, and the number is what a
+   designer actually needs. "Warn earlier" is not something you can build.
+   "Warn at least 340 ms before contact" is.
+
+Q: How many participants?
+   24 to 30. The simulation says the interval is narrow enough at that size.
+   The real driver is trials per person, not people, because the curve is
+   fitted within each person.
+
+Q: What if the interval comes out too wide to recommend anything?
+   Then we say so. That is a publishable result: it would mean this quantity
+   is more variable than the field assumes, which is itself worth knowing.
+
+
+================================================================================
+8. WHERE IT STANDS
+================================================================================
+
+  DONE       Study design, all software, 209 automated tests, the analysis
+             script validated against simulated data with a known answer,
+             the participant instructions, and the related work section.
+
+  NEXT       Measure the haptic delay on the bench. This is the one blocker:
+             until we know it, every delivered warning time is wrong by the
+             hardware lag.
+
+  THEN       Ethics revision, a pilot on ourselves to set the final timings,
+             then collection.
+
+  TARGET     ISMAR 2027, deadline 15 March.

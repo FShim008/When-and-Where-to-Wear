@@ -1,0 +1,117 @@
+================================================================================================
+ROUND 3 - ISO 13855 provenance + adversarial second screen - 2026-09-14
+================================================================================================
+
+--- ISO 13855 provenance ---
+
+I1 ISO 13855 safeguard positioning   count = 35
+    2010 | DIN EN ISO 13855:2010-10, Sicherheit von Maschinen_- Anordnung von Schutzeinrichtungen im Hinbli | 
+    1859 | L'historien Richer et le sie?ge de Melun en 999. | Bibliothe?que de l e?cole des char
+    2025 | DIN EN ISO 13855:2025-10, Sicherheit von Maschinen_- Anordnung von Schutzeinrichtungen im Hinbli | 
+    2021 | Achieving Hard Real-Time Capability for 3D Human Pose Estimation Systems | 
+    2022 | DIN EN ISO 13855:2022-04, Sicherheit von Maschinen_- Anordnung von Schutzeinrichtungen im Hinbli | 
+    1999 | La donation des droits comtaux a? l'e?ve?que de Sion, en 999: un texte de?value? de l'histoire d | Vallesia : bulletin annuel de la B
+    1989 | Entre Gandolfinigi et Obertenghi : les comtes de Plaisance aux Xe et XIe sie?cles | Me?langes de l'E?cole franc?aise d
+    2020 | A Data set for Information Spreading over the News | Zenodo (CERN European Organization
+
+I2 approach speed machinery safeguard   count = 7
+    2010 | Safety of machinery. Positioning of safeguards with respect to the approach speeds of parts of t | 
+    1999 | Safety of machinery. The positioning of protective equipment in respect of approach speeds of pa | 
+    1999 | Safety of machinery. The positioning of protective equipment in respect of approach speeds of pa | 
+    1999 | Safety of machinery. The positioning of protective equipment in respect of approach speeds of pa | 
+    2010 | Dilemma zone conflicts at isolated intersections controlled with fixed-time and vehicle actuated | 
+    2025 | Edge AI and Federated LLMOps for Latency-Critical IoT Systems in Smart Infrastructure | 
+    2023 | Investigation of Influential Factors of Pedestrian and Bicycle Crashes at Pedestrian Hybrid Beac | SSRN Electronic Journal
+
+I3 hand speed constant safety distance   count = 0
+
+I4 human approach speed measurement guard   count = 0
+
+--- Adversarial second screen (trying to DISCONFIRM) ---
+
+A1 how early must a warning be delivered   count = 10160
+    2008 | Shade avoidance | New Phytologist
+    2010 | Behavioural ecotoxicology, an ?early warning? signal to assess environmental quality | Environmental Science and Pollutio
+    2015 | The monetary benefit of early flood warnings in Europe | Environmental Science & Policy
+    2021 | Deep learning for early warning signals of tipping points | Proceedings of the National Academ
+    2011 | Heatwave Early Warning Systems and Adaptation Advice to Reduce Human Health Consequences of Heat | International Journal of Environme
+    2012 | Shade Avoidance | The Arabidopsis Book
+    2008 | Earthquake Early Warning Starts Nationwide in Japan | Eos
+    2021 | Path Planning and Obstacle Avoiding of the USV Based on Improved ACO-APF Hybrid Algorithm With A | IEEE Access
+    2012 | Quantifying limits to detection of early warning for critical transitions | Journal of The Royal Society Inter
+    2023 | A review of early warning methods of thermal runaway of lithium ion batteries | Journal of Energy Storage
+
+A2 cue latency required to stop a movement   count = 33
+    2018 | Detectability of stop?signal determines magnitude of deceleration in saccade planning | European Journal of Neuroscience
+    2001 | The timing of control signals underlying fast point-to-point arm movements | Experimental Brain Research
+    1999 | Countermanding saccades in humans | Vision Research
+    2012 | Validation of a within-trial measure of the oculomotor stop process | Journal of Neurophysiology
+    2023 | Dopamine neurons in the ventral tegmental area modulate rapid eye movement sleep | SLEEP
+    2001 | How Some Insects Detect and Avoid Being Eaten by Bats: Tactics and Countertactics of Prey and Pr | BioScience
+    2020 | Detecting self-paced walking intention based on fNIRS technology for the development of BCI | Medical & Biological Engineering &
+    2021 | Neural modeling of antisaccade performance of healthy controls and early Huntington's disease pa | Chaos An Interdisciplinary Journal
+    2019 | Decision letter: Coordination of rapid cholinergic and dopaminergic signaling in striatum during | 
+    1996 | The Utility of Motor-Evoked Potential Monitoring During Intramedullary Surgery | Anesthesia & Analgesia
+
+A3 warning timing dose response   count = 24
+    2014 | Avoiding blunders involving 'immortal time' | International Journal of Epidemiol
+    2013 | An Evaluation Protocol for Collision Avoidance and Mitigation Systems and Its Application to Saf | 23rd International Technical Confe
+    2020 | Riding performance quantification method for motorcycles in terms of collision probability using | Mechanical Engineering Journal
+    2016 | Steer or Brake?: Modeling Drivers? Collision-Avoidance Behavior by Using Perceptual Cues | Transportation Research Record Jou
+    2011 | Early-warning signals (potentially) reduce uncertainty in forecasted timing of critical shifts i | Utrecht University Repository (Utr
+    1983 | Management of Clinical Trials in Developing Countries | Journal of International Medical R
+    2021 | Highly automated vehicle safety driver monitoring support through Bayesian MCMC Logistic Regress | 
+    2026 | Deep brain stimulation for Parkinson's disease in Brazil: equity, timing, and systems-level resp | Arquivos de Neuro-Psiquiatria
+    2015 | ZFN-mediated genome editing of albumin ?safe harbor? in vivo results in supraphysiological level | Molecular Genetics and Metabolism
+    2021 | Effects of virtual fence monitored by global positioning system on beef cattle behavior | Translational Animal Science
+
+A4 minimum warning time human response   count = 25
+    2024 | Characterization of the minimum warning time for low-thrust collision avoidance maneuvers | HAL (Le Centre pour la Communicati
+    2024 | Minimum Warning Time Analysis for Low-Thrust Collision Avoidance Manoeuvres with Steering Laws | 
+    2005 | INCREASED WARNING TIME WITH DARIFENACIN: A NEW CONCEPT IN THE MANAGEMENT OF URINARY URGENCY | The Journal of Urology
+    2018 | A Short-term ESPERTA-based Forecast Tool for Moderate-to-extreme Solar Proton Events | The Astrophysical Journal
+    2015 | Earthquake Hazard Mitigation and Real-Time Warnings of Tsunamis and Earthquakes | Pure and Applied Geophysics
+    2023 | Deep learning and heterogeneous signal fusion approach to precursor feature recognition and earl | Process Safety and Environmental P
+    2007 | Expected loss?based alarm threshold set for earthquake early warning systems | Earthquake Engineering & Structura
+    2007 | A Multi-criteria Assessment of Deflection Methods for Dangerous NEOs | AIP conference proceedings
+    2015 | Comparative analysis of asteroid-deflection approaches | 
+    2020 | Real-Time Performance of the PLUM Earthquake Early Warning Method during the 2019 M 6.4 and 7.1  | Bulletin of the Seismological Soci
+
+A5 time budget to avoid collision limb   count = 112
+    2020 | Takeover Quality: Assessing the Effects of Time Budget and Traffic Density with the Help of a Tr | Journal of Advanced Transportation
+    2017 | Reaching carbon neutral transport sector in Denmark ? Evidence from the incorporation of modal s | Energy Policy
+    2013 | Guided GUI testing of android apps with minimal restart and approximate learning | 
+    2013 | Guided GUI testing of android apps with minimal restart and approximate learning | ACM SIGPLAN Notices
+    2026 | Towards Safe and Comfortable Vehicle Control Transitions: A Systematic Review of Takeover Time,  | Human Factors The Journal of the H
+    2026 | Determining the Unreachable: Constraint-Guided Reachability Analysis for Dependency Vulnerabilit | Proceedings of the ACM on Programm
+    2006 | Time as a constraint on group size in spider monkeys | Behavioral Ecology and Sociobiolog
+    2004 | Performance prediction of an unmanned airborne vehicle multi-agent system | European Journal of Operational Re
+    2003 | Motility of copepod nauplii and implications for food encounter | Marine Ecology Progress Series
+    2019 | Exact and heuristic solution algorithms for efficient emergency evacuation in areas with vulnera | International Journal of Disaster 
+
+A6 proximity alert timing wearable body   count = 1
+    2009 | Assessment and management of hypoglycemia in children and adolescents with diabetes | Pediatric Diabetes
+
+A7 psychophysics of alarms   count = 476
+    2006 | Vigilance, alertness, or sustained attention: physiological basis and measurement | Clinical Neurophysiology
+    1975 | Psychometric studies of verbal functions following thalamic lesions in humans | Brain and Language
+    1986 | Gustatory responses in the frontal opercular cortex of the alert cynomolgus monkey | Journal of Neurophysiology
+    2010 | The Fine Tuning of Pain Thresholds: A Sophisticated Double Alarm System | PLoS ONE
+    1982 | Critical Flicker Fusion Thresholds and Their Relationship to Other Measures of Alertness | Pharmacopsychiatry
+    1970 | Conditioned Suppression as an Animal Psychophysical Technique | 
+    2000 | A naturalistic investigation of the effects of day-long consumption of tea, coffee and water on  | Psychopharmacology
+    2003 | Alerting attention and time perception in children | Journal of Experimental Child Psyc
+    2006 | Spatial and Temporal Properties of Cone Signals in Alert Macaque Primary Visual Cortex | Journal of Neuroscience
+    1986 | Gustatory responses in the nucleus tractus solitarius of the alert cynomolgus monkey | Journal of Neurophysiology
+
+A8 lead time avoidance probability curve   count = 80
+    2009 | Why Are a High Overdiagnosis Probability and a Long Lead Time for Prostate Cancer Screening So I | JNCI Journal of the National Cance
+    2020 | Analytical Framework for Space Debris Collision Avoidance Maneuver Design | Journal of Guidance Control and Dy
+    2010 | Crash Probability and Error Rates for Head-On Collisions Based on Stochastic Analyses | IEEE Transactions on Intelligent T
+    2014 | A Simulation Approach to Determine the Probability of Demand during Lead-Time When Demand Distri | Journal of Economics and Behaviora
+    2016 | A spatial Bayesian network model to assess the benefits of early warning for urban flood risk to | Natural hazards and earth system s
+    2018 | Optimising safety stocks and reorder points when the demand and the lead-time are probabilistic  | International Journal of Procureme
+    2020 | The effect of human errors on an integrated stochastic supply chain model with setup cost reduct | International Journal of Productio
+    2018 | Optimising safety stocks and reorder points when the demand and the lead-time are probabilistic  | International Journal of Procureme
+    2015 | A spatial Bayesian network model to assess the benefits of early warning for urban flood risk to | 
+    2024 | GAN-argcPredNet v2.0: a radar echo extrapolation model based on spatiotemporal process enhanceme | Geoscientific model development

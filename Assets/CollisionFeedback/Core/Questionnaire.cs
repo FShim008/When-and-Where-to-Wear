@@ -183,5 +183,89 @@ namespace CollisionFeedback.Core
             foreach (var id in ids) s += Get(r, id, 0);
             return s;
         }
+
+        // ── CUE — warning acceptability + timing manipulation check (4 items, 0..6) ────────────
+        // Standard practice in the warning-systems literature: a warning that works but is distrusted or
+        // resented will not be adopted, and reviewers expect the trade-off to be measured rather than assumed.
+        // TIMELY doubles as the subjective manipulation check for the Timing factor — predictive cues should be
+        // rated as arriving in time more often than reactive ones, corroborating the objective lead-time data.
+        // Administered only for conditions that actually deliver a warning (never for None, where the items
+        // would be meaningless). ANNOYING is reverse-keyed so every measure points the same way (higher = better).
+        /// <summary>
+        /// Shoulder / arm discomfort, Borg CR10-style, collected BETWEEN BLOCKS
+        /// [PAPER2_STUDY_DESIGN: "collect shoulder/arm discomfort ratings between blocks"; the
+        /// shoulder-discomfort stopping rule].
+        ///
+        /// WHY PAPER 2 NEEDS ITS OWN. E2 is hundreds of repeated reaches with one arm inside a confined
+        /// volume, returning to a fixed home region each time. Its foreseeable harm is musculoskeletal
+        /// fatigue, not cybersickness, and no existing instrument here measures it.
+        ///
+        /// **SCORED ON THE MAXIMUM, NOT THE MEAN.** A stopping rule must fire on the worst site. Averaging
+        /// would let a severe shoulder complaint be diluted by comfortable fingers and a session continue
+        /// past the point the rule exists to catch — the exact failure the rule is written to prevent.
+        /// `max` is therefore the value to compare against the threshold; the per-site values are reported
+        /// beside it so a rise can be localised.
+        ///
+        /// Borg CR10 anchors (0 nothing at all, 10 extremely strong) are used because they are the standard
+        /// for exertion and discomfort and are interpretable across participants without calibration.
+        /// </summary>
+        public static Questionnaire ShoulderDiscomfort()
+        {
+            var items = new List<QuestionnaireItem>
+            {
+                new("SHOULDER", "Discomfort or fatigue in your SHOULDER right now.",      0, 10, false, "SITE", "nothing at all", "extremely strong"),
+                new("UPPERARM", "Discomfort or fatigue in your UPPER ARM right now.",     0, 10, false, "SITE", "nothing at all", "extremely strong"),
+                new("FOREARM",  "Discomfort or fatigue in your FOREARM or WRIST now.",    0, 10, false, "SITE", "nothing at all", "extremely strong"),
+                new("NECK",     "Discomfort or fatigue in your NECK or UPPER BACK now.",  0, 10, false, "SITE", "nothing at all", "extremely strong"),
+            };
+            return new Questionnaire("DISCOMFORT", "Shoulder and arm discomfort", items, r =>
+            {
+                var m = new Dictionary<string, float>();
+                float max = 0f;
+                foreach (var it in items)
+                {
+                    int v = Get(r, it.Id, it.Min);
+                    m[it.Id.ToLowerInvariant()] = v;
+                    if (v > max) max = v;
+                }
+                // The value the stopping rule reads. Never replace this with a mean.
+                m["max"] = max;
+                return m;
+            });
+        }
+
+        /// <summary>
+        /// Preregistered stopping threshold on <c>DISCOMFORT.max</c> [PAPER2 safety rules]. At or above
+        /// this the operator stops the session rather than continuing into a break.
+        ///
+        /// The number itself is a PI decision and must be recorded before piloting; 7 on Borg CR10 ("very
+        /// strong") is the placeholder, chosen so the rule fires before a participant reaches the point of
+        /// asking to stop unprompted.
+        /// </summary>
+        public const float DiscomfortStopThreshold = 7f;
+
+        public static Questionnaire CueAcceptability()
+        {
+            var items = new List<QuestionnaireItem>
+            {
+                new("HELPFUL",  "The warnings helped me avoid the hazards.",                 0, 6, false, "CUE", "fully disagree", "fully agree"),
+                new("TIMELY",   "The warnings arrived in time for me to react.",             0, 6, false, "CUE", "always too late", "always in time"),
+                new("TRUST",    "I trusted the warnings.",                                   0, 6, false, "CUE", "not at all", "completely"),
+                new("ANNOYING", "The warnings were annoying or distracting.",                0, 6, true,  "CUE", "fully disagree", "fully agree"),
+            };
+            return new Questionnaire("CUE", "Warning acceptability", items, r =>
+            {
+                var m = new Dictionary<string, float>();
+                float sum = 0f; int n = 0;
+                foreach (var it in items)
+                {
+                    int c = it.Corrected(Get(r, it.Id, it.Min));   // ANNOYING flipped: higher = less annoying
+                    m[it.Id.ToLowerInvariant()] = c;
+                    sum += c; n++;
+                }
+                m["acceptability"] = n > 0 ? sum / n : float.NaN;  // the composite the analysis models
+                return m;
+            });
+        }
     }
 }

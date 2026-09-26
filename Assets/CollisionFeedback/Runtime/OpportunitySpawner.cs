@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using CollisionFeedback.Core;
+using Joint = CollisionFeedback.Core.Joint; // disambiguate from UnityEngine.Joint (physics component)
 
 namespace CollisionFeedback.Runtime
 {
@@ -36,6 +37,12 @@ namespace CollisionFeedback.Runtime
         [SerializeField] private float orbLifetime = 8f;
         [SerializeField] private float projectileLifetime = 4f;
 
+        [Header("Interaction radii (m) — tracking-driven, no physics colliders needed")]
+        [Tooltip("A hand within this distance of an orb collects it (+1). Covers the orb radius + hand size.")]
+        [SerializeField] private float orbTouchRadius = 0.15f;
+        [Tooltip("A projectile within this distance of the head or chest counts as a hit (-1).")]
+        [SerializeField] private float projectileHitRadius = 0.25f;
+
         [Header("Timing")]
         [SerializeField] private bool autoStart = true;        // false => drive via Tick() from the session loop
 
@@ -52,6 +59,10 @@ namespace CollisionFeedback.Runtime
         private bool _running;
         private bool _external;
         private Transform _container;
+
+        // Live stimuli, tested against the tracked body each frame by CheckInteractions.
+        private readonly List<GameObject> _activeOrbs = new();
+        private readonly List<GameObject> _activeProjectiles = new();
 
         private void Awake() => EnsureInitialized();
 
@@ -76,6 +87,31 @@ namespace CollisionFeedback.Runtime
         {
             _external = true;
             Begin();
+        }
+
+        /// <summary>
+        /// Claim the spawner WITHOUT starting the timeline. The session driver calls this at session start so
+        /// the autoStart self-pacing never fires stimuli during gates, the cue tour, breaks, or questionnaires —
+        /// events must only ever run on a block's clock (via <see cref="DriveExternally"/> + <see cref="Tick"/>).
+        /// </summary>
+        public void StandBy()
+        {
+            EnsureInitialized();
+            _external = true;
+            _running = false;
+        }
+
+        /// <summary>
+        /// Load the stimulus set for a layout variant [Design v2 §6]: the L1 events with orb positions and
+        /// projectile origins carried through the variant's isometry — the SAME transform SceneObstacles applies
+        /// to the obstacle volumes, so stimuli and hazards move together. Call BEFORE the block starts
+        /// (SessionRunner does, right before <see cref="DriveExternally"/>). Resets the fired flags.
+        /// </summary>
+        public void SetLayout(string layoutId)
+        {
+            EnsureInitialized();
+            _events = LayoutVariants.Stimuli(layoutId);
+            _fired = new bool[_events.Count];
         }
 
         /// <summary>(Re)start the timeline from t = 0.</summary>
@@ -120,6 +156,7 @@ namespace CollisionFeedback.Runtime
             else return;
 
             orb.AddComponent<SpawnedStimulus>().IsOrb = true;
+            _activeOrbs.Add(orb);
             if (orbLifetime > 0f) Destroy(orb, orbLifetime);
         }
 
@@ -131,6 +168,7 @@ namespace CollisionFeedback.Runtime
             else return;
 
             proj.AddComponent<SpawnedStimulus>().IsOrb = false;
+            _activeProjectiles.Add(proj);
 
             Vector3 dir = AimPoint() - e.ProjectileOrigin;
             if (dir.sqrMagnitude > 1e-6f && proj.TryGetComponent(out Rigidbody rb))
@@ -179,6 +217,50 @@ namespace CollisionFeedback.Runtime
             if (aimTarget != null) return aimTarget.position;
             if (Camera.main != null) return Camera.main.transform.position;
             return new Vector3(0f, 1.2f, -1.0f); // start/goal pad, ~chest height
+        }
+
+        /// <summary>
+        /// Score the TASK against the tracked body: a hand within <see cref="orbTouchRadius"/> of an orb
+        /// collects it (+1); a projectile within <see cref="projectileHitRadius"/> of the head or chest counts
+        /// as a hit (−1). Call once per frame from the session loop with the current pose.
+        ///
+        /// Distance-based on purpose: the tracked limbs are plain Transforms (controller / Vicon / tracker
+        /// proxies) with no colliders, so physics triggers would never fire. This keeps scoring identical
+        /// across every tracking backend.
+        ///
+        /// IMPORTANT [Design v2 §5]: collecting an orb or taking a projectile hit is TASK feedback — identical
+        /// in every condition and carrying no information about hazard locations. Never attach a haptic pulse,
+        /// alarm, or hazard-revealing effect here: that would add a feedback channel outside the manipulated
+        /// conditions and would contaminate the None condition.
+        /// </summary>
+        public void CheckInteractions(in PoseFrame frame)
+        {
+            Vector3 lh = frame.Get(Joint.LeftHand), rh = frame.Get(Joint.RightHand);
+            for (int i = _activeOrbs.Count - 1; i >= 0; i--)
+            {
+                GameObject orb = _activeOrbs[i];
+                if (orb == null) { _activeOrbs.RemoveAt(i); continue; }   // expired by lifetime
+                Vector3 p = orb.transform.position;
+                if (Vector3.Distance(p, lh) <= orbTouchRadius || Vector3.Distance(p, rh) <= orbTouchRadius)
+                {
+                    _activeOrbs.RemoveAt(i);
+                    NotifyDelivered(orb);
+                }
+            }
+
+            Vector3 head = frame.Get(Joint.Head), chest = frame.Get(Joint.Chest);
+            for (int i = _activeProjectiles.Count - 1; i >= 0; i--)
+            {
+                GameObject proj = _activeProjectiles[i];
+                if (proj == null) { _activeProjectiles.RemoveAt(i); continue; }
+                Vector3 p = proj.transform.position;
+                if (Vector3.Distance(p, head) <= projectileHitRadius ||
+                    Vector3.Distance(p, chest) <= projectileHitRadius)
+                {
+                    _activeProjectiles.RemoveAt(i);
+                    NotifyHit(proj);
+                }
+            }
         }
 
         /// <summary>Call when an orb reaches the goal (e.g. from <see cref="ScoreZone"/>).</summary>

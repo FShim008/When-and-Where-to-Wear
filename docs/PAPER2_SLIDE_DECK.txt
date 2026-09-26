@@ -1,0 +1,277 @@
+PAPER 2 — SLIDE DECK CONTENT
+For the advisor meeting, 2026-09-21. 12 slides, ~15 minutes.
+
+HOW TO USE THIS
+  ON SLIDE  = put exactly this on the slide. Nothing more.
+  SAY       = what you say out loud. Do not put it on the slide.
+
+Keep slides sparse. He has already told you your writing is too verbose;
+a wall of text on a slide makes that impression twice.
+
+
+================================================================================
+SLIDE 1 — TITLE
+================================================================================
+
+ON SLIDE
+  Stopping a Reach in VR
+  Measuring the Warning Time Required for Vibrotactile Collision Avoidance
+
+  Faisal Ahmed
+  SAVE Lab, UTSA
+  Target: ISMAR 2027
+
+SAY
+  Nothing. Go straight to slide 2.
+
+
+================================================================================
+SLIDE 2 — THE ONE SENTENCE
+================================================================================
+
+ON SLIDE
+  How much warning does a person need
+  to stop their hand before it hits
+  something they cannot see?
+
+SAY
+  "That is the whole paper. One number, with an error bar."
+
+
+================================================================================
+SLIDE 3 — THE GAP
+================================================================================
+
+ON SLIDE
+  Prior work asks WHAT the cue should be
+     modality · pattern · placement · visualization
+
+  Nobody asks WHEN it must arrive
+
+  Across 2,465 ISMAR / IEEE VR / VRST titles (2021-2025):
+     "collision" appears in 6      "warning" appears in 1
+
+SAY
+  "Guardian, chaperone, vibrotactile vests, peripheral overlays. All of it
+  varies what the cue is, or whether there is one. None of it varies when it
+  arrives. I searched for this specifically and could not find it."
+
+
+================================================================================
+SLIDE 4 — WHY "WHEN" MATTERS
+================================================================================
+
+ON SLIDE
+  A perfect warning delivered too late does nothing.
+
+  If your hand is 80 ms from the wall,
+  no cue will stop it.
+
+  There is a deadline. It has never been measured.
+
+SAY
+  "This is the argument for the paper in three lines. A designer today picking
+  a warning time has nothing to go on. I want to hand them a number."
+
+
+================================================================================
+SLIDE 5 — RESEARCH QUESTIONS
+================================================================================
+
+ON SLIDE
+  H1  How does the chance of stopping a reach change
+      with how much warning was actually delivered?
+      -> a curve, and LT80 from it
+
+  H3a Do faster reaches need more warning?
+
+  Also: how much do people differ from each other?
+
+SAY
+  "H1 is an estimation target, not a yes/no test. Everyone already knows more
+  warning helps. The contribution is the number, not the direction."
+
+
+================================================================================
+SLIDE 6 — WHAT A PARTICIPANT DOES
+================================================================================
+[DIAGRAM SLIDE — trial timeline across the bottom]
+
+ON SLIDE
+  1.  Display shows NORMAL or FAST
+  2.  Ball appears ~70 cm away
+  3.  Reach out, touch it, return home
+  4.  An invisible 20 cm box sits on the path
+      — unseen, and it moves every trial
+
+  1 in 4 trials: the wrist buzzes
+      -> STOP and pull straight back
+
+SAY
+  "Three out of four trials, nothing happens and they reach straight through
+  the box. One in four, they get a buzz and have to abort the reach.
+  We record one thing: did the hand enter the box, yes or no."
+
+
+================================================================================
+SLIDE 7 — DESIGN AT A GLANCE
+================================================================================
+
+ON SLIDE
+  360 trials · one visit · ~65 min
+  25% warning trials (90 per person)
+  5 warning times, mixed randomly
+      aimed:     80 · 150 · 250 · 350 · 500 ms
+      delivered: ~60 · 120 · 210 · 280 · 400 ms
+  2 speeds: normal / fast
+  24-30 participants
+
+SAY
+  "Note the two rows. What we aim for and what actually lands are different,
+  and the next slide is about why that is fine."
+
+
+================================================================================
+SLIDE 8 — THREE DECISIONS THAT MAKE IT WORK
+================================================================================
+
+ON SLIDE
+  1.  We don't aim precisely — we measure what landed
+      frames are chunky, hardware lags, prediction is imperfect
+
+  2.  No-warning trials are the floor of the curve
+      they still carry a hazard; people reach right through
+
+  3.  25% warnings, never more
+      common warnings make people hover and wait
+
+SAY
+  "One. We could fight for millisecond precision and lose. Instead we aim
+  roughly and record what actually got delivered. The x-axis is what really
+  happened. Scatter helps us, it fills the curve in.
+
+  Two. Those 270 quiet trials are not filler. They tell us what happens with
+  zero warning, which is the bottom of the curve. Without them it floats.
+
+  Three. If warnings were frequent, people would slow down and wait for one,
+  and then every measurement is of a cautious reach."
+
+
+================================================================================
+SLIDE 9 — THE MAIN RESULT
+================================================================================
+[DIAGRAM SLIDE — S-curve. x = warning delivered, y = P(stopped).
+ Mark LT50 and LT80. Mark the zero-warning floor on the left.]
+
+ON SLIDE
+  LT80 = the warning time at which 80% of reaches are stopped
+
+  We report it with a confidence interval
+  and recommend the UPPER end
+
+SAY
+  "A safety system should get the benefit of the doubt. If our interval runs
+  from 300 to 380, we recommend 380, not 340."
+
+
+================================================================================
+SLIDE 10 — SECONDARY RESULTS
+================================================================================
+
+ON SLIDE
+  Does speed change the requirement?
+      if yes -> systems should warn earlier when you move fast
+
+  How much do people differ?
+      differ a lot  -> personalised timing is worth researching
+      differ little -> one setting serves everyone
+
+  How good is our contact prediction?
+      checked against trials where they actually hit
+
+SAY
+  "The individual-differences number is free, and either answer is publishable.
+  A large spread says personalisation matters. A small one says nobody needs to
+  build it. Both are useful to know."
+
+
+================================================================================
+SLIDE 11 — SCOPE
+================================================================================
+
+ON SLIDE
+  WE CAN SAY
+     "Warn later than X ms and most users cannot stop,
+      no matter how good the cue is."
+
+  WE CANNOT SAY
+     X is the best warning time
+     What users do with an unreliable system
+     What users do when not told to stop
+
+SAY
+  "We tell people to stop. So we measure what the motor system CAN do, not
+  what a user WOULD do. A real user also has to notice and decide. That makes
+  our number a lower bound — real systems need more, not less. I would rather
+  say that up front than have a reviewer say it."
+
+
+================================================================================
+SLIDE 12 — STATUS AND WHAT I NEED
+================================================================================
+
+ON SLIDE
+  DONE     design · all software · 209 tests
+           analysis validated on simulated data with a known answer
+           instructions · related work
+
+  NEXT     bench the haptic delay        <- the blocker
+           ethics revision
+           pilot on lab staff
+
+  ISMAR 2027 deadline: 15 March
+
+SAY
+  "One blocker. Until I measure the delay between the software firing the cue
+  and the tactor actually buzzing, every delivered warning time is wrong by
+  that amount, and the whole curve shifts. It is an afternoon of work and it
+  also closes a gate on Paper 1. That is what I am doing next."
+
+
+================================================================================
+IF HE ASKS  (keep these as hidden backup slides)
+================================================================================
+
+Q: Why virtual obstacles?
+   Safety — people need to nearly hit things at speed. Control — the hazard
+   must move each trial so it cannot be memorised. And the thing we measure is
+   a limit of the motor system, which does not care if the obstacle is real.
+
+Q: Why not use reaction time from the literature?
+   Reaction time is how fast you START something. This is how fast you STOP
+   something already moving, while still wanting to reach the target.
+
+Q: How do you know when they would have hit it?
+   We freeze the hand's speed and direction at the buzz and project forward.
+   Never updated afterwards, or someone who stopped successfully would look
+   like they were warned infinitely early. We validate it against trials where
+   they actually did hit.
+
+Q: Isn't it obvious that more warning is better?
+   The direction is obvious. The number is not, and the number is what you
+   build with. "Warn earlier" is not implementable. "Warn at least 340 ms
+   before contact" is.
+
+Q: Why 24-30 participants?
+   Simulation. The curve is fitted within each person from 90 warning trials,
+   so trials per person matter more than people. Re-run with pilot data before
+   freezing.
+
+Q: What if the interval is too wide to recommend anything?
+   We say so. That would mean the quantity is more variable than the field
+   assumes, which is worth knowing.
+
+Q: How does this relate to Paper 1?
+   Independent. Different task, different people, different question. Paper 1
+   compares two warning policies; this measures the deadline. Paper 1 needs
+   nothing from this one, though it gets stronger once this number exists.

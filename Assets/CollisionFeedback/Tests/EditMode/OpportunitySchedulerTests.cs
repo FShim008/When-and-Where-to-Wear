@@ -93,7 +93,10 @@ namespace CollisionFeedback.Tests
             Assert.That(s.FindAll(o => o.TargetObstacleId == "O2").Count, Is.EqualTo(4));
             Assert.That(s.FindAll(o => o.TargetObstacleId == "O3").Count, Is.EqualTo(4));
             Assert.That(s.FindAll(o => o.TargetObstacleId == "O1").Count, Is.EqualTo(2));
-            Assert.That(s.FindAll(o => o.TargetObstacleId == "BOUNDARY").Count, Is.EqualTo(2));
+            // v2: the two former BOUNDARY events now target registered virtual wall volumes (O4a front, O4b left)
+            Assert.That(s.FindAll(o => o.TargetObstacleId == "O4a").Count, Is.EqualTo(1));
+            Assert.That(s.FindAll(o => o.TargetObstacleId == "O4b").Count, Is.EqualTo(1));
+            Assert.That(s.Exists(o => o.TargetObstacleId == "BOUNDARY"), Is.False);
 
             // Limb balance: 4 right-arm, 4 left-arm, 1 each foot, 2 chest.
             Assert.That(s.FindAll(o => o.TargetLimb == Joint.RightHand).Count, Is.EqualTo(4));

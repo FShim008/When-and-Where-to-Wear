@@ -1,0 +1,139 @@
+WHY THE PREDICTIVE THRESHOLD IS T = 1.0 SECOND
+Paper 1 · prepared 2026-09-16 · source: PAPER1_STUDY_DESIGN.md section 6
+
+
+THE SHORT ANSWER
+
+T = 1.0 s is not our guess at how much warning a person needs. It is the
+smallest value that keeps the experiment valid.
+
+
+THE PROBLEM
+
+Our two conditions fire on different things.
+
+  Reactive    fires when the hand is 0.30 m from the hazard.
+  Predictive  fires 1.0 s before the predicted hit.
+
+A fixed time is not a fixed distance. Predictive fires at a distance of
+speed x T. So predictive is only earlier than reactive when speed x T is
+greater than 0.30 m. The two rules swap order at:
+
+  crossover speed = D / T
+
+At T = 0.5 s that is 0.30 / 0.5 = 0.6 m/s. Anyone moving slower than 0.6 m/s
+would get the "predictive" cue later than the reactive one. Normal arm speeds
+fall on both sides of 0.6 m/s, so the manipulation would run backwards on some
+trials and forwards on others.
+
+That would make a null result impossible to read. "Predictive timing does not
+help" and "the predictive cue was not actually earlier" would look the same in
+the data.
+
+
+WHAT WE TESTED
+
+We ran the real trigger code against simulated reaches: minimum-jerk profiles
+at 90 Hz, across movement times from 0.4 to 1.4 s. We measured how much clear
+approach distance each setting needs before predictive reliably leads.
+
+  T = 0.5 s   needs 0.55 m
+  T = 0.8 s   needs 0.45 m
+  T = 1.0 s   needs 0.40 m
+
+Our task geometry guarantees 0.40 m. T = 1.0 s is the first value that fits.
+
+
+WHY NOT LARGER
+
+A larger T fires earlier and more often. That adds alerts the user does not
+need. We treat that as a cost of the policy and measure it, so we want the
+smallest value that works, not the largest.
+
+
+IN ONE SENTENCE
+
+T = 1.0 s is the smallest threshold that keeps reactive and predictive truly
+different across the speeds and distances our task produces.
+
+
+NOTE ON PAPER 2
+
+This argument needs nothing from Paper 2. Paper 2 measures how much warning a
+person needs. Paper 1 only needs its two conditions to differ in a consistent
+direction, which is what the number above guarantees. We also log, on every
+trial, when both rules would have fired, so we report the lead times we
+actually delivered rather than assuming them.
+
+Paper 2 cannot set T even if we wanted it to. Paper 2 measures lead times from
+60 to 400 ms. T is 1000 ms, which is 2.5 times outside the range it samples.
+What Paper 2 does give us is a check, after the fact: it tells us whether the
+warning each policy delivered was long enough for a person to act on. That
+belongs in the discussion, not in the choice of T.
+
+
+AND WHERE DOES 0.30 M COME FROM?  (added 2026-09-23)
+
+Same kind of answer. We are not claiming 0.30 m is the correct distance. We are
+claiming it is a normal, usable setting for a proximity warning, and that the
+comparison between the two policies is valid at that setting.
+
+Three things back it up.
+
+  1. We tried alternatives and wrote down why they lost. Dropping D to 0.25 m
+     saves only 0.05 m of dead zone and makes the proximity cue less useful.
+     The reactive condition has to stay a real warning, or the study becomes
+     "useful versus useless" instead of a comparison of two warning policies.
+
+  2. This is not our invented question. Car collision warning systems have been
+     built both ways - fire at a fixed distance, or fire on predicted time to
+     collision - since the 1990s, and there is a large literature on how warning
+     timing changes what drivers do. We are moving a known question into VR.
+
+  3. We can show the answer does not depend on the exact numbers. On every
+     opportunity we record when BOTH rules would have fired. So we can rebuild
+     what would have happened at other settings, from 0.20 to 0.45 m and 0.70 to
+     1.50 s, and show the predictive rule still fires first almost everywhere.
+
+The one fair criticism left is that we only tested one setting per policy. We
+say that ourselves, in the limitations, before a reviewer can say it for us.
+
+
+SOMEONE ALREADY RAN THIS COMPARISON  (added 2026-09-23)
+
+We found a 2019 IEEE VR paper (Valkov and Linsen) that tested the same two
+rules. They had people walk toward an invisible wall and warned them with
+vibration in the headset padding. One version warned at a fixed distance. The
+other scaled the distance by walking speed, which is the same rule as ours.
+
+Two things follow, and we need both in the paper.
+
+FIRST, IT GIVES US OUR NUMBERS. They used 600 ms to 1.6 s for the time-based
+rule. Our 1.0 s sits inside that published range. So T is no longer only our
+own simulation - a peer-reviewed paper at this venue used the same band.
+
+SECOND, AND MORE IMPORTANT, THEY GOT THE OPPOSITE RESULT. The speed-based rule
+caused MORE collisions, not fewer. We have to cite this and explain why we
+expect something different, or a reviewer will do it for us.
+
+Here is why we expect something different, and it is their own explanation.
+Their vibration got STRONGER as you got closer and WEAKER as you slowed down.
+So when people slowed, the warning faded. They learned they could creep forward
+and keep the buzzing low. The warning became something to manage rather than
+something to obey.
+
+Our cue does not work that way. It fires once per approach and then stops. It
+does not get stronger, weaker, or respond to speed at all. There is nothing to
+manage. And the cue is exactly the same in both of our conditions - only the
+moment it fires changes. In their study the timing and the cue design changed
+together, so their result cannot separate the two.
+
+That is actually a better reason to run our study than the one we had before.
+We are not saying "nobody has tried this." We are saying "someone tried it, it
+failed for a reason they identified themselves, and we fixed that reason."
+
+NOTE: an earlier draft of our related work said no one had compared these two
+rules. That was wrong. It is corrected now.
+
+Full version, with the citations and the text ready to paste into the paper:
+docs/PAPER1_PARAMETER_JUSTIFICATION.md

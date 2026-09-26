@@ -1,0 +1,305 @@
+<title>Warning Time Diagrams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --ground:#EEF1F4; --surface:#FFFFFF; --ink:#131C26; --muted:#5A6875;
+    --rule:#C3CCD5; --hairline:#DCE3E9;
+    --cue:#C2410C; --stop:#0E7490; --fail:#9F1239;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --ground:#0E151C; --surface:#16202B; --ink:#E6EDF3; --muted:#93A4B3;
+      --rule:#2C3B4A; --hairline:#22303D;
+      --cue:#FB923C; --stop:#2DD4BF; --fail:#FB7185;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E151C; --surface:#16202B; --ink:#E6EDF3; --muted:#93A4B3;
+    --rule:#2C3B4A; --hairline:#22303D;
+    --cue:#FB923C; --stop:#2DD4BF; --fail:#FB7185;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--sans); line-height:1.55;
+    padding-block:40px; padding-left:20px; padding-right:20px;
+  }
+  .sheet{max-width:1000px; margin:0 auto; display:flex; flex-direction:column; gap:34px}
+
+  header{display:flex; flex-direction:column; gap:6px; padding-bottom:4px}
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  h1{font-size:26px; font-weight:600; margin:0; letter-spacing:-.015em; text-wrap:balance}
+  .lede{margin:0; color:var(--muted); font-size:14.5px; max-width:64ch}
+
+  figure{
+    margin:0; background:var(--surface); border:1px solid var(--hairline);
+    border-radius:4px; padding:26px 26px 20px;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .figtop{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .signal{
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .figtitle{font-size:17px; font-weight:600; margin:0; letter-spacing:-.01em}
+  .warn{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--cue); border:1px solid var(--cue); border-radius:2px; padding:3px 8px; white-space:nowrap;
+  }
+  .canvas{overflow-x:auto}
+  svg{display:block; width:100%; min-width:660px; height:auto}
+  figcaption{
+    font-size:13.5px; color:var(--muted); max-width:78ch; border-top:1px solid var(--hairline);
+    padding-top:14px;
+  }
+  figcaption b{color:var(--ink); font-weight:600}
+  .key{
+    display:flex; gap:20px; flex-wrap:wrap; font-family:var(--mono); font-size:11.5px; color:var(--muted);
+  }
+  .key span{display:flex; align-items:center; gap:7px}
+  .sw{width:20px; height:0; border-top-width:2.5px; border-top-style:solid; flex:none}
+
+  footer{
+    font-size:13px; color:var(--muted); border-top:1px solid var(--hairline); padding-top:16px;
+  }
+  footer code{font-family:var(--mono); font-size:12px; color:var(--ink)}
+  @media (max-width:560px){ body{padding-block:24px} h1{font-size:22px} figure{padding:18px 16px 16px} }
+</style>
+
+<div class="sheet">
+
+  <header>
+    <div class="eyebrow">Paper 2 · ISMAR 2027 · slide figures</div>
+    <h1>Stopping a Reach in VR</h1>
+    <p class="lede">Two figures for the advisor meeting. Figure 1 is slide 6 (what a participant does);
+      Figure 2 is slide 9 (the main result). Each card crops cleanly for pasting into a slide.</p>
+  </header>
+
+  <!-- ══════════════════ FIGURE 1 ══════════════════ -->
+  <figure>
+    <div class="figtop">
+      <div>
+        <div class="signal">Slide 6 · one trial</div>
+        <p class="figtitle">The cue fires a set time before predicted contact</p>
+      </div>
+    </div>
+
+    <div class="canvas">
+      <svg viewBox="0 0 900 430" role="img"
+           aria-label="Hand distance from home plotted against time. An invisible hazard band sits between 0.39 and 0.59 metres. Three reaches are shown: with no cue the hand passes straight through the hazard; a cue 400 milliseconds before predicted contact lets the hand stop short; a cue 80 milliseconds before is too late and the hand enters the hazard.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+          <marker id="arCue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--cue)"/>
+          </marker>
+          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="currentColor" stroke-width="1.2" opacity="0.28"/>
+          </pattern>
+        </defs>
+
+        <!-- hazard band: 0.39 m (y=185) to 0.59 m (y=111) -->
+        <rect x="110" y="111" width="690" height="74" fill="url(#hatch)" opacity="0.9"/>
+        <rect x="110" y="111" width="690" height="74" fill="none" stroke="currentColor"
+              stroke-width="1" stroke-dasharray="5 4" opacity="0.5"/>
+        <text x="790" y="134" font-family="var(--mono)" font-size="11.5" text-anchor="end"
+              fill="currentColor" opacity="0.75">invisible hazard</text>
+        <text x="790" y="150" font-family="var(--mono)" font-size="11.5" text-anchor="end"
+              fill="currentColor" opacity="0.75">0.39 – 0.59 m</text>
+
+        <!-- axes -->
+        <line x1="110" y1="330" x2="810" y2="330" stroke="currentColor" stroke-width="1.4" opacity="0.75"/>
+        <line x1="110" y1="60" x2="110" y2="330" stroke="currentColor" stroke-width="1.4" opacity="0.75"/>
+
+        <!-- y ticks: 0, 0.35, 0.70 m -->
+        <line x1="104" y1="330" x2="110" y2="330" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="104" y1="200" x2="110" y2="200" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="104" y1="70"  x2="110" y2="70"  stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <text x="97" y="334" font-family="var(--mono)" font-size="11.5" text-anchor="end" fill="currentColor" opacity="0.8">0</text>
+        <text x="97" y="204" font-family="var(--mono)" font-size="11.5" text-anchor="end" fill="currentColor" opacity="0.8">0.35</text>
+        <text x="97" y="74"  font-family="var(--mono)" font-size="11.5" text-anchor="end" fill="currentColor" opacity="0.8">0.70</text>
+        <text x="58" y="200" font-family="var(--sans)" font-size="12.5" text-anchor="middle"
+              fill="currentColor" opacity="0.85" transform="rotate(-90 58 200)">distance from home (m)</text>
+
+        <!-- x ticks -->
+        <line x1="110" y1="330" x2="110" y2="336" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="435" y1="330" x2="435" y2="336" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="760" y1="330" x2="760" y2="336" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <text x="110" y="352" font-family="var(--mono)" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">0</text>
+        <text x="435" y="352" font-family="var(--mono)" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">0.5</text>
+        <text x="760" y="352" font-family="var(--mono)" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">1.0</text>
+        <text x="435" y="374" font-family="var(--sans)" font-size="12.5" text-anchor="middle"
+              fill="currentColor" opacity="0.85">time from start of reach (s)</text>
+
+        <!-- predicted contact marker -->
+        <line x1="438" y1="60" x2="438" y2="330" stroke="currentColor" stroke-width="1.3"
+              stroke-dasharray="3 4" opacity="0.6"/>
+        <text x="446" y="74" font-family="var(--mono)" font-size="11.5" fill="currentColor" opacity="0.8">predicted contact</text>
+
+        <!-- NO CUE: full min-jerk reach, straight through the hazard -->
+        <polyline fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 5" opacity="0.6"
+          points="110,330 175,327 240,313 305,282 370,238 435,187 500,139 565,101 630,78 695,71 728,70 810,70"/>
+        <text x="742" y="62" font-family="var(--mono)" font-size="11.5" fill="currentColor" opacity="0.8">no cue</text>
+
+        <!-- LATE CUE (80 ms): fails, ends inside the band -->
+        <polyline fill="none" stroke="var(--fail)" stroke-width="2.6"
+          points="110,330 175,327 240,313 305,282 370,238 400,215 430,190 460,168 490,150 520,139 550,134 590,133 810,133"/>
+        <line x1="386" y1="96" x2="386" y2="330" stroke="var(--cue)" stroke-width="2" stroke-dasharray="4 3"/>
+        <circle cx="386" cy="226" r="5.5" fill="var(--cue)"/>
+        <text x="380" y="88" font-family="var(--mono)" font-size="12" text-anchor="end" fill="var(--cue)" font-weight="600">cue</text>
+        <text x="822" y="137" font-family="var(--mono)" font-size="13" fill="var(--fail)" font-weight="600">✗</text>
+
+        <!-- EARLY CUE (400 ms): succeeds, stops below the band -->
+        <polyline fill="none" stroke="var(--stop)" stroke-width="2.6"
+          points="110,330 150,328 178,326 210,313 240,300 270,288 300,275 330,262 360,253 390,248 420,246 460,245 810,245"/>
+        <line x1="178" y1="116" x2="178" y2="330" stroke="var(--cue)" stroke-width="2" stroke-dasharray="4 3"/>
+        <circle cx="178" cy="326" r="5.5" fill="var(--cue)"/>
+        <text x="172" y="108" font-family="var(--mono)" font-size="12" text-anchor="end" fill="var(--cue)" font-weight="600">cue</text>
+        <text x="822" y="249" font-family="var(--mono)" font-size="13" fill="var(--stop)" font-weight="600">✓</text>
+
+        <!-- warning-time spans -->
+        <line x1="178" y1="392" x2="438" y2="392" stroke="var(--cue)" stroke-width="1.6"
+              marker-start="url(#arCue)" marker-end="url(#arCue)"/>
+        <text x="308" y="386" font-family="var(--mono)" font-size="12" text-anchor="middle"
+              fill="var(--cue)" font-weight="600">400 ms</text>
+        <line x1="386" y1="412" x2="438" y2="412" stroke="var(--cue)" stroke-width="1.6"
+              marker-start="url(#arCue)" marker-end="url(#arCue)"/>
+        <text x="378" y="416" font-family="var(--mono)" font-size="12" text-anchor="end"
+              fill="var(--cue)" font-weight="600">80 ms</text>
+      </svg>
+    </div>
+
+    <div class="key">
+      <span><i class="sw" style="border-top-color:var(--cue)"></i>cue fires</span>
+      <span><i class="sw" style="border-top-color:var(--stop)"></i>stopped in time</span>
+      <span><i class="sw" style="border-top-color:var(--fail)"></i>entered the hazard</span>
+      <span><i class="sw" style="border-top-color:currentColor;opacity:.6"></i>no cue — 3 of 4 trials</span>
+    </div>
+
+    <figcaption>
+      The hand leaves home and reaches 0.70&nbsp;m to a ball. An unseen 20&nbsp;cm hazard sits on the path and
+      moves every trial. On <b>three of four trials no cue fires</b> and the hand passes straight through —
+      nothing happens, and the participant never learns it did. That rate is the curve's floor in Figure 2.
+      On the fourth, the wrist buzzes once the software's predicted time-to-contact drops to the value assigned
+      for that trial. <b>Only the orange line moves between conditions.</b> Where it lands decides the outcome.
+    </figcaption>
+  </figure>
+
+  <!-- ══════════════════ FIGURE 2 ══════════════════ -->
+  <figure>
+    <div class="figtop">
+      <div>
+        <div class="signal">Slide 9 · the deliverable</div>
+        <p class="figtitle">Chance of stopping, against warning actually delivered</p>
+      </div>
+      <span class="warn">Illustrative — no data collected yet</span>
+    </div>
+
+    <div class="canvas">
+      <svg viewBox="0 0 900 430" role="img"
+           aria-label="Psychometric curve. Horizontal axis is warning actually delivered from zero to 450 milliseconds; vertical axis is the chance of stopping in time. The curve rises from about 0.15 at zero warning to about 0.94 at 450 milliseconds, crossing 0.5 at LT50 of about 250 milliseconds and 0.8 at LT80 of about 338 milliseconds.">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--cue)"/>
+          </marker>
+        </defs>
+
+        <!-- reference lines at 0.50 and 0.80 -->
+        <line x1="110" y1="205" x2="800" y2="205" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5" opacity="0.4"/>
+        <line x1="110" y1="118" x2="800" y2="118" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5" opacity="0.4"/>
+
+        <!-- axes -->
+        <line x1="110" y1="350" x2="815" y2="350" stroke="currentColor" stroke-width="1.4" opacity="0.75"/>
+        <line x1="110" y1="55" x2="110" y2="350" stroke="currentColor" stroke-width="1.4" opacity="0.75"/>
+
+        <!-- y ticks -->
+        <line x1="104" y1="350" x2="110" y2="350" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="104" y1="205" x2="110" y2="205" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="104" y1="118" x2="110" y2="118" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="104" y1="60"  x2="110" y2="60"  stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <text x="97" y="354" font-family="var(--mono)" font-size="11.5" text-anchor="end" fill="currentColor" opacity="0.8">0</text>
+        <text x="97" y="209" font-family="var(--mono)" font-size="11.5" text-anchor="end" fill="currentColor" opacity="0.8">0.50</text>
+        <text x="97" y="122" font-family="var(--mono)" font-size="11.5" text-anchor="end" fill="currentColor" opacity="0.8">0.80</text>
+        <text x="97" y="64"  font-family="var(--mono)" font-size="11.5" text-anchor="end" fill="currentColor" opacity="0.8">1.00</text>
+        <text x="52" y="200" font-family="var(--sans)" font-size="12.5" text-anchor="middle"
+              fill="currentColor" opacity="0.85" transform="rotate(-90 52 200)">chance of stopping in time</text>
+
+        <!-- x ticks -->
+        <line x1="110" y1="350" x2="110" y2="356" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="263" y1="350" x2="263" y2="356" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="417" y1="350" x2="417" y2="356" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="570" y1="350" x2="570" y2="356" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <line x1="723" y1="350" x2="723" y2="356" stroke="currentColor" stroke-width="1.2" opacity="0.75"/>
+        <text x="110" y="372" font-family="var(--mono)" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">0</text>
+        <text x="263" y="372" font-family="var(--mono)" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">100</text>
+        <text x="417" y="372" font-family="var(--mono)" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">200</text>
+        <text x="570" y="372" font-family="var(--mono)" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">300</text>
+        <text x="723" y="372" font-family="var(--mono)" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">400</text>
+        <text x="462" y="394" font-family="var(--sans)" font-size="12.5" text-anchor="middle"
+              fill="currentColor" opacity="0.85">warning actually delivered (ms)</text>
+
+        <!-- the fitted curve -->
+        <polyline fill="none" stroke="var(--stop)" stroke-width="3"
+          points="110,305 148,304 187,302 225,300 263,296 302,290 340,282 378,269 417,253 455,230 493,205 532,177 570,151 608,128 647,110 685,96 723,87 762,80 800,76"/>
+
+        <!-- five measured levels -->
+        <g fill="var(--stop)">
+          <circle cx="202" cy="302" r="4.5"/><circle cx="294" cy="291" r="4.5"/>
+          <circle cx="432" cy="245" r="4.5"/><circle cx="539" cy="172" r="4.5"/>
+          <circle cx="723" cy="87"  r="4.5"/>
+        </g>
+        <g stroke="var(--stop)" stroke-width="1.6">
+          <line x1="202" y1="288" x2="202" y2="316"/><line x1="294" y1="277" x2="294" y2="305"/>
+          <line x1="432" y1="229" x2="432" y2="261"/><line x1="539" y1="156" x2="539" y2="188"/>
+          <line x1="723" y1="74"  x2="723" y2="100"/>
+        </g>
+
+        <!-- zero-warning anchor from the go trials -->
+        <rect x="104" y="299" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="122" y1="305" x2="176" y2="322" stroke="currentColor" stroke-width="1.1" opacity="0.7"/>
+        <text x="181" y="327" font-family="var(--mono)" font-size="11.5" fill="currentColor" opacity="0.85">go trials — no cue</text>
+
+        <!-- LT50 -->
+        <line x1="493" y1="205" x2="493" y2="350" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.65"/>
+        <circle cx="493" cy="205" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="484" y="198" font-family="var(--mono)" font-size="12" text-anchor="end" fill="currentColor" opacity="0.9">LT50 ≈ 250 ms</text>
+
+        <!-- LT80 + interval -->
+        <line x1="628" y1="118" x2="628" y2="350" stroke="var(--cue)" stroke-width="1.8" stroke-dasharray="4 4"/>
+        <circle cx="628" cy="118" r="6" fill="var(--cue)"/>
+        <line x1="590" y1="118" x2="667" y2="118" stroke="var(--cue)" stroke-width="2.4"/>
+        <line x1="590" y1="111" x2="590" y2="125" stroke="var(--cue)" stroke-width="2.4"/>
+        <line x1="667" y1="111" x2="667" y2="125" stroke="var(--cue)" stroke-width="2.4"/>
+        <text x="600" y="102" font-family="var(--mono)" font-size="13" fill="var(--cue)" font-weight="600">LT80 ≈ 338 ms</text>
+        <text x="600" y="86"  font-family="var(--mono)" font-size="11.5" fill="var(--cue)">95% CI</text>
+        <line x1="667" y1="60" x2="700" y2="60" stroke="var(--cue)" stroke-width="1.6" marker-end="url(#ar2)"/>
+        <text x="706" y="64" font-family="var(--mono)" font-size="11.5" fill="var(--cue)">recommend this end</text>
+      </svg>
+    </div>
+
+    <figcaption>
+      Every warning trial contributes one point: how much warning actually arrived, and whether the hand
+      stopped. <b>LT80 is the deliverable</b> — the warning time at which four reaches in five are stopped. We
+      report it with an interval and recommend the <b>upper</b> bound, because a safety system should get the
+      benefit of the doubt. The square at the left is the zero-warning floor, measured from the 270 trials
+      that carry a hazard but no cue. Curve, points and intervals here are the <b>expected shape from
+      simulation</b>, not results.
+    </figcaption>
+  </figure>
+
+  <footer>
+    Values shown: hazard 0.20&nbsp;m across, sitting 60–80% along a 0.70&nbsp;m reach · five warning levels
+    aimed at 80/150/250/350/500&nbsp;ms, delivering roughly 60/120/210/280/400&nbsp;ms · 360 trials, 25%
+    warned · 24–30 participants. Simulation assumptions in <code>Analysis/e2_power_analysis.R</code>.
+  </footer>
+
+</div>

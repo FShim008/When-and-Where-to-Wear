@@ -14,8 +14,14 @@
 ---
 
 ## ✅ Progress (2026-06-22) — the entire 🤖 column is done
-Implemented + committed: **E1** per-site cue intensity (`0de28b3`) · **F1** questionnaire UI (`6f9e4fe`) · **D5** e-stop (`95a7570`) · **D4** protocol guard (`8d2f197`). Verified already-built: **D3** VisualObstacleAlert · **D1** OpportunitySpawner. Drafted: **A2** safety protocol (`316eee8`) · **A3** power script (`394da98`) · **A4** pre-registration (`a7a56ac`). All pushed.
-Remaining = the 🧑 / 🤝 rows only: VR/Editor bring-up (B), live tests (C2/C3), prefab authoring (D1–D3 art), **E2** perceptual matching (suit), **F2** official item wording, lab logistics (G), and submitting IRB/pre-reg. **Next human step:** `git pull` on the VR PC, open Unity (generates `.meta` for the new scripts — commit those), run EditMode tests.
+Implemented + committed: **E1** per-site cue intensity (`0de28b3`) · **F1** questionnaire UI (`6f9e4fe`) · **D5** e-stop (`95a7570`) · **D4** protocol guard (`8d2f197`). Verified already-built: **D3** VisualObstacleAlert · **D1** OpportunitySpawner. Drafted: **A2** safety protocol (`316eee8`) · **A3** power script (`394da98`) · **A4** analysis-plan finalize (`a7a56ac`). All pushed.
+Remaining = the 🧑 / 🤝 rows only: VR/Editor bring-up (B), live tests (C2/C3), prefab authoring (D1–D3 art), **E2** perceptual matching (suit), **F2** official item wording, lab logistics (G), and submitting IRB. **Next human step:** `git pull` on the VR PC, open Unity (generates `.meta` for the new scripts — commit those), run EditMode tests.
+
+## ✅ Progress (2026-07-06) — 🤖 queue re-verified end-to-end; **E2 built** (the last code gap closed)
+Full pass over every 🤖 row against the actual codebase: **E1, F1, D5, D3, D1, D4** confirmed implemented and high-quality; **A2** (`docs/SAFETY_PROTOCOL.md`), **A3** (`Analysis/power_analysis.R`), **A4** (stub-free `Analysis/analysis.R` — the locked analysis plan: NB-GLMM + FLOOR + H4 + presence/TLX/SSQ) confirmed complete; **H1** threshold mechanism (`DetectorParams.LimbContactRadius`, default-off) and **B1/B5** walkthroughs (`docs/PILOT_SETUP_GUIDE.md` Steps 2 & 7) in place.
+**Built E2 — the one thing that was missing:** the `CueIntensityCalibration` step. New code — `Core/Staircase` (adaptive 2AFC staircase → the Point of Subjective Equality) + `Core/CueIntensityCalibration` (per-site matching → `CueIntensityTable`) + `Integration/CueIntensityCalibrationRunner` (bHaptics playback, operator UI, per-trial logging, writes `cue_intensity.csv`) + `HapticDeviceBinding.PlayThreePulse` + EditMode tests (`StaircaseTests`, `CueIntensityCalibrationTests`).
+**Verified** by compiling the pure Core standalone (`dotnet`) against a synthetic observer: the staircase converges to the PSE from both directions; the calibration **attenuates the 40-motor chest** and **boosts the 3-motor Tactosys** to equal perceived magnitude (all within tolerance of the analytic match); unreachable sites are flagged. → the entire 🤖 column is now code-complete.
+**Next human step:** `git pull`; open Unity (commit the new `.meta`); run EditMode tests (now includes the two calibration suites); then run the **E2 match on the suit** (`docs/PILOT_SETUP_GUIDE.md` Step 9.3) to write `cue_intensity.csv`, and point `SessionRunner.cueIntensityFile` at it.
 
 ## The finish line — what the trackers actually gate (small)
 When the 3 trackers + dongle arrive: **(1)** pair in SteamVR/VIVE Hub + assign roles; **(2)** drop the 3 tracker Transforms into the `BodyTrackerRig` chest/L-foot/R-foot slots (head + hands already wired); **(3)** measure tracker→cue latency (6.1) + set `LimbContactRadius` from a touch test (7.3); **(4)** pilot. Everything below gets you to that 1-day finish.
@@ -29,7 +35,7 @@ When the 3 trackers + dongle arrive: **(1)** pair in SteamVR/VIVE Hub + assign r
 - **A1 Retrieve the 6 design docs** → repo `/docs`. **🤝 TEAM** — *you copy them from OneDrive into the repo → I reconcile every value against `IMPLEMENTATION_PLAN` Appendix A.* *(Done: docs in repo + a "reconciled" note.)*
 - **A2 IRB submission + written safety protocol.** **🤝 TEAM** — *I draft the safety-protocol document (spotter, chaperone boundary, foam spec/padding, cable management, e-stop, SSQ pre/post, exclusions, consent skeleton) → you review, put it on institutional letterhead, and submit to the IRB.* **← do first; longest lead.**
 - **A3 Power analysis.** **🤝 TEAM** — *I write the Monte-Carlo power script on `analysis.R` + `simulate_mock_data.R` → you run it and pick the tentative **N** + #opportunities (refine post-pilot).*
-- **A4 Pre-registration draft.** **🤝 TEAM** — *I draft the pre-reg text + finalize `analysis.R` (stub-free) and resolve decisions D1–D8 where code can → you make the final scientific calls + submit the registration.*
+- **A4 Analysis-plan lock.** **🤝 TEAM** — *I finalize `analysis.R` (stub-free) + resolve decisions D1–D8 where code can → you make the final scientific calls (hypotheses, model, exclusions, stopping rule).*
 
 ### B — VR bring-up with the headset + controllers `[ENG]`
 - **B1 Focus Vision PC-VR via SteamVR + enable OpenXR.** **🧑 YOU** *(I'll give you the step-by-step walkthrough)* — install SteamVR + VIVE Streaming, set OpenXR runtime, enable Unity OpenXR. Wireless is fine for dev now; wired DisplayPort kit later. *(Done: Play renders to the HMD.)*
@@ -52,7 +58,7 @@ When the 3 trackers + dongle arrive: **(1)** pair in SteamVR/VIVE Hub + assign r
 
 ### E — Cue-salience fix (needs the suit, NOT trackers) `[ENG][PI]`
 - **E1 Per-site cue-intensity mechanism** in `HapticDeviceBinding` (per-`HapticSite` intensity from a file). **🤖 ME** — *pure code; I build it.*
-- **E2 Perceptual-match procedure** (method-of-adjustment / 2-up-1-down staircase) + a `CueIntensityCalibration` step. **🤝 TEAM** — *I write the calibration routine + logging → you run the matching on yourself/pilots wearing the suit (the judgment is inherently human) and we save the per-site intensities.* *(Closes your single biggest internal-validity confound.)*
+- **E2 Perceptual-match procedure** (method-of-adjustment / adaptive staircase) + a `CueIntensityCalibration` step. **🤝 TEAM** — ✅ **code built + verified** (`Core/Staircase` + `Core/CueIntensityCalibration` + `Integration/CueIntensityCalibrationRunner`, EditMode-tested; standalone-verified to converge on the equal-magnitude point) → *you run the matching on yourself/pilots wearing the suit (the judgment is inherently human): drop `CueIntensityCalibrationRunner` on a GameObject, press **Begin**, judge which pulse feels stronger; it writes `cue_intensity.csv`, then set `SessionRunner.cueIntensityFile` to it.* *(Closes your single biggest internal-validity confound.)*
 
 ### F — Instruments & UI `[ENG][STAT]`
 - **F1 Questionnaire UI** (IPQ / NASA-TLX / SSQ) wired to `SessionRunner.RecordQuestionnaire`. **🤝 TEAM** — *I build the whole UI + wiring (the data pipeline + `analysis.R` already consume it) → you drop it in the scene + run it.*
@@ -72,16 +78,16 @@ When the 3 trackers + dongle arrive: **(1)** pair in SteamVR/VIVE Hub + assign r
 1. **Today:** **A2 (IRB)** + **A1 (docs)** — start the long-lead path. In parallel: **C1/C2** (validate software, no hardware) and **B1** (VR rendering).
 2. **This week:** **B2–B5** (rig: head + controllers), **D1** (the task), **D2–D4** (scene), **F1** (questionnaire UI).
 3. **Then:** **E** (cue matching on the suit), **G1** (arena once docs are in), **D5** (e-stop), **H1** (thresholds), **C3** (partial live hand-cue test).
-4. **A3 / A4** (power, pre-reg) as the stats track matures.
+4. **A3 / A4** (power, analysis plan) as the stats track matures.
 
 ---
 
 ## Definition of "tracker-ready" (this plan's goal)
-- ☐ IRB submitted + safety protocol drafted; docs reconciled; power/pre-reg drafted (A)
+- ☐ IRB submitted + safety protocol drafted; docs reconciled; power + analysis plan drafted (A)
 - ☐ VR renders; rig wired with head + controllers; build settings set (B)
 - ☐ Full synthetic pipeline validated; partial live hand-cue test passes (C)
 - ☐ Scene complete: dodge/orb task, haptics, visual alert, e-stop (D)
-- ☐ Cue intensities perceptually equalized (E)
+- ☐ Cue intensities perceptually equalized (E) — *E2 routine built + verified; run `CueIntensityCalibrationRunner` on the suit to produce `cue_intensity.csv`*
 - ☐ Questionnaire UI live (F)
 - ☐ Arena placed; tracker mounting + spotter ready (G)
 - ☐ Detector thresholds set (H)
@@ -97,20 +103,21 @@ When the 3 trackers + dongle arrive: **(1)** pair in SteamVR/VIVE Hub + assign r
 
 ## Who does what — the two queues
 
-### 🤖 MY queue — I can start now, no hardware (just say "go")
-| Task | What I deliver |
-|---|---|
-| **E1** | per-site cue-intensity mechanism (code) |
-| **F1** | questionnaire UI (IPQ/NASA-TLX/SSQ) + wiring |
-| **D5** | e-stop + operator HUD (code) |
-| **D3** | `VisualObstacleAlert` component |
-| **D1** | `OpportunitySpawner` (the 12-event driver) |
-| **D4** | protocol-param defaults in `SessionRunner` |
-| **A2** | safety-protocol document draft |
-| **A3** | Monte-Carlo power script |
-| **A4** | pre-registration draft + finalize `analysis.R` |
-| **E2/H1** | the calibration routine + threshold code (you supply suit judgments / foam dims) |
-| **B1/B5** | written SteamVR + OpenXR + tracker-feature walkthroughs |
+### 🤖 MY queue — **✅ ALL DELIVERED** (no hardware)
+| Task | What I deliver | Status |
+|---|---|---|
+| **E1** | per-site cue-intensity mechanism (code) | ✅ `Core/CueIntensityTable` + `Runtime/CueIntensityFile`, tested |
+| **F1** | questionnaire UI (IPQ/NASA-TLX/SSQ) + wiring | ✅ `Core/Questionnaire` + `Runtime/QuestionnairePanel`, tested |
+| **D5** | e-stop + operator HUD (code) | ✅ `Runtime/OperatorEStop` + SessionRunner abort |
+| **D3** | `VisualObstacleAlert` component | ✅ `Runtime/VisualObstacleAlert` + `Core/VisualAlertModel`, tested |
+| **D1** | `OpportunitySpawner` (the 12-event driver) | ✅ `Runtime/OpportunitySpawner` |
+| **D4** | protocol-param defaults in `SessionRunner` | ✅ `SessionRunner.ValidateProtocol` |
+| **A2** | safety-protocol document draft | ✅ `docs/SAFETY_PROTOCOL.md` |
+| **A3** | Monte-Carlo power script | ✅ `Analysis/power_analysis.R` |
+| **A4** | finalize `analysis.R` / lock the analysis plan | ✅ stub-free `Analysis/analysis.R` (NB-GLMM + FLOOR + H4 + presence/TLX/SSQ) |
+| **E2** | the calibration routine + logging | ✅ **NEW** `Core/Staircase` + `Core/CueIntensityCalibration` + `Integration/CueIntensityCalibrationRunner`, tested (you run the match on the suit) |
+| **H1** | detector threshold code | ✅ `DetectorParams.LimbContactRadius` mechanism (default-off; you supply foam dims / touch-test radius) |
+| **B1/B5** | written SteamVR + OpenXR + tracker-feature walkthroughs | ✅ `docs/PILOT_SETUP_GUIDE.md` Steps 2 & 7 |
 
 ### 🧑 YOUR queue — only you (hardware / Editor / ethics / physical)
 | Task | Why it's yours |

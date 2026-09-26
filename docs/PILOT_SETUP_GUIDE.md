@@ -16,7 +16,7 @@ Scene files: **`Assets/Scenes/Dryrun.unity`** (the study scene — has `Obstacle
 
 ### Step 1 — Compile clean + tests green  `[YOU · ~30 min]`
 1. On the VR PC: `git pull` (gets all of today's commits).
-2. Open the project in Unity 6.3 (`6000.3.16f1`). Let it finish importing — it generates `.meta` files for the new scripts (`CueIntensityTable`, `CueIntensityFile`, `Questionnaire`, `QuestionnairePanel`, `OperatorEStop`, + 2 test files).
+2. Open the project in Unity 6.3 (`6000.3.16f1`). Let it finish importing — it generates `.meta` files for the new scripts (`CueIntensityTable`, `CueIntensityFile`, `Questionnaire`, `QuestionnairePanel`, `OperatorEStop`, the **E2 calibration** scripts `Staircase` / `CueIntensityCalibration` / `CueIntensityCalibrationRunner`, the **controllers-as-trackers** stand-in `ControllerTrackerStandIn`, + the test files `CueIntensityTableTests`, `QuestionnaireScoringTests`, `StaircaseTests`, `CueIntensityCalibrationTests`).
 3. **Commit those `.meta`:** `git add -A && git commit -m "Unity-generated .meta for new scripts" && git push`. *(Keeps GUIDs stable across machines.)*
 4. **Window ▸ General ▸ Test Runner ▸ EditMode ▸ Run All** → everything green (includes the new `CueIntensityTableTests` + `QuestionnaireScoringTests`).
 - **Done when:** no console compile errors; all EditMode tests pass.
@@ -39,14 +39,23 @@ The scene has `Obstacles`, `Spawner`, `Session` but only a plain `Main Camera`. 
 3. **BodyTrackerRig:** create an empty GameObject `BodyTrackerRig`, **Add Component ▸ Body Tracker Rig**, and assign:
    - `head` = the XR `Main Camera` transform,
    - `leftHand` / `rightHand` = the `Left/Right Controller` transforms,
-   - `chest` / `leftFoot` / `rightFoot` = **leave empty for now** (filled in Step 7).
-   *(With 3 of 6 slots filled, `IsComplete` is false — SessionRunner will warn. For the technical pilot, see the note below.)*
+   - `chest` / `leftFoot` / `rightFoot` = the 3 Ultimate Tracker transforms **when they arrive** (Step 7); **until then use the controllers-as-trackers stand-in below.**
 4. **New UI components (this session):** create two empty GameObjects and add **`QuestionnairePanel`** and **`OperatorEStop`** respectively. (They render via IMGUI on the desktop mirror; no Canvas needed.)
-5. **VisualObstacleAlert:** add a **`VisualObstacleAlert`** component (e.g., on the `Obstacles` object) if not already present.
+5. **VisualObstacleAlert:** add a **`VisualObstacleAlert`** component (e.g., on the `Obstacles` object) if not already present. **Obstacles are invisible by design:** on Play this component hides every obstacle mesh in ALL conditions (the volumes stand for real-world hazards the participant must not see in the HMD); only the Visual condition shows anything — a translucent green→red glow that fades in as a limb approaches and disappears as it clears. To see the boxes while debugging, untick `hideObstacles` on the component (never during a session). This also enables a **virtual-only mode** (no physical foam) for technical pilots — note real foam is still required for the actual study so collisions carry a physical consequence.
 6. **Session:** select `Session`; confirm it has **`SessionRunner`** (full study) — its Scene-wiring fields auto-find the above on Play, or assign them explicitly. Set `participantId`, `useLiveHaptics = true`.
 - **Done when:** Play logs `[SessionRunner] Protocol: block 180s …` and warns only about things you intend to add later.
 
-> **Technical-pilot shortcut (no trackers):** `BodyTrackerRig.IsComplete` requires all 6. To dry-run with head+controllers only, either (a) temporarily assign the 3 empty slots to **any** tracked transforms (e.g., the camera) so it runs, or (b) use **`LiveSessionController`** on a simple object and test the hand-localized conditions. Real data needs Step 7.
+> **Controllers-as-trackers (interim, until the Ultimate Trackers arrive) — RECOMMENDED.** `BodyTrackerRig.IsComplete`
+> requires all 6 slots. Instead of leaving chest/feet empty, add a **`ControllerTrackerStandIn`** component to the
+> `BodyTrackerRig` GameObject and drag in the **head camera + the two controllers**. It fills all 6 slots: head + hands
+> are REAL, and it synthesizes a **chest proxy** (a fixed drop below the HMD — follows your torso as you lean/step) and
+> **feet proxies** (at floor level under your ground position). `IsComplete` becomes true and the **whole session runs
+> today** — hand-localized cues (RB/PB) + real hand collisions work, chest cues (RG/PG) work via the proxy, and the feet
+> follow where you stand (not articulated). *This validates the full software pipeline; it is NOT real foot-collision
+> data.* If you'd rather test **real foot** motion, strap the 2 controllers to your ankles and assign them to
+> `leftFootController`/`rightFootController` on the component (hands then use proxies). When the trackers arrive (Step 7),
+> **delete this component** and drag the 3 tracker Transforms into `chest`/`leftFoot`/`rightFoot`. *(Cruder fallback:
+> assign the 3 empty slots to any tracked transform like the camera — everything then piles at head height.)*
 
 ---
 
@@ -76,8 +85,8 @@ The **primitive-spawn fallback is built in** (committed): with `orbPrefab`/`proj
 ### Step 7 — Ultimate Trackers (when they arrive)  `[YOU · ~30 min]`
 1. Plug the **dongle**; in **VIVE Hub / SteamVR** pair the **3 Ultimate Trackers**; assign roles **chest**, **left foot**, **right foot** (SteamVR ▸ Devices ▸ Manage Trackers → role).
 2. In Unity each tracker appears as an OpenXR tracked device. Add a **`TrackedPoseDriver`** (Input System) to three GameObjects bound to the tracker pose actions (OpenXR HTC Vive Tracker bindings), or use the SteamVR/Focus tracker objects.
-3. Drag those three tracker transforms into the empty `BodyTrackerRig` slots (`chest`, `leftFoot`, `rightFoot`). Now `IsComplete = true`.
-- **Done when:** all 6 `BodyTrackerRig` slots are filled and track live.
+3. **Remove the interim stand-in:** delete the **`ControllerTrackerStandIn`** component (from Step 3) so it stops overwriting the slots, then drag the three real tracker transforms into the `BodyTrackerRig` slots (`chest`, `leftFoot`, `rightFoot`). Head + both hands stay as they were. Now `IsComplete = true` on real hardware.
+- **Done when:** all 6 `BodyTrackerRig` slots are filled by real devices and track live.
 
 ---
 
@@ -91,7 +100,7 @@ The **primitive-spawn fallback is built in** (committed): with `orbPrefab`/`proj
 ### Step 9 — Latency + contact radius  `[🤝 you measure → set values]`
 1. **Latency:** measure tracker-motion → cue delay (one-shot; e.g., film the HMD mirror + a tactor, or log frame stamps). Set **`pipelineLatencySeconds`** on `SessionRunner` to that value.
 2. **Contact radius:** with a tracker on the wrist/ankle, touch an obstacle and read the residual distance; set **`DetectorParams.LimbContactRadius`** per limb (the strap-to-fingertip/toe offset, ~0.10–0.15 m). *(Default 0 = off.)*
-3. **Cue intensity (optional for pilot 1):** run flat, or do the **E2** perceptual match later and point `cueIntensityFile` at the result.
+3. **Cue intensity — E2 perceptual match (built):** to equalize perceived salience across the 40-motor chest and the 3-motor hand/foot Tactosys (removes the Localization-vs-energy confound), add a **`CueIntensityCalibrationRunner`** to any GameObject in a simple scene with `[bHaptics]` + the Player running. Wear the suit, set `participantId`, pick the **reference** (default a hand at 0.80 — every other site is matched down/up to it), press **▶ Begin**. Judge which of the two pulses feels **stronger** each trial (or use *Method of adjustment* to nudge until equal). It writes **`cue_intensity.csv`** to `persistentDataPath` (+ a `cue_calibration_log_P###.csv` trail). Then set **`SessionRunner.cueIntensityFile = "cue_intensity.csv"`**. *(Optional for a first technical pilot — run flat — but required before real data.)*
 - **Done when:** latency + radii reflect the physical rig; cues fire at the right moment/distance.
 
 ---
@@ -108,7 +117,6 @@ The **primitive-spawn fallback is built in** (committed): with `orbPrefab`/`proj
 ### Step 11 — IRB + consent + instruments  `[YOU/PI]`
 1. Finalize `docs/SAFETY_PROTOCOL.md` (institutional letterhead, bracketed items) + the **consent form**; submit/obtain **IRB** approval. *(Required before real participants; not for a technical pilot of yourself.)*
 2. **F2:** replace the approximate IPQ/NASA-TLX/SSQ wording in `Core/Questionnaire.cs` with the official licensed items (structure/scoring already correct).
-3. Pre-register (`docs/PREREGISTRATION.md`) once N is set.
 - **Done when:** IRB number on file; consent ready; official items in.
 
 ---

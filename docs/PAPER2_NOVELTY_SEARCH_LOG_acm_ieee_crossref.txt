@@ -1,0 +1,473 @@
+========================================================================================================
+ACM DL / IEEE XPLORE PASS via Crossref DOI-prefix filter - run 2026-09-14
+ACM = prefix 10.1145   |   IEEE = prefix 10.1109   |   relevance-ranked, top 50 screened per query
+========================================================================================================
+
+### [ACM] warning lead time collision avoidance   (top 50 screened, 48 flagged)
+    2016 | Driver Choices of Time-to-Collision Thresholds for a Collision Warning System | Proceedings of the European Conference o
+    1990 | A real-time robot collision avoidance system (abstract) | Proceedings of the 1990 ACM annual confe
+    2025 | Research on Collision Avoidance Warning of High-Speed Maintenance Vehicle Based on A | Proceedings of the 2025 International Co
+    2017 | A Real-Time Reconfigurable Collision Avoidance System for Robot Manipulation | Proceedings of the 3rd International Con
+    2017 | The Collision Avoidance Response Time Analysis and Experimental Study for AEB System | Proceedings of the 2017 International Co
+    1981 | Application of fast-time discrete simulation techniques in evaluating aircraft colli | ACM SIGSIM Simulation Digest
+    2026 | Unsupervised Anomaly Detection for Lead-Time-Based Early Warning of Beam-Pump Failur | Proceedings of the 17th International Co
+    2019 | Stereo-vision-based Collision Avoidance Simulation | Proceedings of the 2019 ACM Southeast Co
+    2024 | CAR: Collision-Avoidance Retargeting for Varied Skeletal Architectures | SIGGRAPH Asia 2024 Technical Communicati
+    2021 | Vehicle Forward Collision Warning Algorithm Based on Multi-Information Fusion and Im | 2021 2nd International Conference on Con
+    2024 | Research on Ship Automatic Collision Avoidance and Obstacle Avoidance Based on Impro | Proceedings of the 5th International Con
+    2021 | Quantitative research on ship domain based on ship collision avoidance | The 2nd International Conference on Comp
+    2005 | Collision avoidance with bipartite arrangements | Proceedings of the 2005 ACM workshop on 
+    2014 | Flight Collision Avoidance System for Self-Separation | Proceedings of the 2014 European Confere
+    2013 | Collision avoidance passive sonar | Proceedings of the Eighth ACM Internatio
+    2021 | Toward a collision avoidance system based on the integration of technologies | Proceedings of the 2021 ACM Southeast Co
+    2013 | Multi Robot Collision Avoidance with Continuous Curvature Manoeuvres | Proceedings of Conference on Advances In
+    2020 | Longitudinal collision warning system based on driver braking characteristics | 2020 3rd International Conference on Alg
+    2011 | Collision avoidance in virtual environments through aural spacial awareness | CHI '11 Extended Abstracts on Human Fact
+    2011 | Imperceptible relaxation of collision avoidance constraints in virtual crowds | Proceedings of the 2011 SIGGRAPH Asia Co
+    2019 | Criticality-based Collision Avoidance Prioritization for Crowd Navigation | Proceedings of the 7th International Con
+    1988 | Tree LANs with collision avoidance: protocol, switch architecture, and simulated per | Symposium proceedings on Communications 
+    2012 | Global revocation for the intersection collision warning safety application | Proceedings of the ninth ACM internation
+    2012 | Efficient algorithms for collision avoidance at intersections | Proceedings of the 15th ACM internationa
+    2004 | Collision warning design to mitigate driver distraction | Proceedings of the SIGCHI Conference on 
+    2026 | Cooperative Grasping and Collision Avoidance Planning for Mobile Manipulators in Dyn | Proceedings of the 2026 International Sy
+    2011 | Imperceptible relaxation of collision avoidance constraints in virtual crowds | Proceedings of the 2011 SIGGRAPH Asia Co
+    2025 | Evolutionary Adaptive Stress Testing for Collision Avoidance in Sustainable Maritime | Proceedings of the Genetic and Evolution
+    2008 | A curvilinear collision avoidance scheme for interactive 3D gaming environments | Proceedings of the 2008 International Co
+    2014 | Anticipatory stigmergic collision avoidance under noise | Proceedings of the 2014 Annual Conferenc
+    2006 | Collision avoidance in a dense RFID network | Proceedings of the 1st international wor
+    2018 | Multi-Sensor Fusion for UAV Collision Avoidance | Proceedings of the 2018 2nd Internationa
+    2019 | Less-Effort Collision Avoidance in Virtual Pedestrian Simulation | Proceedings of the 2019 International Co
+    2024 | Human-vehicle-road-environment-oriented Intelligent Collision Warning Strategy | Proceedings of the 3rd International Con
+    2024 | Research on V2V-based Cooperative Collision Avoidance System for Autonomous Driving | Proceedings of the 2024 4th  Internation
+    2021 | Applying Soft Attention in Deep Reinforcement Learning for Robot Collision Avoidance | 2021 6th International Conference on Mat
+    2010 | 3-way associative collision warning system | Proceedings of the International Confere
+    2018 | Mutual collision avoidance during walking in real and collaborative virtual environm | Proceedings of the ACM SIGGRAPH Symposiu
+    2021 | Decision-making of Vessel Collision Avoidance Based on Support Vector Regression | 2021 2nd International Conference on Art
+    2016 | Asymmetric Design Approach and Collision Avoidance Techniques For Room-scale Multipl | Proceedings of the 29th Annual Symposium
+    2007 | Energy efficient collision avoidance MAC protocol in wireless mesh access networks | Proceedings of the 2007 international co
+    2019 | Research on collision avoidance of fixed-wing UAV | Proceedings of the 2019 4th Internationa
+    2026 | Multi-UAV Collision Avoidance Using Control Barrier Functions: A Comparative Study i | Proceedings of the 3rd International Con
+    2017 | Lattice-guided human motion deformation for collision avoidance | Proceedings of the Tenth International C
+    2022 | On the Security of the FLARM Collision Warning System | Proceedings of the 2022 ACM on Asia Conf
+    2013 | Low Power Two-Tier GALS Architecture for Multi Robot Collision Avoidance | Proceedings of Conference on Advances In
+    2012 | Monocular vision-based collision avoidance system | Proceedings of the 14th international co
+    2016 | Cable collision avoidance of a pulley embedded cable-driven parallel robot by kinema | Proceedings of the 4th International Con
+
+### [IEEE] warning lead time collision avoidance   (top 50 screened, 50 flagged)
+     | Vehicle collision warning and avoidance system using real-time FFT | Proceedings of Vehicular Technology Conf
+    2025 | Enhancing Vehicle Safety: An Arduino-Based Real-Time Collision Avoidance System Usin | 2025 International Conference on Electro
+    2020 | Collision Warning and Avoidance System | 2020 International Conference on Intelli
+     | Fog collision-avoidance warning device | Proceedings IEEE 31st Annual 1997 Intern
+     | A high performance automotive radar for adaptive cruise control and collision warnin | Proceedings of Conference on Intelligent
+    2017 | CWAS: A Hybrid Solution for Collision Warning and Avoidance | 2017 International Conference on Compute
+    2016 | Using insurance claims data to evaluate the collision-avoidance and crash-mitigating | 2016 IEEE Intelligent Vehicles Symposium
+    2015 | Based on ECDIS and AIS Ship Collision Avoidance Warning System Research | 2015 8th International Conference on Int
+    2017 | Research of SDS-TWR ranging based on collision avoidance of anti-collision warning s | 2017 12th IEEE Conference on Industrial 
+    2017 | Intelligent collision avoidance and safety warning system for car driving | 2017 International Conference on Intelli
+    2021 | Design of Backward Collision Warning and Avoidance System when On-street Parking Usi | 2021 2nd International Conference on Com
+    1986 | Wrist collision avoidance of two robots: A collision map and time scheduling approac | 1986 25th IEEE Conference on Decision an
+    2007 | Design of Automobile Collision Avoidance Warning System Based on LabVIEW | 2007 8th International Conference on Ele
+    2013 | Collision Avoidance Warning for Safe Lane Change | 2013 International Conference on Communi
+    2012 | A new collision warning system for lead vehicles in rear-end collisions | 2012 IEEE Intelligent Vehicles Symposium
+     | CAWAS: collision avoidance and warning system for automotives based on satellite | Proceedings. 2005 IEEE Intelligent Trans
+    2009 | A research on risk assessment and warning strategy for intersection collision avoida | 2009 12th International IEEE Conference 
+    2012 | Improvement of warning lag time in forward collision warning systems based on multif | 2012 IEEE International Conference on Ve
+    2024 | Collision Avoidance Warning System for Deep-Sea Underwater Operation Platforms | 2024 IEEE 10th International Conference 
+    1968 | Analysis of Warning Times For Collision Avoidance Systems | IEEE Transactions on Aerospace and Elect
+    2019 | Research on Detection and Warning of Air Threat Situation for UAV Collision Avoidanc | 2019 International Conference on Intelli
+    2018 | Longitudinal Control Strategy of Collision Avoidance Warning System for Intelligent  | 2018 IEEE Intelligent Vehicles Symposium
+    2019 | Research on calculation model of vehicle collision avoidance based on safe collision | 2019 IEEE 2nd International Conference o
+    1971 | Frequency and Time in Air Traffic Control and Collision Avoidance Applications | 25th Annual Symposium on Frequency Contr
+    2016 | A system of collision avoidance warning on the highway based on a drive lane localiz | 2016 25th Wireless and Optical Communica
+    2016 | A novel warning/avoidance algorithm for intersection collision based on Dynamic Baye | 2016 IEEE International Conference on Co
+     | Obstacle count independent real-time collision avoidance | Proceedings of IEEE International Confer
+    1983 | A vehicle collision avoidance system using time multiplexed hexadecimal FSK | 33rd IEEE Vehicular Technology Conferenc
+    2024 | Design of Automatic Emergency Braking and Foward Collision Warning as a Collision Av | 2024 7th International Seminar on Resear
+    2012 | Model of collision avoidance with lane departure warning in real-world departure col | 2012 15th International IEEE Conference 
+    2020 | UAV Collision Avoidance with Varying Trigger Time | 2020 International Conference on Unmanne
+    2024 | Quadcopter Trajectory Time Minimization and Robust Collision Avoidance via Optimal T | 2024 IEEE International Conference on Ro
+    2018 | A High Precision and Efficient Time-to-Collision Algorithm for Collision Warning Bas | 2018 2nd International Conference on Rob
+    2016 | A vehicular collision warning algorithm based on the time-to-collision estimation un | 2016 14th International Conference on Co
+    2020 | A Time Optimal Reactive Collision Avoidance Method for UAVs Based on a Modified Coll | 2020 IEEE/RSJ International Conference o
+    2009 | Real-time collision avoidance algorithm for robotic manipulators | 2009 IEEE International Conference on Te
+    2013 | Forward collision warning system considering both time-to-collision and safety braki | 2013 IEEE 8th Conference on Industrial E
+    2017 | Collision avoidance dynamics for optimal impulsive collision avoidance maneuvers | 2017 8th International Conference on Rec
+     | Development of a performance-based approach for a rear-end collision warning and avo | IEEE IV2003 Intelligent Vehicles Symposi
+    2010 | Time optimal trajectory planning for reconfiguration of satellite formation with col | IEEE ICCA 2010
+    2026 | A Posture-Aware LiDAR-Based Collision Avoidance Framework for Stacker-Reclaimers wit | 2026 3rd International Conference on Ele
+    2022 | Traffic Collision Avoidance System Warning Risk of Transport and Training Aircraft B | 2022 International Conference on Compute
+    2024 | Development of Low-cost Forward Collision Warning and Avoidance System for Electric  | 2024 International Conference on Computa
+    2011 | Vehicle warning system for land departure and collision avoidance: Using fuzzy decis | 2011 IEEE International Conference on Fu
+    2024 | Multi-UAV Cooperative Formation Control Considering Finite Time and Collision Avoida | 2024 China Automation Congress (CAC)
+    2016 | A finite-time partial IGC approach for formation flying with collision avoidance | 2016 IEEE Annual India Conference (INDIC
+    2016 | Real-time collision avoidance control of quadrotor using ellipsoid as a bounding box | 2016 European Control Conference (ECC)
+    2026 | Real-Time Vehicle Collision Avoidance Using MEMS and Computer Vision | 2026 International Conference on Computi
+    1996 | An intelligent driver warning system for vehicle collision avoidance | IEEE Transactions on Systems, Man, and C
+    2016 | Real-time reciprocal collision avoidance with elliptical agents | 2016 IEEE International Conference on Ro
+
+### [ACM] time to collision warning threshold   (top 50 screened, 24 flagged)
+    2015 | Adjacent Vehicle Collision Warning System using Image Sensor and Inertial Measuremen | Proceedings of the 2015 ACM on Internati
+    2006 | Cooperative collision warning using dedicated short range wireless communications | Proceedings of the 3rd international wor
+    2015 | Analysis of the coupling of communication network and safety application in cooperat | Proceedings of the ACM/IEEE Sixth Intern
+    2017 | Research and Application of Wireless Sensor on Anti-Collision Warning in Vehicular A | Proceedings of the 2017 2nd Internationa
+    2024 | Study on Bivariate Warning Threshold for Reservoir Bank Slope Stability Based on Mic | Proceedings of the 2024 4th Internationa
+    2013 | Collision risk prediction and warning at road intersections using an object oriented | Proceedings of the 5th International Con
+    2015 | Augmented reality for collision warning and path guide in a vehicle | Proceedings of the 21st ACM Symposium on
+    2022 | Anti-Collision Warning Algorithm of Vehicle Intersection Based on V2X | Proceedings of the 7th International Con
+    2006 | A framework for bounded-time collision detection in haptic interactions | Proceedings of the ACM symposium on Virt
+    2010 | Recent advances in real-time collision and proximity computations for games and simu | ACM SIGGRAPH ASIA 2010 Courses
+
+### [IEEE] time to collision warning threshold   (top 50 screened, 50 flagged)
+    2019 | Development of AtoN Real-time Video Surveillance System Based on the AIS Collision W | 2019 5th International Conference on Tra
+    2022 | A novel license plate detection based Time-To-Collision calculation for forward coll | 2022 IEEE 5th International Conference o
+    2011 | Linear recursive target state and time-to-collision estimator for automotive collisi | IECON 2011 - 37th Annual Conference of t
+    2019 | Uncertainty-Dependent Warning Threshold for Spacecraft Rendezvous Collision Probabil | IEEE Transactions on Aerospace and Elect
+    2014 | Real-time lane departure and front collision warning system on an FPGA | 2014 IEEE High Performance Extreme Compu
+     | A fusion system for real-time forward collision warning in automobiles | Proceedings of the 2003 IEEE Internation
+     | VORAD collision warning radar | Proceedings International Radar Conferen
+    2013 | An Advanced Vehicle Collision Warning Algorithm over the DSRC Communication Environm | 2013 IEEE 27th International Conference 
+    2018 | Real-Time Forward Collision Warning System Using Nested Kalman Filter for Monocular  | 2018 IEEE International Conference on Ro
+    2020 | A Real-Time Forward Collision Warning Technique Incorporating Detection and Depth Es | 2020 IEEE International Conference on Sy
+    2021 | Computer vision assisted, real time blind spot detection based collision warning sys | 2021 5th International Conference on Ele
+    2025 | A Real-time Implementation of an Edge-Assisted Collision Warning System for Urban In | 2025 IEEE Vehicular Networking Conferenc
+    2026 | Lightweight Multi-Source Sensor Fusion for Real-Time Object Detection and Collision  | 2026 International Conference on Communi
+    2017 | Real-time lane detection and forward collision warning system based on stereo vision | 2017 IEEE Intelligent Vehicles Symposium
+    2025 | A Bio-inspired Adaptive Traffic Risk Warning Model Based on Time-to-Collision | 2025 4th International Conference on Adv
+    2015 | A study on the rear-end collision warning system by considering different perception | 2015 IEEE Intelligent Vehicles Symposium
+     | Collision warning radar interference | Proceedings of the Intelligent Vehicles 
+    2020 | Demonstration of Forward Collision Warning System Based on Real-Time Computer Vision | 2020 16th International Computer Enginee
+    2024 | An Early Warning Model for Induced Draft Fan Based on Multivariate Time Series Forec | 2024 IEEE 4th International Conference o
+    2026 | Real-Time Lane and Vehicle Detection with ADAS-based Collision Warning using YOLOv8  | 2026 7th International Conference on Inv
+    2013 | A real-time visual-based front-mounted vehicle collision warning system | 2013 IEEE Symposium on Computational Int
+    2025 | Multi-Sensor Fusion and Machine Learning for Real-Time Collision Warning in Autonomo | 2025 IEEE 4th International Conference f
+    2015 | Real-Time Lane Detection and Rear-End Collision Warning System on a Mobile Computing | 2015 IEEE 39th Annual Computer Software 
+    2008 | Road Intersections as Pervasive Computing Environments: Towards a Multiagent Real-Ti | 2008 Sixth Annual IEEE International Con
+    2020 | Real-Time Collision Warning System Based on Computer Vision Using Mono Camera | 2020 2nd Novel Intelligent and Leading E
+    2006 | Channel Access Priority for Vehicle Intersection Collision Warning | IEEE Vehicular Technology Conference
+    2006 | Design of Vehicle Collision Warning Model Based on Multi-Grade Warning Rule | 2006 IEEE International Conference on Ve
+    2017 | Development of V2V and GPS based collision warning algorithm for uncontrolled inters | 2017 Electronics
+    2015 | Implementation of collision warning algorithm based on V2V communications | 2015 25th International Conference Radio
+     | Airport surface collision warning system implementation | [1993 Proceedings] AIAA/IEEE Digital Avi
+    2015 | Effects of collision warning system under different warning timing on driving speed  | 2015 International Conference on Transpo
+    2026 | Real-Time PYNQ-Z2 Hardware Accelerator Based Embedded Vision for Forward Collision W | 2026 IEEE 6th International Conference o
+    2010 | Watch your head: A wearable collision warning system for the blind | 2010 IEEE Sensors
+    2018 | Evaluation of Estimation Approaches on the Quality and Robustness of Collision Warni | SoutheastCon 2018
+    2014 | Collision warning algorithm for passage of an uncontrolled road intersection | 2014 14th Biennial Baltic Electronic Con
+     | Vision-based vehicle detection and tracking method for forward collision warning in  | Intelligent Vehicle Symposium, 2002. IEE
+     | Forward collision warning with a single camera | IEEE Intelligent Vehicles Symposium, 200
+     | 76 GHz collision warning transceiver component requirements and current status | Proceedings of Conference on Intelligent
+    2019 | Hardware Implementation of VANET Communication based Collision Warning System | 2019 International Conference on Communi
+    1993 | Airport surface collision warning system implementation | Proceedings of VNIS '93 - Vehicle Naviga
+    2006 | Design and implementation of a cooperative collision warning system | 2006 IEEE Intelligent Transportation Sys
+     | Accurate forward road geometry estimation for collision warning applications | Proceedings. The IEEE 5th International 
+
+### [ACM] haptic warning timing obstacle avoidance   (top 50 screened, 49 flagged)
+    2024 | The Impact of Auditory Warning Types and Emergency Obstacle Avoidance Takeover Scena | International Conference on Multimodel I
+    2019 | Real-time obstacle avoidance with deep reinforcement learning Three-Dimensional Auto | Proceedings of the 2019 International Co
+    2023 | Research on an obstacle detection method for autonomous obstacle avoidance test of u | Proceedings of the 2023 6th Internationa
+    2023 | Implicit Obstacle Map-driven Indoor Navigation Model for Robust Obstacle Avoidance | Proceedings of the 31st ACM Internationa
+    2021 | Design, Analysis and Obstacle Avoidance Control of a Smart Wheelchair | 2021 the 5th International Conference on
+    2012 | Breadth first search (animation and obstacle avoidance) | Proceedings of the 17th ACM annual confe
+    2020 | Research on Obstacle Avoidance and Trajectory Planning Strategy of Automatic Parking | Proceedings of the 2020 Artificial Intel
+    2024 | Foot-End Obstacle Avoidance Trajectory Planning for Quadruped Robots | Proceedings of the 2024 3rd Internationa
+    2017 | Research on AUV obstacle avoidance based on BP neural network | Proceedings of the 2nd International Con
+    2019 | Obstacle avoidance algorithms for mobile robots | Proceedings of the 20th International Co
+    2021 | Design of Autonomous Obstacle Avoidance System for Driverless Vehicle Based on Machi | 2021 3rd International Conference on Art
+    2019 | Obstacle Avoidance System Design Based on Quad - Rotor UAV | Proceedings of the 2019 4th Internationa
+    2019 | Path Planning and Obstacle Avoidance in CG Space of a 10 DOF Rover using RRT | Proceedings of the Advances in Robotics 
+    2005 | High speed obstacle avoidance using monocular vision and reinforcement learning | Proceedings of the 22nd international co
+    2021 | Fuzzy Controlled Adaptive Follow the Gap Obstacle Avoidance Algorithm | 2021 7th International Conference on Rob
+    2022 | Autonomous Navigation and Obstacle Avoidance using Self-Guided and Self-Regularized  | Proceedings of the 8th International Con
+    2020 | Multi-UAV Collaborative Online Obstacle Avoidance Track Planning | Proceedings of the 2020 International Co
+    2022 | Research on Robot Obstacle Avoidance Method Based on Digital Twin | Proceedings of the 2022 2nd Internationa
+    2013 | Haptic in-seat feedback for lane departure warning | Proceedings of the 5th International Con
+    2024 | Research on 2D Obstacle Avoidance Model Based on Field Rescue | Proceedings of the 2024 6th Internationa
+    2019 | Sample-based Path Planning for Small UAV Obstacle Avoidance | Proceedings of the 2019 4th Internationa
+    2023 | Towards a Haptic-based Virtual Cane to Assist Blind People in Obstacle Detection | Proceedings of the 16th International Co
+    2020 | Intelligent Mobility Cane - Lessons Learned from Evaluation of Obstacle Notification | Extended Abstracts of the 2020 CHI Confe
+    2022 | A Novel Obstacle Detection and Avoidance Dataset for Drones | System Engineering for constrained embed
+    2019 | Depth-based Obstacle Avoidance through Deep Reinforcement Learning | Proceedings of the 5th International Con
+    2014 | On the benefits of stereo graphics in virtual obstacle avoidance tasks | Proceedings of the 20th ACM Symposium on
+    2018 | Virtual Simulation Technology of 3D Obstacle Avoidance Algorithm for AUV | Proceedings of the 2nd International Con
+    2019 | Obstacle Avoidance Algorithm for Indoor Mobility Robot Based on Improved Support Vec | Proceedings of the 2019 The 2nd Internat
+    2019 | Path Planning and Tracking Control for Automatic Driving Obstacle Avoidance | Proceedings of the 2019 International Co
+    2016 | An approach for microscopic path finding and obstacle avoidance for blind and visual | Proceedings of the 17th International Co
+    2019 | Obstacle Avoidance by DSmT for Mobile Robot in Unknown Environment | Proceedings of the 2019 4th Internationa
+    2013 | Constrained Motion and Obstacle Avoidance based on Assistive Forces for Tele-operati | Proceedings of Conference on Advances In
+    2022 | Artificial versus spiking neural networks for reinforcement learning in UAV obstacle | Proceedings of the 19th ACM Internationa
+    2021 | PSO Based Path Planning and Dynamic Obstacle Avoidance in CG Space of a 10 DOF Rover | Advances in Robotics - 5th International
+    2023 | Solar Powered Grass Cutter with Obstacle Avoidance Function Using IoT | 2023 International Conference on Intelli
+    2013 | Virtual prototyping of a spatial audio interface for obstacle avoidance using image  | Proceedings of the 4th Augmented Human I
+    2021 | Game Architecture based Obstacle Avoidance Control of Electric Surface Vessel | 2021 the 5th International Conference on
+    2022 | Research on the UAV Obstacle Avoidance System based on Vision and Image Processing | Proceedings of the 7th International Con
+    2021 | Modeling and Simulation of UAV Autonomous Obstacle Avoidance Based on DQN | 2021 4th International Conference on Alg
+    2017 | Sonar imaging simulation in real-time obstacle avoidance algorithm for AUV based on  | Proceedings of the 2nd International Con
+    2007 | Obstacle avoidance during walking in real and virtual environments | ACM Transactions on Applied Perception
+    2013 | Adding obstacle avoidance to a robotic platform for human robot interaction | Proceedings of the 6th International Con
+    2026 | Global Path Planning and Dynamic Obstacle Avoidance of UAV in 3D Dynamic Environment | Proceedings of the 5th International Con
+    2023 | Obstacle avoidance system based on electromagnetic Sensor and Visual ranging | Proceedings of the 2023 7th Internationa
+    2021 | An integrated smart wheelchair model: IW Smart Wheelchair with Embedded Smart Home,  | The 5th International Conference on Futu
+    2021 | Design of Blind Guide and Obstacle Avoidance Bracelet Based on Ultrasonic | Proceedings of the 2021 5th Internationa
+    2025 | Autonomous Mobile Robot Navigation Using Double Deep Q-Network: Efficient Goal-Seeki | Proceedings of the 2025 7th Internationa
+    2006 | Evolution of driving agent, remotely operating a scale model of a car with obstacle  | Proceedings of the 8th annual conference
+
+### [IEEE] haptic warning timing obstacle avoidance   (top 50 screened, 46 flagged)
+     | Obstacle Avoidance Control System of Rotary Crane Using Proposed Haptic Joystick | First Joint Eurohaptics Conference and S
+    2025 | Real Time Haptic Guidance for Obstacle Avoidance in Tele-Interaction | 2025 IEEE Conference on Telepresence
+    2008 | Navigation Guidance Control Using Haptic Feedback for Obstacle Avoidance of Omni-dir | 2008 Symposium on Haptic Interfaces for 
+    2017 | Haptic feedback for obstacle avoidance applied to unmanned aerial vehicles | 2017 International Conference on Unmanne
+     | Obstacle avoidance methods for a passive haptic display | 2001 IEEE/ASME International Conference 
+    2009 | Stability of haptic obstacle avoidance and force interaction | 2009 IEEE/RSJ International Conference o
+    2009 | Haptic Teleoperated Robotic System for an Effective Obstacle Avoidance | 2009 Second International Conferences on
+    2013 | Evaluation of haptic feedback cues on vehicle teleoperation performance in an obstac | 2013 World Haptics Conference (WHC)
+     | A proposal of the obstacle avoidance behavior support sensory substitution system by | IEEE SMC'99 Conference Proceedings. 1999
+    2005 | Semi-automatic obstacle avoidance control for operation support system with haptic j | 2005 IEEE/RSJ International Conference o
+    2015 | Creating predictive haptic feedback for obstacle avoidance using a model predictive  | 2015 IEEE Intelligent Vehicles Symposium
+    2014 | A Laser Obstacle Warning and Avoidance system for Manned and Unmanned Aircraft | 2014 IEEE Metrology for Aerospace (Metro
+    2025 | Dynamic Bipedal MPC with Foot-Level Obstacle Avoidance and Adjustable Step Timing | 2025 IEEE International Conference on Ro
+    2008 | Timing-driven multi-layer Steiner tree construction with obstacle avoidance | APCCAS 2008 - 2008 IEEE Asia Pacific Con
+    2025 | A System for UAV Obstacle Avoidance Control via Haptic Interface and Optical Trackin | 2025 5th International Conference on Rob
+    2009 | Operational support control by haptic joystick considering load sway suppression and | 2009 35th Annual Conference of IEEE Indu
+    2018 | The Study of Using Arduino to Control Aircraft Combined with Obstacle Avoidance Warn | 2018 IEEE International Conference on Co
+    2024 | Attentiveness Map Estimation for Haptic Teleoperation of Mobile Robot Obstacle Avoid | IEEE Robotics and Automation Letters
+    2007 | Timing-Driven Steiner Tree Construction with Wire Sizing, Buffer Insertion and Obsta | 2007 14th IEEE International Conference 
+    2016 | Predictive Haptic Feedback for Obstacle Avoidance Based on Model Predictive Control | IEEE Transactions on Automation Science 
+     | Attentiveness Map Estimation for Haptic Teleoperation of Mobile Robot Obstacle Avoid | 
+    2011 | A Customizable Automotive Steering System With a Haptic Feedback Control Strategy fo | IEEE Transactions on Vehicular Technolog
+     | A Unified Navigation and Obstacle Avoidance Framework for Humanoid Robots in Narrow  | 
+    2014 | Improving velocity obstacle approach for obstacle avoidance in indoor environments | 2014 UKACC International Conference on C
+    1987 | Terrain Obstacle Avoidance Sonar For Autonomous Vehicles | OCEANS '87
+    2005 | The obstacle-restriction method for robot obstacle avoidance in difficult environmen | 2005 IEEE/RSJ International Conference o
+     | Japanese CELRAP laser radar: obstacle warning avoidance function | Technical Digest. CLEO/Pacific Rim 2001.
+    2022 | Obstacle Avoidance in Highly Automated Cars: Can Progressive Haptic Shared Control M | IEEE Transactions on Human-Machine Syste
+    2019 | Obstacle Detection and Obstacle Avoidance Algorithm based on 2-D RPLiDAR | 2019 International Conference on Compute
+    2016 | Cushioned extended-periphery avoidance: A reactive obstacle avoidance plugin | 2016 International Conference on Unmanne
+    2014 | An obstacle avoidance system for autonomous underwater vehicles: A reflexive vector  | 2014 IEEE/OES Autonomous Underwater Vehi
+    2023 | Multi-Robot Formation with Obstacle Avoidance: An Improved Velocity Obstacle-Based A | 2023 IEEE International Conference on Un
+     | Obstacle avoidance using neural networks | Symposium on Autonomous Underwater Vehic
+    2024 | Moving Obstacle Avoidance with Potential Function Using Estimated Velocity of Obstac | IECON 2024 - 50th Annual Conference of t
+     | Intelligent Sensor Network for Obstacle Avoidance Strategy | IEEE Sensors, 2005.
+    2016 | Dynamic obstacle avoidance based on obstacle type for interactive smart electric whe | IECON 2016 - 42nd Annual Conference of t
+    2021 | Dynamic Obstacle Avoidance of Mobile Robot Based on Adaptive Velocity Obstacle | 2021 36th Youth Academic Annual Conferen
+    2011 | Local obstacle avoidance planning of logistics system AGV based vector field | MSIE 2011
+    1984 | A Switchbox Router with Obstacle Avoidance | 21st Design Automation Conference Procee
+    2023 | Cooperative collision avoidance and obstacle avoidance path planning for multiple un | 2023 35th Chinese Control and Decision C
+    2008 | On-line moving-obstacle avoidance using piecewise Bezier curves with unknown obstacl | 2008 16th Mediterranean Conference on Co
+     | View-time based moving obstacle avoidance using stochastic prediction of obstacle mo | Proceedings of IEEE International Confer
+    2024 | Intelligent Design and Verification of Aircraft Autonomous Obstacle Avoidance and Co | 2024 IEEE 7th International Conference o
+    2015 | OARC (Obstacle Avoidance and Road Crossing) | 2015 Internet Technologies and Applicati
+    2004 | Impact of haptic warning signal reliability in a time-and-safety-critical task | 12th International Symposium on Haptic I
+    2011 | Reactive obstacle avoidance for Rotorcraft UAVs | 2011 IEEE/RSJ International Conference o
+
+### [ACM] vibrotactile collision warning virtual reality   (top 50 screened, 8 flagged)
+    2004 | Using a vibro-tactile display for enhanced collision perception and presence | Proceedings of the ACM symposium on Virt
+    2004 | Implementation experience with collision avoidance in signing avatars | Proceedings of the 3rd international con
+    2015 | Vibrotactile feedback for collision awareness | Proceedings of the 2015 British HCI Conf
+    2017 | VR Collide! Comparing Collision-Avoidance Methods Between Co-located Virtual Reality | Proceedings of the 2017 CHI Conference E
+
+### [IEEE] vibrotactile collision warning virtual reality   (top 50 screened, 4 flagged)
+    2007 | Collision Awareness Using Vibrotactile Arrays | 2007 IEEE Virtual Reality Conference
+    2016 | Casting shadows: Ecological interface design for augmented reality pedestrian collis | 2016 IEEE Virtual Reality (VR)
+    2019 | Studying Gaze Behaviour during Collision Avoidance with a Virtual Walker: Influence  | 2019 IEEE Conference on Virtual Reality 
+    2025 | Investigating the Impact of Context-Aware Collision Warning Modalities on Dual-Task  | 2025 IEEE International Symposium on Mix
+
+### [ACM] warning timing reaching arm movement   (top 50 screened, 1 flagged)
+
+### [IEEE] warning timing reaching arm movement   (top 50 screened, 3 flagged)
+     | Anti-ARM technique: feature analysis of ARM warning radar | 2001 CIE International Conference on Rad
+    2010 | Study of the TDM of the GPS Timing in Earthquake Early-Warning Information Transfer | 2010 International Conference on Intelli
+
+### [ACM] collision warning virtual reality user study haptic   (top 50 screened, 4 flagged)
+    2024 | SafeARCross: Augmented Reality Collision Warnings and Virtual Traffic Lights for Ped | Proceedings of the 16th International Co
+
+### [IEEE] collision warning virtual reality user study haptic   (top 50 screened, 4 flagged)
+     | A framework for fast and accurate collision detection for haptic interaction | Proceedings IEEE Virtual Reality (Cat. N
+    2019 | A Multidirectional Haptic Feedback Prototype for Experiencing Collisions Between Vir | 2019 IEEE Conference on Virtual Reality 
+
+### [ACM] psychometric threshold warning alert   (top 50 screened, 8 flagged)
+    2017 | IoT WebSocket Connection Management Algorithm for Early Warning Earthquake Alert App | Companion Proceedings of the10th Interna
+    2020 | Deep Q-network-based adaptive alert threshold selection policy for payment fraud sys | Proceedings of the First ACM Internation
+    2022 | A Perimeter Alert Surveillance system based on pedestrian detection and dual-thresho | Proceedings of the 8th International Con
+    2023 | Understanding Cross-Boundary Information Sharing in Emergency Management: Insights f | Proceedings of the 24th Annual Internati
+    2016 | Uniformity Based Haptic Alert Network | Proceedings of the 29th Annual Symposium
+    2020 | Forecasting approach for Blind Spot Collision Alert | Proceedings of the 10th International Co
+
+### [IEEE] psychometric threshold warning alert   (top 50 screened, 44 flagged)
+    2015 | 3-level automotive safety warning and alert system using FPGA | 2015 IEEE International Circuits and Sys
+    2026 | Hybrid Power Supply of Alarm Stations in the Surveillance, Alert and Warning Systems | 2026 25th International Symposium INFOTE
+    2021 | Smart Solar Cell e-Warning Signs Board via on Cloud-based Control for Social Distanc | 2021 9th International Electrical Engine
+    2011 | Cyber Security Alert Warning System: A Socio-techinal Coordinate System Proposal | 2011 Third International Workshop on Sec
+    2022 | Social media and pandemic events: challenges for alert-warning systems | 2022 17th Annual System of Systems Engin
+    2014 | Seismic early warning alert system (SEWAS) | 2014 International Conference on Signal 
+     | Necessary Conditions for Determining a Robust Time Threshold in Standard INFOSEC Ale | 2005 IEEE International Conference on Sy
+    2026 | A Dynamic Security Warning Mechanism for SDN Based on Alert Information | 2026 International Conference on Generat
+    2009 | Research on Early Warning for Worm Propagation Based on Area-Alert-Level | 2009 Fifth International Conference on I
+    2022 | Automatic Accident Alert System ? Early Accident Prediction and Warning for the cons | 2022 IEEE 2nd Mysore Sub Section Interna
+    2022 | Early Warning Algorithm for Thermal Fault Diagnosis of Electrical Equipment based on | 2022 IEEE 4th International Conference o
+    2024 | Underground Cable Anti-Damage Warning System Based on Wavelet Threshold Denoising | 2024 7th International Conference on Mec
+    2021 | Design and Implementation of a Hybrid Power for Telecommunication and Measuring Remo | 2021 29th Telecommunications Forum (TELF
+    2021 | VLSI Implementation of A Robust Threshold-Based Earthquake Early Warning System | 2021 IEEE 18th India Council Internation
+    2021 | Design and Implementation of an Uninterruptible Power Supply for Command and Control | 2021 20th International Symposium INFOTE
+    2020 | Common Alerting Protocol Compliant Emergency Warning And Alert System for Legacy Bro | 2020 IEEE Conference on Cognitive and Co
+    2023 | Smart Driver Warning and Alert System using Visual Features | 2023 7th International Conference on Tre
+    2016 | Public warning and alert system for Austria | 2016 3rd International Conference on Inf
+    2022 | An IoT based Natural Disaster Monitoring for Railway Accident Warning Alert System | 2022 3rd International Conference on Com
+    2020 | Quantitative Analysis of Construction Site Risk and Threshold of the Early Warning S | 2020 International Conference on Intelli
+    2023 | IoT-Powered Flood Warning and Alert System: Innovations in Flood Detection and Notif | 2023 International Conference on Sustain
+    2026 | IoT-Based Threshold Energy Consumption Alert System for Home and Industries | 2026 6th International Conference on Tre
+    2026 | A Hybrid Machine Learning and Edge Computing Approaches for Landslide Detection and  | 2026 International Conference on AI-Driv
+    2026 | Survey on Novel AI/IoT Solution for Monitoring and Early Warning (MS-Alert System) | 2026 9th International Conference on Int
+    2010 | Study on buses rollover warning based on roll angle threshold | 2010 2nd International Conference on Ind
+    2018 | A Transformer Latent Fault Warning Strategy Based on Self-Adaptive Threshold Values | 2018 IEEE Innovative Smart Grid Technolo
+    2023 | Design of Earthquake Simulation Model and Flood Detection System for Alert and Warni | 2023 7th International Conference on Des
+    2024 | Design of Earthquake Simulation Model and Flood Detection System for Alert and Warni | 2024 2nd International Conference on Int
+    2025 | Enhancing Flood Severity Prediction through a Combined Threshold-Based Alert Algorit | 2025 2nd International Conference on Com
+    2025 | IoT-Based Threshold Classification for Tidal Flood Early Warning in Smart Coastal Mo | 2025 International Conference on Informa
+    2023 | A Potential Landslide Early Warning System Based on Threshold Velocity of 1 mm/min | 2023 IEEE International Conference on Re
+    2015 | Cost optimization on warning threshold and non-fixed periodic inspection intervals f | IECON 2015 - 41st Annual Conference of t
+    2023 | A GSM Cell Broadcast Mobile Network to Provide Wireless Alert and Warning Messages i | 2023 IEEE-APS Topical Conference on Ante
+    2025 | Research on Threshold Warning of Pumped Storage Units Based on Operational Data | 2025 IEEE International Conference on El
+    2025 | Research on Safety Warning Threshold for Thermal Runaway of LiFePO4 Energy Storage B | 2025 5th IEEE International Conference o
+    2022 | Implementation of an Early Warning System using Internet of Things and Rainfall Thre | 2022 6th International Conference on Ele
+    2020 | Prototyping of a Multi-Hazard Early Warning System for Aviation and Development of N | IGARSS 2020 - 2020 IEEE International Ge
+    2025 | Development of Management Information System using Geospatial Modeling Analysis and  | 2025 IEEE Open Conference of Electrical,
+    2007 | GLEs as a Warning Tool for Radiation Effects on Electronics and Systems: A New Alert | IEEE Transactions on Nuclear Science
+    2023 | Flash'n Alert-Handheld Self-Defense Warning Device with Integrated Alarm System | 2023 IEEE 15th International Conference 
+    2020 | Multimedia Public Warning Alert Trials Using eMBMS Broadcast, Dynamic Spectrum Alloc | IEEE Transactions on Broadcasting
+    2026 | Development of Iot-based Solar Powered Integrated Environmental Monitoring System wi | 2026 5th International Conference on Dis
+
+### [ACM] proximity alert wearable body collision   (top 50 screened, 5 flagged)
+    2018 | Power of proximity metacommunication between garments | Proceedings of the 2018 ACM Internationa
+    2004 | Collision detection and proximity queries | ACM SIGGRAPH 2004 Course Notes
+    2020 | OpenCollBench - Benchmarking of Collision Detection &amp; Proximity Queries as a Web | The 25th International Conference on 3D 
+
+### [IEEE] proximity alert wearable body collision   (top 50 screened, 17 flagged)
+    2013 | A holistic approach for energy efficient proximity alert on Android | 2013 IEEE Global Communications Conferen
+    2015 | Route notifier bag with proximity alert | 2015 International Conference on Circuit
+    2013 | Energy efficient proximity alert on Android | 2013 IEEE International Conference on Pe
+    1994 | Case study: Traffic Alert and Collision-Avoidance System | IEEE Software
+    2009 | Modeling and simulation of Traffic Alert and Collision Avoidance System | 2009 4th IEEE Conference on Industrial E
+    2017 | Low-cost intruder detection and alert system using mobile phone proximity sensor | 2017 International Conference on Innovat
+     | Simulation of the enhanced traffic alert and collision avoidance system (TCAS II) | 1987 Antennas and Propagation Society In
+    2012 | Forecasting Approach in VANET based on vehicle collision alert | 2012 International Conference on Multime
+    2020 | Collision Avoidance with Proximity Servoing for Redundant Serial Robot Manipulators | 2020 IEEE International Conference on Ro
+     | Traffic Alert and Collision Avoidance System (TCAS) transition program (TTP): a stat | Proceedings of 14th Digital Avionics Sys
+    2019 | Real-Time Forward Collision Alert System using Raspberry Pi | 2019 International Symposium on Intellig
+    2022 | Fast Collision Checking for Dual-Arm Collaborative Robots Working in Close Proximity | 2022 International Conference on Robotic
+    2012 | FCL: A general purpose library for collision and proximity queries | 2012 IEEE International Conference on Ro
+    2007 | Continuous gradient proximity distance for humanoids free-collision optimized-postur | 2007 7th IEEE-RAS International Conferen
+    2021 | Identified of Collision Alert in Vehicle Ad hoc based on Machine learning | 2021 IEEE International Conference on Co
+    2016 | Wireless vehicle alert and collision prevention system design using Atmel microcontr | 2016 International Conference on Electri
+
+### [ACM] advance warning time avoidance probability   (top 50 screened, 19 flagged)
+    2020 | Advance in Artificial Intelligence Method Safety on Warning of Tailings Dam Break | Proceedings of the 2020 International Co
+    2021 | Real-time Obstacles Avoidance for Crawler Crane based on DQN | 2021 The 13th International Conference o
+    2015 | Pivotality of Nodes in Reachability Problems Using Avoidance and Transit Hitting Tim | Proceedings of the 24th International Co
+    2022 | Real-time Trajectory Replanning for Dynamic Obstacles Avoidance for Robotics Manipul | International Conference on Computer Sys
+    2015 | Real-time dynamic singularity avoidance while visual servoing of a dual-arm space ro | Proceedings of the 2015 Conference on Ad
+    2009 | A real-time publish/subscribe driver alert system for accident avoidance due to red  | Proceedings of the Third ACM Internation
+    2015 | Real-Time Obstacle Avoidance for Mobile Robots via Stereoscopic Vision Using Reconfi | Proceedings of the 2015 ACM/SIGDA Intern
+    2025 | Indoor Robot Navigation with Enhanced Obstacle Avoidance and Real-Time Path Plotting | Proceedings of the 2025 7th Internationa
+    2023 | Research on Real-time Early Warning Mechanism of Aviation Safety Based on Finite Sta | Proceedings of the 2023 7th Internationa
+
+### [IEEE] advance warning time avoidance probability   (top 50 screened, 38 flagged)
+    2009 | Binocular Stereo Vision Based Obstacle Avoidance Algorithm for Autonomous Mobile Rob | 2009 IEEE International Advance Computin
+    2015 | A terrain avoidance algorithm based on the requirements of terrain awareness and war | 2015 IEEE Aerospace Conference
+     | Intehigent CAN-based automotive cohision avoidance warning system | IEEE International Conference on Network
+    2009 | Embedded Advance Collision Warning System: Vehicle Images Ranging System Based on Ma | 2009 International Conference on Informa
+    2010 | Cooperative Collision Warning through mobility and probability prediction | 2010 IEEE Intelligent Vehicles Symposium
+    2013 | Structural design and experimental study of the crane avoidance warning visual syste | 2013 3rd International Conference on Con
+    2023 | A DL-based estimation probability approach for VRU collision avoidance | 2023 IEEE Conference on Artificial Intel
+    2023 | A Multi-Target Search Cooperative Obstacle Avoidance Algorithm based on Probability  | 2023 2nd International Symposium on Cont
+    2019 | Near-Earth Orbit Satellite Collision Probability Estimation and Collision Avoidance | 2019 Chinese Automation Congress (CAC)
+    2012 | Adjacent Vehicle Collision Avoidance Protocol in Mitigating the Probability of Adjac | 2012 IEEE Vehicular Technology Conferenc
+
+### [ACM] stopping arresting movement cue threshold   (top 50 screened, 0 flagged)
+
+### [IEEE] stopping arresting movement cue threshold   (top 50 screened, 0 flagged)
+
+========================================================================================================
+VENUE BROWSE via Crossref container-title
+========================================================================================================
+
+### Symposium on Mixed and Augmented Reality   (top 30 by relevance)
+    2025 | Investigating the Impact of Context-Aware Collision Warning Modalities on Dual-Task  | 2025 IEEE International Symposium on M
+    2018 | Obstacle Avoidance Method in Real Space for Virtual Reality Immersion | 2018 IEEE International Symposium on M
+    2024 | Avoiding Virtual Characters: The Effects of Proximity and Gesture | 2024 IEEE International Symposium on M
+    2023 | Effects of Speed of a Collocated Virtual Walker and Proximity Toward a Static Virtua | 2023 IEEE International Symposium on M
+    2019 | SafeAR: AR Alert System Assisting Obstacle Avoidance for Pedestrians | 2019 IEEE International Symposium on M
+    2022 | DroneARchery: Human-Drone Interaction through Augmented Reality with Haptic Feedback | 2022 IEEE International Symposium on M
+
+### Conference on Virtual Reality and 3D User Interfaces   (top 30 by relevance)
+    2019 | Combining Dynamic Field of View Modification with Physical Obstacle Avoidance | 2019 IEEE Conference on Virtual Realit
+    2024 | Prototyping of Augmented Reality interfaces for air traffic alert and their evaluati | 2024 IEEE Conference Virtual Reality a
+    2018 | Realtime Collision Avoidance for Mechanisms with Complex Geometries | 2018 IEEE Conference on Virtual Realit
+    2012 | Poster: Comparing vibro-tactile feedback modes for collision proximity feedback in U | 2012 IEEE Symposium on 3D User Interfa
+    2026 | You Walkin? to Me? How Footstep Sound Primes Anticipation in Virtual Pedestrian Coll | 2026 IEEE Conference on Virtual Realit
+    2019 | Studying Gaze Behaviour during Collision Avoidance with a Virtual Walker: Influence  | 2019 IEEE Conference on Virtual Realit
+    2018 | Effect of Virtual Human Gaze Behaviour During an Orthogonal Collision Avoidance Walk | 2018 IEEE Conference on Virtual Realit
+    2018 | Simulator Sick but Still Immersed: A Comparison of Head-Object Collision Handling an | 2018 IEEE Conference on Virtual Realit
+
+### Transactions on Visualization and Computer Graphics   (top 30 by relevance)
+    2018 | Driver Behavior and Performance with Augmented Reality Pedestrian Collision Warning: | IEEE Transactions on Visualization and
+    2012 | Robust Interactive Collision Handling between Tools and Thin Volumetric Objects | IEEE Transactions on Visualization and
+    2007 | SQ-Map: Efficient Layered Collision Detection and Haptic Rendering | IEEE Transactions on Visualization and
+    2014 | Hybrid Long-Range Collision Avoidance for Crowd Simulation | IEEE Transactions on Visualization and
+    2015 | A Collision Warning Algorithm for Area of Inland Ferry Based on Velocity Obstacle | 2015 Ninth International Conference on
+    2020 | The Impact of a Self-Avatar, Hand Collocation, and Hand Proximity on Embodiment and  | IEEE Transactions on Visualization and
+    2024 | Robust Obstacle Detection and Collision Warning for Autonomous Vehicles Using Autowa | 2024 16th International Conference on 
+    2025 | An Early Warning System Based on Visual Feedback for Light-Based Hand Tracking Failu | IEEE Transactions on Visualization and
+
+### Transactions on Haptics   (top 30 by relevance)
+    2008 | Tactile and Multisensory Spatial Warning Signals for Drivers | IEEE Transactions on Haptics
+    2009 | To Go or Not to Go: Stimulus-Response Compatibility for Tactile and Auditory Pedestr | IEEE Transactions on Haptics
+    2016 | Warning Drivers about Impending Collisions Using Vibrotactile Flow | IEEE Transactions on Haptics
+    2018 | Correction to ?A Physics-Based Vibrotactile Feedback Library for Collision Events? | IEEE Transactions on Haptics
+    2019 | Continuous Collision Detection for Virtual Proxy Haptic Rendering of Deformable Tria | IEEE Transactions on Haptics
+    2015 | Identification of Vibrotactile Patterns Encoding Obstacle Distance Information | IEEE Transactions on Haptics
+    2018 | Haptic Collision Detection on Disjoint Objects with Overlapping and Inclusive Boundi | IEEE Transactions on Haptics
+    2017 | A Physics-Based Vibrotactile Feedback Library for Collision Events | IEEE Transactions on Haptics
+    2017 | 6-DoF Haptic Rendering Using Continuous Collision Detection between Points and Signe | IEEE Transactions on Haptics
+    2012 | A Vision-Based Collision Warning System by Surrounding Vehicles Detection | KSII Transactions on Internet and Info
+    2021 | Integrating Wearable Haptics and Obstacle Avoidance for the Visually Impaired in Ind | IEEE Transactions on Haptics
+    2007 | Cooperative UAV Formation Flying With Obstacle/Collision Avoidance | IEEE Transactions on Control Systems T
+    2019 | Application of Ultrasonic Sensors in the Vehicle Collision Avoidance and Early Warni | DEStech Transactions on Engineering an
+    2010 | Forwards: A Map-Free Intersection Collision-Warning System for All Road Patterns | IEEE Transactions on Vehicular Technol
+    2006 | DGPS-Based Vehicle-to-Vehicle Cooperative Collision Warning: Engineering Feasibility | IEEE Transactions on Intelligent Trans
+    1968 | Analysis of Warning Times For Collision Avoidance Systems | IEEE Transactions on Aerospace and Ele
+    2014 | Research on a DSRC-Based Rear-End Collision Warning Model | IEEE Transactions on Intelligent Trans
+    2020 | Obstacle Magnification for 2-D Collision and Occlusion Avoidance of Autonomous Multi | IEEE/ASME Transactions on Mechatronics
+    2009 | Error Analysis and Performance Evaluation of a Future-Trajectory-Based Cooperative C | IEEE Transactions on Intelligent Trans
+    1970 | A Statistical Evaluation of Aircraft Collision-Hazard Warning System Techniques in t | IEEE Transactions on Aerospace and Ele
+    2009 | Development of Fuzzy-Based Bus Rear-End Collision Warning Thresholds Using a Driving | IEEE Transactions on Intelligent Trans
+    2015 | On-Road Collision Warning Based on Multiple FOE Segmentation Using a Dashboard Camer | IEEE Transactions on Vehicular Technol
+    2011 | Design of an Adaptive Passive Collision Warning System for UAVs | IEEE Transactions on Aerospace and Ele
+
+### Conference on Human Factors in Computing Systems   (top 30 by relevance)
+    2004 | Collision warning design to mitigate driver distraction | Proceedings of the SIGCHI Conference o
+    2020 | Collision Warning and Avoidance System | 2020 International Conference on Intel
+    2015 | A Collision Warning Algorithm for Area of Inland Ferry Based on Velocity Obstacle | 2015 Ninth International Conference on
+    2024 | Robust Obstacle Detection and Collision Warning for Autonomous Vehicles Using Autowa | 2024 16th International Conference on 
+    2016 | Investigating Relevant Cognitive Abilities in the Velocity-Obstacle-Based Display fo | Industrial and Systems Engineering Ser
+    1992 | Warning Signal Design: A Key Human Factors Issue in an In-Vehicle Front-To-Rear-End  | Proceedings of the Human Factors Socie
+    2010 | Study on intelligent control of road condition perception and forward collision warn | 2010 International Conference on Intel
+    2019 | Pupillary Response and EMG Predict Upcoming Responses to Collision Avoidance Warning | Advances in Intelligent Systems and Co
+    2017 | Intelligent collision avoidance and safety warning system for car driving | 2017 International Conference on Intel
+     | VORAD collision warning radar | Proceedings International Radar Confer
+    2006 | Design and implementation of a cooperative collision warning system | 2006 IEEE Intelligent Transportation S
+    2007 | Impact of Communication Reliability on a Cooperative Collision Warning System | 2007 IEEE Intelligent Transportation S
+     | Airport surface collision warning system implementation | [1993 Proceedings] AIAA/IEEE Digital A
+    2007 | Obstacle detecting system for vehicle collision safeguard | 2007 International Conference on Commu
+    2016 | Nonlinear Optimal Control of Spacecraft Proximity Operation with Obstacle Constraint | 2016 8th International Conference on I
+     | 76 GHz collision warning transceiver component requirements and current status | Proceedings of Conference on Intellige
+     | Collision detection VLSI processor for intelligent vehicles based on a hierarchical  | Proceedings of Conference on Intellige
+
+### Symposium on User Interface Software and Technology   (top 30 by relevance)
+    2024 | Development and Evaluation of Collision Avoidance User Interface for Assistive Visio | The 37th Annual ACM Symposium on User 
+    2016 | Asymmetric Design Approach and Collision Avoidance Techniques For Room-scale Multipl | Proceedings of the 29th Annual Symposi
+    2025 | AttentionAR: AR Adaptation and Warning for Real-World Safety via Attention Modeling  | Proceedings of the 38th Annual ACM Sym
+    2012 | Collision avoidance interface for safe piloting of unmanned vehicles using a mobile  | Adjunct proceedings of the 25th annual
+    2015 | Augmented reality for collision warning and path guide in a vehicle | Proceedings of the 21st ACM Symposium 
+
+### Symposium on Spatial User Interaction   (top 30 by relevance)
+    2015 | A Study on Proximity-based Hand Input for One-handed Mobile Interaction | Proceedings of the 3rd ACM Symposium o

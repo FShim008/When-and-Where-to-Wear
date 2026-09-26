@@ -21,7 +21,7 @@ namespace CollisionFeedback.Runtime
     {
         private Questionnaire _q;
         private Dictionary<string, int> _resp;
-        private Action<IReadOnlyDictionary<string, float>> _onComplete;
+        private Action<IReadOnlyDictionary<string, float>, IReadOnlyDictionary<string, int>> _onComplete;
         private Vector2 _scroll;
         private bool _active;
         private GUIStyle _wrap, _anchor, _title;
@@ -29,14 +29,30 @@ namespace CollisionFeedback.Runtime
         public bool IsBusy => _active;
 
         /// <summary>Show <paramref name="q"/> and call <paramref name="onComplete"/> with scored measures on submit.</summary>
+        /// <summary>Scored measures only. Retained for callers that do not persist item-level data.</summary>
         public void Administer(Questionnaire q, Action<IReadOnlyDictionary<string, float>> onComplete)
+            => Administer(q, (measures, _) => onComplete?.Invoke(measures));
+
+        /// <summary>
+        /// Administer and return BOTH the scored measures and the RAW ITEM RESPONSES.
+        ///
+        /// ADDED 2026-09-25. The panel always collected per-item responses, but the only callback
+        /// returned <c>Score(_resp)</c> and the raw responses died at this boundary. §12 requires
+        /// item-level data, and the loss is irreversible — subscale scores cannot be decomposed back
+        /// into items, so a session collected without this could never be re-scored or checked for
+        /// item-level reliability, and nothing in the data would show the items had existed.
+        /// </summary>
+        public void Administer(Questionnaire q,
+                               Action<IReadOnlyDictionary<string, float>,
+                                      IReadOnlyDictionary<string, int>> onComplete)
         {
             _q = q;
             _resp = new Dictionary<string, int>();
             _onComplete = onComplete;
             _scroll = Vector2.zero;
             _active = q != null;
-            if (q == null) onComplete?.Invoke(new Dictionary<string, float>());
+            if (q == null)
+                onComplete?.Invoke(new Dictionary<string, float>(), new Dictionary<string, int>());
         }
 
         private void EnsureStyles()
@@ -142,10 +158,13 @@ namespace CollisionFeedback.Runtime
         private void Submit()
         {
             Dictionary<string, float> measures = _q.Score(_resp);
+            // Snapshot the responses: _resp is replaced on the next Administer, and the callback may
+            // outlive this frame.
+            var responses = new Dictionary<string, int>(_resp);
             _active = false;
             var cb = _onComplete;
             _onComplete = null;
-            cb?.Invoke(measures);
+            cb?.Invoke(measures, responses);
         }
     }
 }

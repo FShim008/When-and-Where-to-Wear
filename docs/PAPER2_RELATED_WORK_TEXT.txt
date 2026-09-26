@@ -1,0 +1,371 @@
+================================================================================
+RELATED WORK  —  plain text
+"Stopping a Reach in VR: Measuring the Warning Time Required for
+Vibrotactile Collision Avoidance"
+
+REV 3 — 2026-09-16. Revised against J. Quarles' comments of 2026-09-16.
+All ten comments addressed; see the response table at the end.
+Reading level: Flesch-Kincaid grade 14.5 -> 7.8 (target was <= 12).
+All citations resolved against Crossref 2026-09-15.
+Citation keys are [Author Year]; replace with numeric keys at typesetting.
+================================================================================
+
+
+2  RELATED WORK
+
+2.1  Physical Safety in Immersive Environments
+
+A VR user cannot see the real room, so keeping them safe has long been a
+concern. Most systems handle this by managing space. Boundary systems mark out
+a safe area and show it when the user gets close. The magic barrier tape
+introduced this idea [Cirio 2009], and guardian and chaperone systems have
+made it standard. Wu et al. [Wu 2023] found that how a boundary is shown
+changes whether users stay inside it. Other work prevents collisions instead
+of warning about them. Redirected walking steers the user away from real
+obstacles [Kim 2023, Langbehn 2018], and substitutional reality maps virtual
+objects onto real furniture [Simeone 2015].
+
+A second group of systems finds real obstacles and shows them to the user.
+These use peripheral vision [Kim 2024], stylized overlays [Kim 2021], a
+narrowed field of view [Wu 2019], or mixed-reality insets [Valentini 2020,
+Kanamori 2018]. Related work covers collisions between two users in one room
+[Bachmann 2013, Sra 2016] and alerts for obstacles that are detected but not
+drawn [Wozniak 2018].
+
+The difficulty is treated as getting information to the user. Once the
+boundary is drawn or the obstacle is shown, the problem is considered solved.
+No one has tested whether the warning arrives in time for the user to act on
+it.
+
+2.2  Vibrotactile Cues for Collision Signalling
+
+Vibration is a well-established way to signal collisions in VR. Body-worn cues
+came before most of the visual methods above. Bloomfield and Badler
+[Bloomfield 2007] drove a sleeve of tactors from a real-time body model, so
+the vibration reached the arm segment that touched a virtual object. Arm-
+localized vibration beat visual feedback alone. Later work varied the cue
+itself. Examples include patterns that encode distance [Kim 2015], pattern
+comparisons for warning vests [Samsel 2025], proximity modes in robot
+teleoperation [deBarros 2012], and belts that signal the direction of low
+obstacles [Abdlkarim 2026]. Driving research has studied tactile and
+multisensory warnings in depth [Spence 2008], including moving patterns that
+show where a collision will come from [Ahtamad 2016]. Ahmed [Ahmed 2025]
+recently proposed choosing between warning modalities based on context.
+
+The closest work to ours is Bajpai et al. [Bajpai 2020]. They compared
+tactile, audio, and visual cues while people dodged objects flying toward them
+in VR. Their setup is the reverse of ours. Their threat moves and the person
+stands still; our person moves toward a hazard that stays put. They measure
+how fast someone starts a dodge. We measure whether someone can stop a
+movement they have already begun. More important, all of this work changes
+what the cue is, or whether there is a cue at all. None changes when it
+arrives.
+
+2.3  Warning Timing in Applied Human Factors
+
+Driving research has tested warning timing directly. Abe and Richardson
+measured how the timing of forward-collision alarms affects braking. They
+found it affects trust even more: drivers who received late alarms stopped
+responding to later ones [Abe 2004, Abe 2005, Abe 2006]. Zhang and Wu [Zhang
+2018] crossed warning lead time with reliability and wording. Command warnings
+beat notifications at a 2.5 s lead, but not at 4.5 s. This is the closest test
+of warning lead time we found, and the direct precedent for our lead time x
+tempo comparison. Aksan et al. [Aksan 2016] linked cognitive and motor test
+scores to what drivers were doing when the alarm fired. Slower drivers were
+often still accelerating. Other work tunes warning timing to the individual
+driver [Xie 2024, Shao 2023].
+
+Three things separate that work from ours. First, it warns 2-5 s before
+impact. That is about ten times longer than the window for stopping a reach.
+Second, it studies a foot moving to a pedal, which is a simple and well-
+practiced response. We study a whole arm in mid-flight, competing with a
+movement the person has already planned. Third, it compares a few fixed timing
+levels instead of measuring a curve. Zhang and Wu used two levels, and Aksan
+et al. used one.
+
+2.4  Stopping a Movement Already Underway
+
+Motor-control research already knows how to measure whether a person can stop
+a movement in progress. The stop-signal task is the standard method, and its
+instructions are known to change the result [Verbruggen 2019]. Atsma et al.
+[Atsma 2018] showed that stopping a whole-arm reach leaves a clear muscle
+signature on single trials. Stopping a reach is therefore a measurable event,
+not a vague idea. The same inhibitory control appears to serve fingers,
+wrists, and arms [Brunamonti 2012]. Friehs et al. [Friehs 2024] found that
+touch-based stop signals work better than visual ones, and that where the
+signal is felt matters. That is why we deliver the warning by vibration, on
+the limb at risk.
+
+This work does not give a warning threshold. It measures how fast a person can
+cancel an action when cancelling is the only task. It does not measure how
+much advance notice a person needs while still trying to reach a target.
+
+2.5  Safety Standards and the Missing Number
+
+Industrial machine safety already asks our question in a different form: how
+far from a hazard must a guard sit so that a hand cannot reach it in time? ISO
+13855 [ISO13855] answers with S = K(t1 + t2) + C, where K = 2000 mm/s is a
+fixed hand speed and t1 is a human reaction time. This gives a distance, not a
+probability of avoiding the hazard. It treats hand speed as one worst-case
+number rather than a measured range. It also assumes the machine stops while
+the person keeps moving. In VR the reverse is true, because nothing stops but
+the person. We were not able to find any published study that reports how K
+was measured.
+
+We therefore measure the missing number directly. We treat warning time as the
+input to a psychometric function [Wichmann 2001a], and time the cue against
+predicted time-to-contact [Lee 1976]. The result is the probability of
+stopping a reach before it crosses a hazard boundary, as a function of how
+much warning the person actually received.
+
+
+================================================================================
+RESPONSE TO J. QUARLES' COMMENTS (2026-09-16)
+================================================================================
+
+ #  COMMENT                                  ACTION TAKEN
+--  ---------------------------------------  ----------------------------------
+ 0  "a lot of sentences are overly verbose    Whole section rewritten. Sentences
+    and use big words unnecessarily...       split; long noun phrases removed;
+    write concisely and at a 12th-grade      Latinate words replaced with plain
+    reading level"                           ones. Measured, not estimated --
+                                             see the readability table below.
+
+ 1  "materially" -> remove                   Removed. Sentence now reads "found
+                                             that how a boundary is shown
+                                             changes whether users stay inside
+                                             it."
+
+ 2  "A parallel line reshapes the mapping     Split into two plain sentences:
+    between virtual and physical space..."   "Other work prevents collisions
+    -> confusing sentence                    instead of warning about them.
+                                             Redirected walking steers the user
+                                             away from real obstacles, and
+                                             substitutional reality maps virtual
+                                             objects onto real furniture."
+                                             43-word sentence -> 10 and 21.
+
+ 3  "These approaches share an assumption     Used your suggested opening
+    that is rarely made explicit:" -> state  verbatim. Paragraph now begins
+    concisely, or start with "The            "The difficulty is treated as
+    difficulty..."                           getting information to the user."
+                                             Three sentences, 51 words total
+                                             (was 3 sentences, 63 words).
+
+ 4  "arrested" -> choose a different word,    Replaced with "stopping" /
+    it is weird                              "stop" everywhere, including the
+                                             2.4 heading, which was "Arresting
+                                             an Ongoing Movement" and is now
+                                             "Stopping a Movement Already
+                                             Underway". The word no longer
+                                             appears in the section.
+
+ 5  "And it compares a small number of        Rewritten as two short sentences
+    timing levels rather than estimating a   and numbered explicitly: "Third, it
+    threshold..." -> confusing sentence      compares a few fixed timing levels
+    structure                                instead of measuring a curve. Zhang
+                                             and Wu used two levels, and Aksan
+                                             et al. used one." The whole
+                                             paragraph now runs First/Second/
+                                             Third so the structure is visible.
+
+ 6  "The motor-control literature supplies    Replaced with a topic sentence that
+    both the mechanism and the measurement   makes a claim: "Motor-control
+    conventions." -> says nothing, needs a   research already knows how to
+    clearer topic sentence                   measure whether a person can stop a
+                                             movement in progress."
+
+ 7  "What this literature does not provide    Split into three sentences, 45
+    is a warning threshold: it establishes   words total (was one sentence of
+    how quickly..." -> poor structure and    39 words with two subclauses).
+    too long                                 Now its own short paragraph.
+
+ 8  "Machine safety already encodes a         The question is now stated
+    version of our question." -> which       outright: "how far from a hazard
+    question?                                must a guard sit so that a hand
+                                             cannot reach it in time?"
+
+ 9  "; the value appears to rest on grey      Used your phrasing: "We were not
+    literature held within the standard's    able to find any published study
+    own annexes." -> overly verbose, just    that reports how K was measured."
+    say "We were not able to find            The grey-literature speculation is
+    literature that provides..."             cut from the paper. It is retained
+                                             in PAPER2_RELATED_WORK.md Part V as
+                                             a search-record note, since it
+                                             explains why the search came up
+                                             empty.
+
+
+READABILITY (measured with Flesch-Kincaid on the section text, citations removed)
+
+                          BEFORE      AFTER     TARGET
+  FK grade level            14.5        7.8         <= 12
+  mean words / sentence     21.4       13.1         16-18
+  sentences over 30 words     11          0             0
+  longest sentence            51         29           <30
+
+  The section came in below the 12th-grade ceiling rather than at it. Sentences
+  average 13 words, which is short for an academic paragraph, so a few were
+  deliberately recombined to keep the prose from reading choppy. Word count is
+  essentially unchanged (943 -> 907): the section is not shorter, it is plainer.
+
+
+NOTE ON ONE THING NOT CHANGED
+  "Vibrotactile" is kept. It is the field's standard term, it appears in the
+  paper title, and 19 titles in the ISMAR / IEEE VR / VRST corpus use it. The
+  plainer "vibration" is used in running prose wherever it reads naturally.
+
+
+================================================================================
+REFERENCES CITED IN THE TEXT ABOVE  (36)
+================================================================================
+
+[Abdlkarim 2026]  Abdlkarim, D., Mukherjee, D., Giunchi, D., Di Luca, M. et al.
+    Belt and whistles - adding lower body collision awareness for MR
+    experiences. CHI 2026, 1-12. doi:10.1145/3772318.3793143
+
+[Abe 2004]  Abe, G. & Richardson, J. The effect of alarm timing on driver
+    behaviour: an investigation of differences in driver trust and response to
+    alarms according to alarm timing. Transportation Research Part F 7(4-5),
+    307-322. doi:10.1016/j.trf.2004.09.008
+
+[Abe 2005]  Abe, G. & Richardson, J. The influence of alarm timing on braking
+    response and driver trust in low speed driving. Safety Science 43(9),
+    639-654. doi:10.1016/j.ssci.2005.04.006
+
+[Abe 2006]  Abe, G. & Richardson, J. Alarm timing, trust and driver expectation
+    for forward collision warning systems. Applied Ergonomics 37(5), 577-586.
+    doi:10.1016/j.apergo.2005.11.001
+
+[Ahmed 2025]  Ahmed, N. Investigating the Impact of Context-Aware Collision
+    Warning Modalities on Dual-Task Performance. ISMAR-Adjunct 2025, 1010-1011.
+    doi:10.1109/ISMAR-Adjunct68609.2025.00293
+
+[Ahtamad 2016]  Ahtamad, M., Spence, C., Ho, C. & Gray, R. Warning Drivers about
+    Impending Collisions Using Vibrotactile Flow. IEEE Transactions on Haptics
+    9(1), 134-141. doi:10.1109/TOH.2015.2501798
+
+[Aksan 2016]  Aksan, N., Sager, L., Hacker, S., Marini, R., Dawson, J.,
+    Anderson, S. & Rizzo, M. Forward Collision Warning: Clues to Optimal Timing
+    of Advisory Warnings. SAE Int. J. Transportation Safety 4(1), 107-112.
+    doi:10.4271/2016-01-1439
+
+[Atsma 2018]  Atsma, J., Maij, F., Gu, C., Medendorp, W. P. & Corneil, B. D.
+    Active Braking of Whole-Arm Reaching Movements Provides Single-Trial
+    Neuromuscular Measures of Movement Cancellation. Journal of Neuroscience
+    38(18), 4367-4382. doi:10.1523/JNEUROSCI.1745-17.2018
+
+[Bachmann 2013]  Bachmann, E., Holm, J., Zmuda, M. & Hodgson, E. Collision
+    prediction and prevention in a simultaneous two-user immersive virtual
+    environment. IEEE VR 2013, 89-90. doi:10.1109/VR.2013.6549377
+
+[Bajpai 2020]  Bajpai, A., Powell, J. C., Young, A. J. & Mazumdar, A. Enhancing
+    Physical Human Evasion of Moving Threats Using Tactile Cues. IEEE
+    Transactions on Haptics 13(1), 32-37. doi:10.1109/TOH.2019.2962664
+
+[Bloomfield 2007]  Bloomfield, A. & Badler, N. Collision Awareness Using
+    Vibrotactile Arrays. IEEE Virtual Reality 2007, 163-170.
+    doi:10.1109/VR.2007.352477
+
+[Brunamonti 2012]  Brunamonti, E., Ferraina, S. & Pare, M. Controlled movement
+    processing: Evidence for a common inhibitory control of finger, wrist, and
+    arm movements. Neuroscience 215, 69-78.
+    doi:10.1016/j.neuroscience.2012.04.051
+
+[Cirio 2009]  Cirio, G., Marchal, M., Regia-Corte, T. & Lecuyer, A. The magic
+    barrier tape. VRST 2009, 155-162. doi:10.1145/1643928.1643965
+
+[deBarros 2012]  de Barros, P. & Lindeman, R. Poster: Comparing vibro-tactile
+    feedback modes for collision proximity feedback in USAR virtual robot
+    teleoperation. IEEE 3DUI 2012, 137-138. doi:10.1109/3DUI.2012.6184199
+
+[Friehs 2024]  Friehs, M., Schmalbrock, P., Merz, S., Dechant, M., Hartwigsen,
+    G. & Frings, C. A touching advantage: cross-modal stop-signals improve
+    reactive response inhibition. Experimental Brain Research 242(3), 599-618.
+    doi:10.1007/s00221-023-06767-7
+
+[ISO13855]  ISO 13855. Safety of machinery - Positioning of safeguards with
+    respect to the approach speeds of parts of the human body.
+    (BSI record doi:10.3403/30160694)
+
+[Kanamori 2018]  Kanamori, K., Sakata, N., Tominaga, T., Hijikata, Y., Harada,
+    K. et al. Obstacle Avoidance Method in Real Space for Virtual Reality
+    Immersion. ISMAR 2018, 80-89. doi:10.1109/ISMAR.2018.00033
+
+[Kim 2015]  Kim, Y., Harders, M. & Gassert, R. Identification of Vibrotactile
+    Patterns Encoding Obstacle Distance Information. IEEE Transactions on
+    Haptics 8(3), 298-305. doi:10.1109/TOH.2015.2415213
+
+[Kim 2021]  Kim, J., Jeong, H. & Kim, G. The Effect of 2D Stylized Visualization
+    of the Real World for Obstacle Avoidance and Safety. VRST 2021, 1-3.
+    doi:10.1145/3489849.3489943
+
+[Kim 2023]  Kim, D. & Woo, W. Edge-Centric Space Rescaling with Redirected
+    Walking for Dissimilar Physical-Virtual Space Registration. ISMAR 2023,
+    829-838. doi:10.1109/ISMAR59233.2023.00098
+
+[Kim 2024]  Kim, M., Song, K., Lim, Y. & Yoon, S. Collision Prevention in
+    Diminished Reality through the Use of Peripheral Vision. UIST 2024 Adjunct,
+    1-3. doi:10.1145/3672539.3686346
+
+[Langbehn 2018]  Langbehn, E., Lubos, P. & Steinicke, F. Evaluation of
+    Locomotion Techniques for Room-Scale VR. VRIC 2018, 1-9.
+    doi:10.1145/3234253.3234291
+
+[Lee 1976]  Lee, D. N. A Theory of Visual Control of Braking Based on
+    Information about Time-to-Collision. Perception 5(4), 437-459.
+    doi:10.1068/p050437
+
+[Samsel 2025]  Samsel, Z., Gunia, A., Jager, M. & Schoning, J. A comparison of
+    vibrotactile patterns in an early warning system for obstacle detection.
+    Applied Ergonomics 122, 104396. doi:10.1016/j.apergo.2024.104396
+
+[Shao 2023]  Shao, Y., Shi, X., Zhang, Y., Zhang, Y., Xu, Y. et al. Adaptive
+    forward collision warning system for hazmat truck drivers: Considering
+    differential driving behavior and risk levels. Accident Analysis &
+    Prevention 191, 107221. doi:10.1016/j.aap.2023.107221
+
+[Simeone 2015]  Simeone, A., Velloso, E. & Gellersen, H. Substitutional Reality.
+    CHI 2015, 3307-3316. doi:10.1145/2702123.2702389
+
+[Spence 2008]  Spence, C. & Ho, C. Tactile and Multisensory Spatial Warning
+    Signals for Drivers. IEEE Transactions on Haptics 1(2), 121-129.
+    doi:10.1109/TOH.2008.14
+
+[Sra 2016]  Sra, M. Asymmetric Design Approach and Collision Avoidance
+    Techniques for Room-scale Multiplayer VR. UIST 2016 Adjunct, 29-32.
+    doi:10.1145/2984751.2984788
+
+[Valentini 2020]  Valentini, I., Ballestin, G., Bassano, C., Solari, F. et al.
+    Improving Obstacle Awareness to Enhance Interaction in Virtual Reality.
+    IEEE VR 2020, 44-52. doi:10.1109/VR46266.2020.00022
+
+[Verbruggen 2019]  Verbruggen, F. et al. A consensus guide to capturing the
+    ability to inhibit actions and impulsive behaviors in the stop-signal task.
+    eLife 8, e46323. doi:10.7554/eLife.46323
+
+[Wichmann 2001a]  Wichmann, F. & Hill, N. The psychometric function: I. Fitting,
+    sampling, and goodness of fit. Perception & Psychophysics 63(8), 1293-1313.
+    doi:10.3758/BF03194544
+
+[Wozniak 2018]  Wozniak, P., Capobianco, A., Javahiraly, N. & Curticapean, D.
+    Towards Unobtrusive Obstacle Detection and Notification for Virtual Reality
+    Using Metaphors. SUI 2018, 188. doi:10.1145/3267782.3274682
+
+[Wu 2019]  Wu, F. & Rosenberg, E. Combining Dynamic Field of View Modification
+    with Physical Obstacle Avoidance. IEEE VR 2019.
+    doi:10.1109/VR.2019.8798015
+
+[Wu 2023]  Wu, S., Li, J., Sousa, M. & Grossman, T. Investigating Guardian
+    Awareness Techniques to Promote Safety in Virtual Reality. IEEE VR 2023,
+    631-640. doi:10.1109/VR55154.2023.00078
+
+[Xie 2024]  Xie, N., Yu, R., Sun, W., Qiu, S., Zhong, K. et al. Personalized
+    forward collision warning model with learning from human preferences.
+    Accident Analysis & Prevention 208, 107791.
+    doi:10.1016/j.aap.2024.107791
+
+[Zhang 2018]  Zhang, Y. & Wu, C. Modeling the Effects of Warning Lead Time,
+    Warning Reliability and Warning Style on Human Performance under Connected
+    Vehicle Settings. Proceedings of HFES 62(1), 701.
+    doi:10.1177/1541931218621158

@@ -1,0 +1,72 @@
+================================================================================================
+DATABASE PASS - Paper 2 novelty freeze - run 2026-09-14
+OpenAlex field: title_and_abstract.search   |   PubMed: all fields   |   Crossref: bibliographic
+================================================================================================
+
+query                                            OpenAlex     PubMed   Crossref
+------------------------------------------------------------------------------------------------
+Q1  "warning lead time"                               346         10    2068977
+Q2  "lead time" + collision + reaching                  7          1    2102644
+Q3  "time to contact" + warning + hand                  0          0    2326755
+Q4  vibrotactile + warning + "time to collision"          3          2    1911631
+Q5  "psychometric function" + warning                   0          1    1098320
+Q6  VR + collision warning + timing                     2          2     832213
+Q7  "collision warning" + "reaction time" + arm          0          0    2612213
+Q8  warning + "movement onset" + threshold + reach          1          1     655203
+Q9  haptic warning + "advance" + obstacle + threshold          1          0     273612
+Q10 "stopping distance" + hand + safety + warning          0          0    1349782
+
+================================================================================================
+TITLES SCREENED (all hits shown where count <= 25)
+================================================================================================
+
+### Q1  "warning lead time"  (OpenAlex count 346, showing 25)
+    2011 | A Preliminary Look at the Social Perspective of Warn-on-Forecast: Preferred Tornado Warning Lead Tim | Weather Climate and Society
+    2015 | A dynamic artificial neural network for assessment of land-use change impact on warning lead-time of | International Journal of Hydrology Sci
+    2016 | Increasing Early Warning Lead Time Through Improved Transboundary Flood Forecasting in the Gash Rive | Elsevier eBooks
+    2003 | Research issues on warning lead@time and synergy in flood mitigation measures | International Journal of River Basin M
+    2021 | An Impacts-Based Flood Decision Support System for a Tropical Pacific Island Catchment with Short Wa | Water
+    2018 | Modeling the Effects of Warning Lead Time, Warning Reliability and Warning Style on Human Performanc | Proceedings of the Human Factors and E
+    2024 | Are You Watching or Warning? The Role of Comprehension, Warning Lead Time and Prior Experience On In | Journal of Extreme Events
+    2017 | Improving flood early warning lead time in Nepal | 
+    2007 | Agile-Beam Phased Array Radar for Weather Observations | Bulletin of the American Meteorologica
+    2019 | The effects of warning characteristics on driver behavior in connected vehicles systems with missed  | Accident Analysis & Prevention
+    2014 | Tornado Warning Decisions Using Phased-Array Radar Data | Weather and Forecasting
+    2000 | The Tornado Problem: Forecast, Warning, and Response | Natural Hazards Review
+    2010 | A threshold-based earthquake early warning using dense accelerometer networks | Geophysical Journal International
+    2007 | New insights into the benefits of flood warnings: Results from a household survey in England and Wal | Environmental Hazards
+    2009 | Degradation of Transmission Range in VANETs caused by Interference | PIK - Praxis der Informationsverarbeit
+    1979 | Thunderstorm Intensity as Determined from Satellite Data | Journal of applied meteorology
+    2019 | The Effects of Warning Lead Time on Situation Awareness in Connected Vehicle Systems | Proceedings of the Human Factors and E
+    1985 | Detection of Severe Midwest Thunderstorms Using Geosynchronous Satellite Data | Monthly Weather Review
+    2022 | Lead time of early warning by wastewater surveillance for COVID-19: Geographical variations and impa | Chemical Engineering Journal
+    2026 | InsiderLSTM: An Expert System for Proactive Forecasting of Insider Threats with Early-Warning Lead T | SSRN Electronic Journal
+    2009 | Impact of Phased-Array Radar Observations over a Short Assimilation Period: Observing System Simulat | Monthly Weather Review
+    2020 | A Tsunami Warning System Based on Offshore Bottom Pressure Gauges and Data Assimilation for Crete Is | Journal of Geophysical Research Solid 
+    2018 | The Above-Anvil Cirrus Plume: An Important Severe Weather Indicator in Visible and Infrared Satellit | Weather and Forecasting
+    2014 | Can total lightning data help give warning lead time for non-supercell tornadoes? | 27th Conference on Severe Local Storms
+    2016 | Effect of auditory in-vehicle warning information on drivers? brake response time to red-light runni | Transportation Research Part F Traffic
+
+### Q2  "lead time" + collision + reaching  (OpenAlex count 7, showing 7)
+    2023 | Lead Time Analysis for UAVs? Failure Prediction in U-space | 
+    2018 | From partial and high automation to manual driving: Relationship between non-driving related tasks,  | Accident Analysis & Prevention
+    2009 | Tsunami Forces and Effects on Structures | Journal of Disaster Research
+    2018 | Effects of Warning Characteristics on Driver Performance in Connected Vehicle Systems with Missing W | Proceedings of the Human Factors and E
+    2021 | Predicting Driver Takeover Performance and Designing Alert Systems in Conditionally Automated Drivin | Deep Blue (University of Michigan)
+    2026 | Fog Early Warning System for Egyptian Desert Highways A Five-Year METAR Climatology and Multi-Source | Research Square
+    2008 | Design of the Mitigation Strategy for Future Asteroid/Comet Impacts on Earth | The University of Queensland
+
+### Q4  vibrotactile + warning + "time to collision"  (OpenAlex count 3, showing 3)
+    2016 | Advanced driver assistance systems: Using multimodal redundant warnings to enhance road safety | Applied Ergonomics
+    2021 | Comparing an Unbalanced Motor with Mechanical Vibration Transducers for Vibrotactile Forward Collisi | 
+    2025 | Are directional or non-directional hazard warnings more helpful for drivers with homonymous visual f | Applied Ergonomics
+
+### Q6  VR + collision warning + timing  (OpenAlex count 2, showing 2)
+    2017 | The Influence of Dynamic Signs on Cyclists? Braking Rates: A Systematic Study Using Immersive Virtua | Psychology
+    2025 | Research on a bridge construction simulation teaching system based on virtual reality and artificial | 
+
+### Q8  warning + "movement onset" + threshold + reach  (OpenAlex count 1, showing 1)
+    1988 | Origin of the specific H reflex facilitation preceding a voluntary movement in man. | The Journal of Physiology
+
+### Q9  haptic warning + "advance" + obstacle + threshold  (OpenAlex count 1, showing 1)
+    2025 | Design and Implementation of an IoT-Based Smart Shoe with Blynk?Twilio Emergency Alerts to Enhance I | Asian Journal of Research in Computer 

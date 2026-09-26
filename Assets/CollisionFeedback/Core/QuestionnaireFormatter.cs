@@ -17,10 +17,29 @@ namespace CollisionFeedback.Core
     /// </summary>
     public static class QuestionnaireFormatter
     {
-        public const string HeaderLine = "participant,block,condition,instrument,measure,value";
+        /// <summary>
+        /// CSV contract. <c>kind</c> distinguishes a RAW ITEM RESPONSE from a SCORED MEASURE.
+        ///
+        /// ADDED 2026-09-25 — §12 requires "questionnaire **item-level and scored** data" and only scored
+        /// data was written. The panel collected per-item responses and then discarded them at the callback
+        /// boundary, so every raw response was lost at the moment of collection.
+        ///
+        /// That loss is IRREVERSIBLE: subscale scores cannot be decomposed back into items. A session run
+        /// without this could never be re-scored, could not support an item-level reliability check, and
+        /// could not be reanalysed under a different scoring convention — and nothing in the data would
+        /// reveal that the items had ever existed.
+        /// </summary>
+        public const string HeaderLine = "participant,block,condition,instrument,kind,measure,value";
+
+        /// <summary>A raw response to one questionnaire item, as the participant gave it.</summary>
+        public const string KindItem = "item";
+
+        /// <summary>A subscale or total computed from the items by <c>Questionnaire.Score</c>.</summary>
+        public const string KindMeasure = "measure";
 
         public static string Header() => HeaderLine;
 
+        /// <summary>Scored measures (subscales and totals).</summary>
         public static IEnumerable<string> Rows(int participant, int block, string condition, string instrument,
                                                IReadOnlyDictionary<string, float> measures)
         {
@@ -28,14 +47,35 @@ namespace CollisionFeedback.Core
             foreach (var kv in measures)
             {
                 string v = (float.IsNaN(kv.Value) || float.IsInfinity(kv.Value)) ? "NA" : kv.Value.ToString("R", inv);
-                yield return string.Concat(
-                    participant.ToString(inv), ",",
-                    block.ToString(inv), ",",
-                    Esc(condition), ",",
-                    Esc(instrument), ",",
-                    Esc(kv.Key), ",",
-                    v);
+                yield return Row(participant, block, condition, instrument, KindMeasure, kv.Key, v);
             }
+        }
+
+        /// <summary>
+        /// Raw item responses. Emit these ALONGSIDE <see cref="Rows"/>, never instead of them: the scored
+        /// values are what the analysis reads, and the items are what makes the scoring auditable.
+        /// </summary>
+        public static IEnumerable<string> ItemRows(int participant, int block, string condition, string instrument,
+                                                   IReadOnlyDictionary<string, int> responses)
+        {
+            var inv = CultureInfo.InvariantCulture;
+            foreach (var kv in responses)
+                yield return Row(participant, block, condition, instrument, KindItem, kv.Key,
+                                 kv.Value.ToString(inv));
+        }
+
+        private static string Row(int participant, int block, string condition, string instrument,
+                                  string kind, string measure, string value)
+        {
+            var inv = CultureInfo.InvariantCulture;
+            return string.Concat(
+                participant.ToString(inv), ",",
+                block.ToString(inv), ",",
+                Esc(condition), ",",
+                Esc(instrument), ",",
+                kind, ",",
+                Esc(measure), ",",
+                value);
         }
 
         // Minimal RFC-4180 escaping for the free-text labels.

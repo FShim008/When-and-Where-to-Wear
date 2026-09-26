@@ -1,4 +1,4 @@
-# IMPLEMENTATION PLAN — "When and Where to Warn"
+# IMPLEMENTATION PLAN — "What Makes a Collision Warning Work?"
 ### Predictive, Body-Localized Tactile Cues for Real-Obstacle Collision Avoidance in VR (IEEE VR 2027 / TVCG)
 
 **Purpose.** A single, ordered, self-contained plan that takes the project to a **complete, comprehensive, bulletproof, publication-ready** within-subjects VR study. Each task is **problem → why it matters → solution → done-when**. Execute phases top-to-bottom.
@@ -66,9 +66,9 @@ ONE VR PC  (Unity project "When-and-Where-to-Wear" / CollisionFeedback)
 - **Solution.** Monte-Carlo power sim on the planned NB-GLMM over plausible rates/effects (seed from the Phase-8 pilot). Decide **N**, **#opportunities/block**, extra blocks. Extend `OpportunityScheduler` if more events/block are needed.
 - **Done when.** `power_analysis.R` + report justify N at ≥80% power for the Timing×Localization interaction and the H4 (PB vs Visual) contrast.
 
-### Task 0.4 — Lock the analysis plan & pre-registration `[STAT][PI]` ☐
-- **Solution.** Finalize `analysis.R` (primary CPO NB-GLMM; FLOOR vs None; H4; presence/TLX/SSQ). **Pre-register** hypotheses, model, exclusions, stopping rule.
-- **Done when.** Pre-registration submitted; `analysis.R` runs end-to-end on `simulate_mock_data.R` with no stubs.
+### Task 0.4 — Lock the analysis plan `[STAT][PI]` ☐
+- **Solution.** Finalize `analysis.R` (primary CPO NB-GLMM; FLOOR vs None; H4; presence/TLX/SSQ). Fix the hypotheses, model, exclusions, and the stopping rule (fixed N, no optional stopping) before data collection.
+- **Done when.** `analysis.R` runs end-to-end on `simulate_mock_data.R` with no stubs; the analysis plan + stopping rule are locked.
 
 ---
 
@@ -114,8 +114,9 @@ ONE VR PC  (Unity project "When-and-Where-to-Wear" / CollisionFeedback)
 ### Task 3.1 — Equalize perceived cue intensity across body sites `[ENG][PI]` ◐
 - **Problem.** Generic (chest) cue = **40 X40 motors**; localized (hand/foot) cue = **3 Tactosy motors**, all at flat intensity 1.0. The **Localization factor is confounded with stimulus energy** — a reviewer reads your localization effect as "the chest just buzzes harder."
 - **Solution.** (1) Per-participant **perceptual match** (method-of-adjustment or 2-up/1-down staircase, ~2–3 min) finding, per site, the device intensity yielding **equal perceived magnitude** vs a reference. (2) Store per-site multipliers; apply them via a per-`HapticSite` intensity in `HapticDeviceBinding` (the `Intensity` field exists; replace the flat 1.0). (3) Acknowledge spatial *extent* can't be equated — equate perceived intensity, report extent as inherent.
-- **◐ Mechanism DONE (E1, commit `0de28b3`):** per-`HapticSite` gains via `Core/CueIntensityTable` (+tests) + `Runtime/CueIntensityFile`, applied in `BHapticsSink`/`HapticDeviceBinding`; `SessionRunner`/`LiveSessionController` load an optional `cueIntensityFile` (empty = uniform). **Remaining (E2, needs the suit):** the perceptual-matching pass that writes the file.
-- **Done when.** A `CueIntensityCalibration` step writes per-site intensities; the live cue uses them; a methods paragraph documents it.
+- **◐ Mechanism DONE (E1, commit `0de28b3`):** per-`HapticSite` gains via `Core/CueIntensityTable` (+tests) + `Runtime/CueIntensityFile`, applied in `BHapticsSink`/`HapticDeviceBinding`; `SessionRunner`/`LiveSessionController` load an optional `cueIntensityFile` (empty = uniform).
+- **◐ Procedure DONE (E2, 2026-07-06):** `Core/Staircase` (adaptive 2AFC staircase → PSE) + `Core/CueIntensityCalibration` (per-site matching → `CueIntensityTable`) + `Integration/CueIntensityCalibrationRunner` (bHaptics playback via `HapticDeviceBinding.PlayThreePulse`, operator UI, per-trial logging, saves `cue_intensity.csv`). EditMode-tested (`StaircaseTests`, `CueIntensityCalibrationTests`) and standalone-verified to converge on equal perceived magnitude (chest attenuated, Tactosys boosted). **Remaining (needs the suit):** run the match on pilots to produce the per-site file; document the procedure in the methods write-up.
+- **Done when.** A `CueIntensityCalibration` step writes per-site intensities; the live cue uses them; a methods paragraph documents it. *(Code + docs done; awaits the on-suit run.)*
 
 ---
 
@@ -182,7 +183,7 @@ ONE VR PC  (Unity project "When-and-Where-to-Wear" / CollisionFeedback)
 
 - **8.1 Integration dry-run `[ENG]` ☐** — full session on the operator: VR renders, trackers track, all 6 conditions cue, orchestration sequences blocks, questionnaires capture, all CSVs feed `analysis.R` clean.
 - **8.2 Pilot (1–2) `[PI][ENG]` ☐** — full protocol + safety; check tracker robustness under fast dodges (Ultimate Trackers are inside-out — watch for occlusion/drift), collision realism, cue-salience parity, sickness, data integrity; seed effect sizes for 0.3.
-- **8.3 Lock & run `[PI]` ☐** — tag a release; run participants per the pre-registered plan with the locked build.
+- **8.3 Lock & run `[PI]` ☐** — tag a release; run participants per the locked analysis plan with the locked build.
 
 ---
 
@@ -196,7 +197,7 @@ ONE VR PC  (Unity project "When-and-Where-to-Wear" / CollisionFeedback)
 | D4 | Authoritative Layout-L1 obstacle coordinates | `[PI]` |
 | D5 | Visual-vs-haptic modality match (haptic graded, or Visual discrete?) | `[PI]` |
 | D6 | Limb collision definition (tracker-mount offset / effective radius) | `[PI]` |
-| D7 | Pre-registration content + stopping rule | `[STAT][PI]` |
+| D7 | Analysis-plan lock + stopping rule (fixed-N, no optional stopping) | `[STAT][PI]` |
 | D8 | Multi-limb policy (keep single-alert-per-approach + 1.0 s debounce?) | `[PI]` |
 
 ---
@@ -241,7 +242,7 @@ ONE VR PC  (Unity project "When-and-Where-to-Wear" / CollisionFeedback)
 
 ## Definition of "publication-ready"
 
-Publication-ready when: **(1)** every Showstopper and Validity item is closed and verified; **(2)** the design is pre-registered and the safety protocol IRB-approved; **(3)** a tagged, immutable build runs a full counterbalanced session unattended-by-code (operator only spots/advances); **(4)** all four data streams (summary, events, keypoints, questionnaires) are captured per block and flow into the locked `analysis.R`; **(5)** cue salience is perceptually equated and documented, collisions are measured at the limb surface with justified thresholds, predictive lead is latency-compensated; **(6)** the limitations (idealized oracle = upper bound; spatial-extent difference inherent to localization; tracker-error bounds on contact) are written up honestly.
+Publication-ready when: **(1)** every Showstopper and Validity item is closed and verified; **(2)** the safety protocol is IRB-approved; **(3)** a tagged, immutable build runs a full counterbalanced session unattended-by-code (operator only spots/advances); **(4)** all four data streams (summary, events, keypoints, questionnaires) are captured per block and flow into the locked `analysis.R`; **(5)** cue salience is perceptually equated and documented, collisions are measured at the limb surface with justified thresholds, predictive lead is latency-compensated; **(6)** the limitations (idealized oracle = upper bound; spatial-extent difference inherent to localization; tracker-error bounds on contact) are written up honestly.
 
 ---
 

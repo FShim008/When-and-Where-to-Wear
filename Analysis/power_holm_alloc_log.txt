@@ -1,0 +1,25 @@
+HOLM-CORRECTED POWER (one sample, all conditions, Holm over H1/H2/H4'). nsim = 200.
+
+The design is sized on H2. Compare H2_raw with H2_holm: that gap is the cost the
+uncorrected grid does not show.
+
+  N=36 opps=18 | H1 100->100 | H2  86-> 84 | H4'  92-> 90 | all three  78%
+  N=36 opps=24 | H1 100->100 | H2  91-> 89 | H4'  98-> 97 | all three  88%
+  N=72 opps=18 | H1 100->100 | H2  98-> 98 | H4' 100->100 | all three  98%
+  N=72 opps=24 | H1 100->100 | H2  99-> 99 | H4' 100->100 | all three  99%
+
+  N opportunities reps H1_raw H1_holm H2_raw H2_holm H4_raw H4_holm
+ 36            18  200    100     100   85.5    84.0   92.5    90.5
+ 36            24  200    100     100   91.0    89.0   98.0    97.0
+ 72            18  200    100     100   97.5    97.5  100.0   100.0
+ 72            24  200    100     100   99.0    99.0  100.0   100.0
+ all_three_holm
+           78.0
+           88.0
+           97.5
+           99.0
+
+Wrote p1_power_holm.csv
+
+If H2_holm at the chosen design drops below 80%, the frozen N is wrong and
+PAPER1_STUDY_DESIGN §4 must be revised - not the other way round.

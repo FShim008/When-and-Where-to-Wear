@@ -80,5 +80,66 @@ namespace CollisionFeedback.Tests
             foreach (var kv in perPosition)
                 Assert.That(kv.Value.Count, Is.EqualTo(6), $"position {kv.Key} not balanced across conditions");
         }
+        // -- Condition x layout independence [PAPER1_STUDY_DESIGN section 7] -----------------------
+
+        private static readonly List<string> SixLayouts =
+            new() { "L1", "L2", "L3", "L4", "L5", "L6" };
+
+        [Test]
+        public void Condition_is_not_confounded_with_layout()
+        {
+            // REGRESSION GUARD, 2026-09-25. Both orders used to key off participantId directly, so they
+            // were perfectly correlated: 6 distinct plans instead of 36, and 12 of the 36 condition x
+            // layout cells NEVER occurred. paper1_analysis.R fits (1 | layout) assuming layout is a
+            // decorrelated nuisance factor, so a layout-difficulty effect would have loaded straight onto
+            // the condition estimates and biased H1, H2 and H4'.
+            var counts = new Dictionary<Condition, Dictionary<string, int>>();
+            int cycle = SessionPlan.Conditions.Length * SessionPlan.Conditions.Length;   // 36
+
+            for (int pid = 0; pid < cycle; pid++)
+                foreach (BlockAssignment b in SessionPlan.For(pid, SixLayouts))
+                {
+                    if (!counts.TryGetValue(b.Condition, out var row))
+                        counts[b.Condition] = row = new Dictionary<string, int>();
+                    row[b.LayoutId] = row.TryGetValue(b.LayoutId, out int c) ? c + 1 : 1;
+                }
+
+            foreach (Condition cond in SessionPlan.Conditions)
+                foreach (string lay in SixLayouts)
+                {
+                    Assert.That(counts[cond].ContainsKey(lay), Is.True,
+                        $"{cond} never occurs with {lay}. Condition is confounded with layout.");
+                    Assert.That(counts[cond][lay], Is.EqualTo(SessionPlan.Conditions.Length),
+                        $"{cond} x {lay} is unbalanced over one full allocation of {cycle} participants.");
+                }
+        }
+
+        [Test]
+        public void One_full_allocation_produces_distinct_plans()
+        {
+            var seen = new HashSet<string>();
+            int cycle = SessionPlan.Conditions.Length * SessionPlan.Conditions.Length;
+
+            for (int pid = 0; pid < cycle; pid++)
+                seen.Add(string.Join(",", SessionPlan.For(pid, SixLayouts)
+                                                     .ConvertAll(b => b.Condition + "@" + b.LayoutId)));
+
+            Assert.That(seen.Count, Is.EqualTo(cycle),
+                "The 6x6 crossing of condition-order row and layout-order row must give 36 distinct " +
+                "plans. Fewer means the two orders are correlated and some cells are never visited.");
+        }
+
+        [Test]
+        public void Complete_allocations_are_multiples_of_thirty_six()
+        {
+            // Section 4 is explicit: if power needs more than 36, round UP to 72 rather than accept an
+            // incomplete crossing. 48 divides by 6 (the Williams width) but NOT by 36, so it leaves some
+            // condition-order x layout-order combinations over-represented.
+            Assert.That(SessionPlan.IsCompleteAllocation(36), Is.True);
+            Assert.That(SessionPlan.IsCompleteAllocation(72), Is.True);
+            Assert.That(SessionPlan.IsCompleteAllocation(48), Is.False,
+                "48 is NOT a complete allocation. Divisibility by 6 balances condition order alone; the " +
+                "design requires the full 6x6 crossing with layout order.");
+        }
     }
 }

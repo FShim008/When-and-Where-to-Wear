@@ -1,0 +1,145 @@
+SUBMISSION PLAN — TWO PAPERS
+Decided 2026-09-21. Revisit only if a dated gate below fails.
+
+
+================================================================================
+THE DECISION
+================================================================================
+
+  PAPER 2  ->  ISMAR 2027        submit 15 March 2027      COMMIT
+  PAPER 1  ->  IEEE VR 2028      submit ~Sept 2027         COMMIT
+
+  Not both at ISMAR. Reasons below. This is a commitment, not a preference;
+  the point of deciding now is that Paper 1 stops competing with Paper 2 for
+  attention in January.
+
+
+================================================================================
+WHY NOT BOTH AT ISMAR
+================================================================================
+
+Submitting two is ALLOWED. ISMAR sets no per-author limit and the two studies
+are genuinely distinct — different task, different cohort, different question.
+Dual-submission rules turn on overlap, and there is none. Policy is not the
+problem.
+
+Three other things are.
+
+1. PAPER 1 IS NOT READY SCIENTIFICALLY
+   - H4 is invalid; the Visual benchmark needs rebuilding
+   - H2 is confounded; the Tactosy question is unresolved
+   - T = 1.0 s rests on simulation, not on any human measurement
+   - the title "What Makes a Collision Warning Work?" promises a timing answer the design
+     does not give
+
+   These need thinking time. Thinking time is exactly what disappears when
+   you are running five sessions a week.
+
+2. THE PARTICIPANT MATH LEAVES NO SLACK
+   66 participants at ~90 min each. If IRB clears 1 Nov, that is 12.5
+   effective weeks after the holidays, so 5.3 sessions per week for both.
+   Paper 2 alone is 2.4/week — comfortable. Both is a grind with zero room
+   for a no-show, an equipment failure, or a bad pilot finding.
+
+3. THE DEPENDENCY RESOLVES BETTER WITH A SPLIT
+   Paper 1's weakest sentence is how T was chosen. Split the venues and
+   Paper 1 can cite Paper 2's ACCEPTED result:
+       "T was set to exceed the LT80 of X ms reported in [Paper 2]."
+   That is the strongest available version, and it is only available if
+   Paper 2 lands first.
+
+
+================================================================================
+THE TIMELINE
+================================================================================
+
+SEP - OCT 2026   FOUNDATION (both papers)
+  [ ] File ONE combined IRB amendment covering both studies.
+      THIS IS THE CRITICAL PATH. Two sequential filings costs a month.
+  [ ] Latency bench. One afternoon; closes a gate on both papers.
+  [ ] Paper 2 pilot — you + lab staff, no IRB needed (protocol development).
+      5 people x 90 warning trials = ~450 trials spanning 60-400 ms.
+  [ ] From that pilot: a rough LT80.
+  [ ] Paper 1 redesign, done properly while IRB sits:
+        - fix H4 (Visual benchmark)
+        - resolve H2 (Tactosy)
+        - set T from the pilot LT80, and record the date and source in §6
+        - reconsider the title
+
+NOV 2026 - JAN 2027   PAPER 2 MAIN STUDY
+  24-30 participants. ~2-3 per week. Unhurried.
+  Holidays 18 Dec - 5 Jan are dead for recruitment; plan around them.
+
+FEB 2027   PAPER 2 ANALYSIS AND WRITING
+  Full attention. Nothing else competing.
+
+>>> 15 MARCH 2027 — SUBMIT PAPER 2 TO ISMAR <<<
+
+MAR - JUN 2027   PAPER 1 MAIN STUDY
+  ~36 participants, no deadline pressure.
+  Paper 2 notification arrives ~June.
+
+JUL - AUG 2027   PAPER 1 ANALYSIS AND WRITING
+  Now able to cite Paper 2's accepted result for T.
+
+>>> ~SEPT 2027 — SUBMIT PAPER 1 TO IEEE VR 2028 <<<
+    CONFIRM THE ACTUAL DEADLINE. Planning figure only.
+
+
+================================================================================
+WHAT THIS COSTS, STATED PLAINLY
+================================================================================
+
+Paper 1 is submitted about six months later than if both went to ISMAR 2027,
+and appears roughly a year later.
+
+That is the whole cost. Against it:
+  - Paper 1 goes out with H2 and H4 fixed instead of known-broken
+  - T is grounded in measurement instead of simulation
+  - Paper 2 gets February undivided
+  - no 5-sessions-a-week grind
+  - no overlap or anonymity questions at either venue
+
+A rejected paper costs a full cycle. A deliberately delayed one costs six
+months and comes back stronger.
+
+
+================================================================================
+GATES — THE ONLY REASONS TO REVISIT
+================================================================================
+
+  1 NOV 2026    IRB not yet approved?
+                -> Paper 2 main study slips. If approval lands after 1 Jan,
+                   ISMAR 2027 is at risk and Paper 2 moves to IEEE VR 2028
+                   with Paper 1 following at ISMAR 2028.
+
+  1 DEC 2026    Fewer than 8 Paper 2 participants collected?
+                -> pace is wrong. Diagnose recruitment before December ends.
+
+  1 FEB 2027    Paper 2 data not complete?
+                -> stop collecting, analyse what exists, decide whether the
+                   interval is usable. §16.2 already allows "too wide to
+                   specify" as a publishable outcome.
+
+Nothing else reopens the venue decision. In particular, do NOT add Paper 1
+back into the March deadline in January because things are going well —
+that is how both end up rushed.
+
+
+================================================================================
+ALTERNATIVES CONSIDERED
+================================================================================
+
+  Both at ISMAR 2027
+      Allowed, and tempting. Rejected: Paper 1 would ship with H2 and H4
+      unresolved and T ungrounded, to save six months.
+
+  Paper 1 at ISMAR 2027, Paper 2 at IEEE VR 2028
+      Backwards. Paper 1 is the one that is not ready, and it is the one
+      that benefits from the other going first.
+
+  Both at IEEE VR 2028
+      Wastes the ISMAR 2027 cycle entirely for no gain.
+
+  Paper 1 to ISMAR 2028 instead of IEEE VR 2028
+      Fine as a fallback if the IEEE VR deadline is missed. Same logic holds.

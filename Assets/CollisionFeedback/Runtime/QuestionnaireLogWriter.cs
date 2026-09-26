@@ -28,9 +28,24 @@ namespace CollisionFeedback.Runtime
         /// <summary>One row per measure. block = -1 for session-level instruments (e.g. SSQ pre/post).</summary>
         public void Append(int participant, int block, string condition, string instrument,
                            IReadOnlyDictionary<string, float> measures)
+            => Append(participant, block, condition, instrument, measures, null);
+
+        /// <summary>
+        /// Write the scored measures AND, when supplied, the raw item responses [§12].
+        /// Items are written first so a reader scanning the file sees the inputs before the scores.
+        /// Passing <paramref name="responses"/> as null is permitted for callers that genuinely have no
+        /// item data (an imported or externally scored instrument) — it is not a shortcut for the study.
+        /// </summary>
+        public void Append(int participant, int block, string condition, string instrument,
+                           IReadOnlyDictionary<string, float> measures,
+                           IReadOnlyDictionary<string, int> responses)
         {
             EnsureHeader();
             using var w = new StreamWriter(_path, append: true);
+            if (responses != null)
+                foreach (string row in QuestionnaireFormatter.ItemRows(participant, block, condition,
+                                                                       instrument, responses))
+                    w.WriteLine(row);
             foreach (string row in QuestionnaireFormatter.Rows(participant, block, condition, instrument, measures))
                 w.WriteLine(row);
         }
